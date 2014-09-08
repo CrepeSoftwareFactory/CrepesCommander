@@ -27,7 +27,7 @@
         <div class="col-xs-6 bg-info">
             <div id="panier">
                 <form class="form-horizontal" role="form">
-                    <h4><?php echo Form::label('Nom : ', 'lastname'); ?></h4>
+                    <h4><?php echo Form::label('Nom ! : ', 'lastname'); ?></h4>
                     <div>    
                         <?php echo Form::input(array(
                             'id'         => 'lastname',
