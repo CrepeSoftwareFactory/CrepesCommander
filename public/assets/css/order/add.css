@@ -1,0 +1,47 @@
+@charset "utf-8";
+/* CSS Document */
+
+.achat_libelle {
+	display:inline-block;
+	width:150px;
+}
+
+.achat_qtt_display {
+	border:1px solid black;
+}
+
+.achat_ligne {
+	display:block;
+}
+
+.achat_default {
+	display:none;
+}
+
+.recap_cmde.default {
+	display:none;
+}
+
+#choix_produit {
+    
+}
+
+/*.col_gauche, .col_droite  {
+    width:40%;
+    float:left;
+}
+.col_droite  {
+    float:right;
+}*/
+
+#confirmation {
+    clear:both;
+}
+
+.achat_btn_qtt {
+    /*width:5%;*/
+}
+
+
+DIV#choix_produit {
+}
