@@ -1,0 +1,43 @@
+
+
+TABLE .col1 {
+    width: 25%;
+}
+
+TABLE .col2 {
+    width: 10%;
+}
+TABLE .col3 {
+    width: 10%;
+}
+TABLE .col4 {
+    width: 35%;
+}
+TABLE .col5 {
+    width: 20%;
+}
+
+.color-pile {
+    background-color: #000;
+}
+
+.color-poste-1 {
+    background-color: #215c1a;
+}
+
+.color-poste-2 {
+    background-color: #557e45;
+}
+
+.color-poste-3 {
+    background-color: #ab6500;
+}
+
+.color-poste-4 {
+    background-color: #d55813;
+}
+
+.active {
+    background-color: white !important;
+    color:black !important;
+}

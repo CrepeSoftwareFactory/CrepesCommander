@@ -1,0 +1,81 @@
+@charset "utf-8";
+/* CSS Document */
+
+.achat_libelle {
+	display:inline-block;
+	width:150px;
+}
+
+.achat_qtt_display {
+	border:1px solid black;
+}
+
+.achat_ligne {
+	display:block;
+}
+
+.achat_default {
+	display:none;
+}
+
+.recap_cmde.default {
+	display:none;
+}
+
+#choix_produit {
+    
+}
+
+/*.col_gauche, .col_droite  {
+    width:40%;
+    float:left;
+}
+.col_droite  {
+    float:right;
+}*/
+
+#confirmation {
+    clear:both;
+}
+
+.achat_btn_qtt {
+    /*width:5%;*/
+}
+
+
+DIV#choix_produit LI {
+    float:left;
+    padding:0 5px 10px;
+}
+
+DIV#choix_produit LI A {
+    display: table-cell;
+    font-size: 30px;
+    height: 106px;
+    width: 226px;
+    max-width: 226px;
+}
+
+.type_produit_crepes > LI > A {
+    background-color: #fceb78;
+}
+
+.type_produit_galettes > LI > A {
+/*    background-color: #ac8960;*/
+}
+
+#choix_produit UL  {
+    display:inline;
+}
+
+INPUT[id=nom] {
+   height:60px;
+   font-size: 24px;
+   margin-top: 10px;
+}
+
+.container {
+    padding-left:0px;
+    padding-right:0px;
+}
+

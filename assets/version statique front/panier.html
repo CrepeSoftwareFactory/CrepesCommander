@@ -1,0 +1,71 @@
+﻿<!doctype html>
+<html>
+<head>
+    <title>My Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="jquery-1.11.1.min.js"></script>
+    <script src="bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+    
+    <link rel="stylesheet" href="panier.css">
+    <script src="test-panier.js"></script>
+</head>
+<body>
+    <div>
+        <div class="container-fluid" id="header">
+            <div class="row">
+                <ul>
+                    <li><span class="glyphicon glyphicon-list"></span></li>                    
+                </ul>
+            </div>
+        </div>
+ 
+        <div>
+            <div class="col_gauche">
+                <div id="choix_produit">
+                    <h2>Destination</h2>
+                    <p>Galettes</p>
+                        <ul data-role="listview">
+                            <li><a href="#" id="choix_ALL" data-id="G-CPL" data-valeurmarchande="4.5" class="btn btn-default">Galette Complète</a></li>
+                            <li><a href="#" id="choix_SUE" data-id="G-VG" data-valeurmarchande="4.5" class="btn btn-default">Galette Végé</a></li>
+                            <li><a href="#" id="choix_NOR" data-id="G-3FR" data-valeurmarchande="4.5" class="btn btn-default">Galette 3 Fromages</a></li>
+                        </ul>
+                    <p>Crepes</p>
+                        <ul data-role="listview">
+                            <li><a href="#" id="choix_ITA" data-id="C-BS" data-valeurmarchande="2.5" class="btn btn-default">Crêpe Beurre Sucre</a></li>
+                            <li><a href="#" id="choix_ESP" data-id="C-CHOC" data-valeurmarchande="2.5" class="btn btn-default">Crêpe Chocolat</a></li>
+                            <li><a href="#" id="choix_GRE" data-id="C-CONF" data-valeurmarchande="2.5" class="btn btn-default">Crêpe Confiture</a></li>
+                        </ul>
+                </div>
+            </div>
+
+            <div class="col_droite">
+                <div id="panier">
+                    <h2>Liste d'achats</h2>
+                    <ul id="liste_achats">  
+                        <li class="achat_default" id="default">
+                            <span class="achat_libelle">Aucun produit n'est renseigné</span>
+                            <input type="button" value="-" data-diff="-1" class="achat_btn_qtt achat_btn_plus btn btn-primary">
+                            <span class="achat_qtt" data-achat-qtt="0">0</span> 
+                            <input type="button" value="+" data-diff="1" class="achat_btn_qtt achat_btn_moins btn btn-primary" >
+                            = 
+                            <span class="achat_total" data-valeur="0">0</span>
+                        </li>  	
+                    </ul>
+                    <div>
+                        <h2>Nom</h2>
+                        <input type="text" id="nom" />
+                    </div>
+                    <div>
+                        <h3>Total</h3>
+                        <span id="total" data-valeur="0">0</span>€
+                    </div>
+                    <input id="cmde_save" type="button" value="Enregistrer la commande (envoyer à l'agent)">
+                    <input id="cmde_confirm" type="button" value="Valider la commande (payé)">
+                </div>
+            </div>
+        </div><!-- /content -->
+ 
+    </div><!-- /page -->
+</body>
+</html>
