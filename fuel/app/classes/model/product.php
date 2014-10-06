@@ -27,7 +27,7 @@ class Model_Product extends Model_Crud
     
     public static $types = array(
         self::TYPE_SALT     => 'Galette',
-        self::TYPE_SWEET    => 'Crêpe',
+        self::TYPE_SWEET    => 'Crepe',
     );
     
     public function get_ingredients()
