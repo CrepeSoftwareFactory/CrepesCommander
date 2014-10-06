@@ -4,16 +4,18 @@
 )); ?> 
 <div>
     <div class="row">
-        <div class="col-xs-6 bg-primary">
+        <div class="col-xs-9">
             <div id="choix_produit" >
                 <?php foreach ($types as $key => $type) { ?>
-                    <h4><?php echo $type; ?></h4>
-                    <ul data-role="listview" class="list-unstyled">
+                    
+                    <ul data-role="listview" class="list-unstyled btn-group btn-group-lg" id="<?php echo strtolower($type); ?>">
                     <?php foreach ($products[$key] as $product) {  ?>
-                        <li>
-                            <?php echo Html::anchor('#', $product->name, array(
+                        <li>                            
+                            <?php 
+                            $content_a = $product->code." <span>".$product->name."</span>";
+                            echo Html::anchor('#', $content_a, array(
                                 'id'                    => 'product_'.$product->get_id(),
-                                'class'                 => 'btn btn-default btn-block',
+                                'class'                 => 'btn btn-lg btn-default',
                                 'data-id'               => $product->get_id(),
                                 'data-valeurmarchande'  => $product->price,
                             )); ?>
@@ -24,7 +26,7 @@
             </div>
         </div>
 
-        <div class="col-xs-6 bg-info">
+        <div class="col-xs-3 bg-info">
             <div id="panier">
                 <form class="form-horizontal" role="form">
                     <h4><?php echo Form::label('Nom ! : ', 'lastname'); ?></h4>
