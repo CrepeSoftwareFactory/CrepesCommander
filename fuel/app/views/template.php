@@ -55,6 +55,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <?php echo Asset::js('jquery.min.js'); ?>
     <?php echo Asset::js('jquery-ui.min.js'); ?>
+    <?php echo Asset::js('jquery.mobile.custom.min.js'); ?>
     <?php echo Asset::js('bootstrap.min.js'); ?>
     <?php
         if (isset($js)) {

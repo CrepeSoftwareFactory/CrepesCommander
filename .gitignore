@@ -1,5 +1,7 @@
-fuel/app/classes/model/user.php
+fuel/app/logs/
 fuel/app/logs/2014/09/30.php
 fuel/app/logs/2014/10/01.php
 fuel/app/logs/2014/10/06.php
-fuel/app/classes/model/user.php
+fuel/app/logs/2014/10/07.php
+fuel/app/logs/2014/10/11.php
+public/.htaccess
