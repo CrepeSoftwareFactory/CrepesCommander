@@ -18,6 +18,7 @@
                                 'class'                 => 'btn btn-lg btn-default',
                                 'data-id'               => $product->get_id(),
                                 'data-valeurmarchande'  => $product->price,
+                                'data-nomcomplet'       => $product->name,
                             )); ?>
                         </li>
                     <?php } ?>
@@ -26,28 +27,31 @@
             </div>
         </div>
 
-        <div class="col-xs-3 bg-info">
-            <div id="panier">
+        <div id="col_panier" class="col-xs-3 bg-info panel panel-default">
+            <div id="panier" class="panel-body summary">
                 <form class="form-horizontal" role="form">
-                    <h4><?php echo Form::label('Nom ! : ', 'lastname'); ?></h4>
-                    <div>    
+                    <div id="nom_client">    
                         <?php echo Form::input(array(
                             'id'         => 'lastname',
                             'name'       => 'lastname', 
                             'value'      => $customer->lastname,
-                            'class'      => 'form-control'
+                            'class'      => 'form-control',
+                            'placeholder' => 'Nom'
                         )); ?>
                     </div>
-                    <h4>Panier</h4>
+                    <h3>Panier</h3>
                     <ul id="liste_achats" class="list-unstyled">  
                         <li class="achat_default" id="default">
-                            <span class="achat_libelle">Aucun produit n'est renseigné</span>
+                            <span class="achat_qtt" data-achat-qtt="0">0</span> x 
+                            <span class="achat_libelle">Aucun produit</span>
+                            
                             <input type="button" value="-" data-diff="-1" class="achat_btn_qtt achat_btn_plus btn btn-primary">
-                            <span class="achat_qtt" data-achat-qtt="0">0</span> 
+                            
                             <input type="button" value="+" data-diff="1" class="achat_btn_qtt achat_btn_moins btn btn-primary" >
-                            = 
+                             
                             <span class="achat_total" data-valeur="0">0</span>
-                            <span style="margin-left: 10px;">
+                            <br>
+                            <span class="gratuite" style="margin-left: 10px;">
                                 <?php echo Form::checkbox(array(
                                     'id'       => null,       
                                     'name'     => null,       
@@ -63,11 +67,12 @@
                             )); ?>
                         </li>  	
                     </ul>
-                    <div>
+                    <div id="total_panier">
                         <h3>Total</h3>
-                        <span id="total" data-valeur="0">0</span>€
+                        <div>
+                            <span id="total" data-valeur="0">0</span>€
+                        </div>
                     </div>
-                    
                     <?php echo Form::submit(array(
                         'id'        => 'submit',
                         'name'      => 'submit',
@@ -78,5 +83,17 @@
             </div>
         </div>
     </div>
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-body">
+<!--                    Le contenu du panier est déplacé ici-->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 </div>
 <?php echo Form::close(); ?>

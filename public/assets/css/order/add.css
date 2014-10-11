@@ -3,7 +3,7 @@
 
 .achat_libelle {
 	display:inline-block;
-	width:150px;
+	/*width:150px;*/
 }
 
 .achat_qtt_display {
@@ -15,7 +15,7 @@
 }
 
 .achat_default {
-	display:none;
+	/*display:none;*/
 }
 
 .recap_cmde.default {
@@ -24,6 +24,17 @@
 
 #choix_produit {
     
+}
+
+SPAN#total {
+    /*margin-top:-38px;*/
+}
+
+
+#total_panier DIV {
+    float:right;
+    margin-top:-38px;
+    font-size: 24px;
 }
 
 /*.col_gauche, .col_droite  {
@@ -88,3 +99,22 @@ INPUT[id=nom] {
 }
 
 
+/* Gestion panier et popup */
+
+/* version summary */
+.summary .achat_btn_plus, .summary .achat_btn_moins, .summary .gratuite {
+    display: none;
+}
+
+.summary .achat_total {
+    float:right;
+}
+
+.summary .gratuite {
+   display:none; 
+}
+
+/* version complete */
+.expanded #submit {
+    display:none;
+}

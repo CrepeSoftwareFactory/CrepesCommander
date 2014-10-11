@@ -1,4 +1,9 @@
 
+BODY {
+    /*background-color: #d3dfe5;*/
+    background-image: url("../img/bg_pattern_1.png");
+}
+
 #menu {
     padding:5px;
 }
@@ -6,4 +11,16 @@
 .nav-xs > li > a {
     padding-top: 5px;
     padding-bottom: 5px;
+    background-color: white;
+}
+
+
+.flash_errors {
+    background-color: red;
+    color: white;
+}
+
+flash_success {
+    background-color: green;
+    color: white;
 }

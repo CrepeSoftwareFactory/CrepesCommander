@@ -58,6 +58,23 @@ function update_total() {
 	$("#panier #total").html(total);
 }
 
+function modify_cart(type) { /* type = expanded || summary */
+    //$('#myModal').modal('toggle');
+    
+    if(type == "expanded") {
+        $('#myModal').modal('show');
+        $("#panier").appendTo( "#myModal .modal-body" );
+        $("#panier").removeClass( "summary" );
+        $("#panier").addClass( "expanded" );
+    } else if(type == "summary") {
+        //$('#myModal').modal('toggle'); type = close est lancé quand la methode de fermture du modal est déjà lancée
+        $("#panier").appendTo( "#col_panier" );
+        $("#panier").removeClass( "expanded" );
+        $("#panier").addClass( "summary" );
+        
+    }
+}
+
 $( document ).ready(function() {
     
     // Initialisation du LI de base qui sera clonÃ©
@@ -71,7 +88,7 @@ $( document ).ready(function() {
             var produit_ref = $(this);
             var produit_id = produit_ref.data("id");
             var produit_valeur = produit_ref.data("valeurmarchande");
-            var produit_libelle = produit_ref.html();
+            var produit_libelle = produit_ref.data("nomcomplet");
 
             // Si le produit selectionnÃ© existe dÃ©jÃ  dans le panier
             if($("#liste_achats LI[data-id="+produit_id+"]").length) {
@@ -123,6 +140,14 @@ $( document ).ready(function() {
     $("#panier").on('click','#cmde_confirm',function( event ) {
             cmde_confirm();
     });
+    
+    $("#panier").on('click','#liste_achats',function( event ) {
+            modify_cart("expanded");
+    });
+    
+    $('#myModal').on('hidden.bs.modal', function (e) {
+        modify_cart("summary");
+    })
 
 });
 
