@@ -11,6 +11,16 @@ class Controller_Product_Order extends Controller_Template
         $this->template->content = $presenter;
     }
     
+    public function action_newindex()
+    {
+        $this->template->menu = 'product-order';
+        $this->template->css = array('product/order/newindex.css');
+        
+        
+        $presenter = Presenter::forge('product/order/newindex');
+        $this->template->content = $presenter;
+    }    
+    
     public function action_cook($station_id)
     {
         try {

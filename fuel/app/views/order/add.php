@@ -1,6 +1,7 @@
-<?php echo Form::open(array(
+<?php echo Form::open(array( // Commenté par Simon le 23/10 : pourquoi ? et de plus attention, ça genere une balise form qui ne se ferme pas
     'action'        => '',
-    'name'          => 'order'
+    'name'          => 'order',
+    'id'            => 'formulaire_panier'
 )); ?> 
 <div>
     <div class="row">
@@ -29,7 +30,7 @@
 
         <div id="col_panier" class="col-xs-3 bg-info panel panel-default">
             <div id="panier" class="panel-body summary">
-                <form class="form-horizontal" role="form">
+<!--                <form class="form-horizontal" role="form" id="formulaire_panier">-->
                     <div id="nom_client">    
                         <?php echo Form::input(array(
                             'id'         => 'lastname',
@@ -45,9 +46,9 @@
                             <span class="achat_qtt" data-achat-qtt="0">0</span> x 
                             <span class="achat_libelle">Aucun produit</span>
                             
-                            <input type="button" value="-" data-diff="-1" class="achat_btn_qtt achat_btn_plus btn btn-primary">
+                            <input type="button" value="-" data-diff="-1" class="achat_btn_qtt achat_btn_plus btn btn-primary btn-lg">
                             
-                            <input type="button" value="+" data-diff="1" class="achat_btn_qtt achat_btn_moins btn btn-primary" >
+                            <input type="button" value="+" data-diff="1" class="achat_btn_qtt achat_btn_moins btn btn-primary btn-lg" >
                              
                             <span class="achat_total" data-valeur="0">0</span>
                             <br>
@@ -79,7 +80,7 @@
                         'value'     => 'Valider et payer',
                         'class'     => 'btn btn-success btn-lg',
                     )); ?>
-                </form>
+<!--                </form>-->
             </div>
         </div>
     </div>

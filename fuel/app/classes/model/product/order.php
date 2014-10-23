@@ -66,6 +66,6 @@ class Model_Product_Order extends Model_Crud
     
     public function __toString()
     {
-        return $this->get_product()->name.' - '.$this->get_order()->get_customer()->lastname;
+        return $this->get_product()->name.' - <span>'.$this->get_order()->get_customer()->lastname.'</span>';
     }
 }

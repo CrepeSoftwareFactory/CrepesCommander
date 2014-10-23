@@ -23,6 +23,10 @@
             }
         }
     ?>
+    
+<!--    TODO : bricolage Simon Newindex -->
+    <?php echo Asset::css('product/order/newindex.css'); ?>
+    
   </head>
 
   <body>
@@ -44,8 +48,8 @@
             </div>
         <?php } ?>
 
-        <div><?php echo Session::get_flash('errors'); ?></div>
-        <div><?php echo Session::get_flash('success'); ?></div>
+        <div class="flash_errors"><?php echo Session::get_flash('errors'); ?></div>
+        <div class="flash_success"><?php echo Session::get_flash('success'); ?></div>
         <div><?php echo isset($content) ? $content : ''; ?></div>
 
     </div> <!-- /container -->
@@ -64,5 +68,9 @@
             }
         } 
     ?>
+    
+<!--    TODO : bricolage Simon Newindex -->
+    <?php echo Asset::js('product/order/newindex.js'); ?>
+
   </body>
 </html>

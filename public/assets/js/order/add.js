@@ -18,7 +18,7 @@ function cmde_confirm() {
 	});	
 	cmde["total"] = $("#panier #total").data("valeur");
 	
-	console.log(cmde);
+	//console.log(cmde);
 }
 
 function calcul_new_qtt(cible,qtt_depart,diff) {
@@ -147,7 +147,24 @@ $( document ).ready(function() {
     
     $('#myModal').on('hidden.bs.modal', function (e) {
         modify_cart("summary");
-    })
+    });
+    
+    /* Empeche le formulaire d'etre validé si le nom n'est pas rempli */
+    $( "#formulaire_panier" ).submit(function( event ) {
+        if ( $( "#lastname" ).val() !== "" ) {
+            return;
+        } else {
+            alert("Il faut saisir un nom !");
+            event.preventDefault();
+        }
+        
+        
+    });
+
+    /*$("#panier").on('click','#submit',function( event ) {
+        event.preventDefault();
+        //alert("test");
+    });*/
 
 });
 
