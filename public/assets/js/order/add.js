@@ -56,6 +56,8 @@ function update_total() {
 	});
 	$("#panier #total").data("valeur",total);
 	$("#panier #total").html(total);
+        
+        $("#panier #monnaie").keyup();
 }
 
 function modify_cart(type) { /* type = expanded || summary */
@@ -74,6 +76,21 @@ function modify_cart(type) { /* type = expanded || summary */
         
     }
 }
+
+/* Function de rendu monnaie ! Param : champ de saisie de la monnaie*/
+function calcul_monnaie(champ_monnaie,total) {
+    var valeur_monnaie = champ_monnaie.val();
+    var total = parseFloat(total);
+    
+    if(valeur_monnaie > total) {
+        var valeur_a_rendre = valeur_monnaie - total;
+    } else {
+        var valeur_a_rendre = 0;
+    }
+    
+    return valeur_a_rendre;
+}
+/* Fin Function de rendu monnaie ! */
 
 $( document ).ready(function() {
     
@@ -165,6 +182,14 @@ $( document ).ready(function() {
         event.preventDefault();
         //alert("test");
     });*/
+    
+    /* gestion de la monnaie */
+    $("#panier #monnaie").keyup(function( event ) {
+        var cible = $(this);
+        var total = $("#panier #total").data("valeur"); 
+        //var total = $("#panier #total").html(); 
+        $("#panier SPAN#monnaie_rendu").html(calcul_monnaie(cible,total));
+    });
 
 });
 

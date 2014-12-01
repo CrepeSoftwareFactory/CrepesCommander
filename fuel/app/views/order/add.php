@@ -74,6 +74,17 @@
                             <span id="total" data-valeur="0">0</span>€
                         </div>
                     </div>
+                    <div id="monnaie_display">
+                        <?php echo Form::input(array(
+                            'id'         => 'monnaie',
+                            'name'       => 'monnaie', 
+                            'class'      => 'form-control',
+                            'placeholder' => 'Réglé'
+                        )); ?>
+                        <div>
+                            Rendu : <span id="monnaie_rendu">0</span>€
+                        </div>
+                    </div>
                     <?php echo Form::submit(array(
                         'id'        => 'submit',
                         'name'      => 'submit',

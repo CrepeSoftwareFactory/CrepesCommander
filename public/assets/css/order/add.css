@@ -103,6 +103,23 @@ INPUT[id=nom] {
     padding-right:0px;
 }
 
+DIV#monnaie_display DIV {
+    float: right;
+    padding-top: 6px;
+}
+
+DIV#monnaie_display DIV SPAN {
+    font-weight: bold;
+}
+
+INPUT#monnaie {
+    width: 50%;
+    float: left;
+}
+
+INPUT#submit {
+    margin-top: 10px;
+}
 
 /* Gestion panier et popup */
 
@@ -123,3 +140,4 @@ INPUT[id=nom] {
 .expanded #submit {
     display:none;
 }
+
