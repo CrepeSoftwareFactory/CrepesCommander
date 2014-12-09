@@ -124,7 +124,7 @@ INPUT#submit {
 /* Gestion panier et popup */
 
 /* version summary */
-.summary .achat_btn_plus, .summary .achat_btn_moins, .summary .gratuite {
+.summary .achat_btn_plus, .summary .achat_btn_moins, .summary .gratuite, .summary .price {
     display: none;
 }
 
@@ -137,7 +137,7 @@ INPUT#submit {
 }
 
 /* version complete */
-.expanded #submit {
+.expanded #submit, .expanded .achat_total {
     display:none;
 }
 

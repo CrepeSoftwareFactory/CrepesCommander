@@ -40,6 +40,9 @@ function update_achat_total(cible) {
 	cible.data("achat_total",total);
 	//console.log('cible = '+cible+' && cible.data("achat_total") = '+cible.data("achat_total"));
 	cible.find(".achat_total").html(total);
+        
+	//console.log('cible = '+cible+' && cible.data("achat_total") = '+cible.data("achat_total"));
+	cible.find(".price").val(total);
 	update_total();
 }
 
@@ -130,8 +133,9 @@ $( document ).ready(function() {
                     // derniere etape
                     add_produit_ref.attr("id","cart_"+produit_id);
                     add_produit_ref.removeClass("achat_default");
-                    add_produit_ref.find('input[type="hidden"].quantity').attr('name', 'products['+produit_id+']');
-                    add_produit_ref.find('input[type="checkbox"].free').attr('name', 'free['+produit_id+']');
+                    add_produit_ref.find('input[type="hidden"].quantity').attr('name', 'products['+produit_id+'][quantity]');
+                    add_produit_ref.find('input[type="text"].price').attr('name', 'products['+produit_id+'][price]');
+                    add_produit_ref.find('input[type="checkbox"].free').attr('name', 'free['+produit_id+'][free]');
 
                     li_achat_base.detach();
                     //$("#liste_achats #default").remove();
@@ -148,6 +152,10 @@ $( document ).ready(function() {
             display_new_qtt(btn_qtt.parent(),qtt_produit);
             update_achat_total(btn_qtt.parent());
     });
+
+    $("#liste_achats").on('change','.price',function( event ) {
+            update_achat_total(btn_qtt.parent());
+    });
     
      $("#liste_achats").on('click','.free', function( event ) {
             var btn = $(this);
@@ -159,7 +167,9 @@ $( document ).ready(function() {
     });
     
     $("#panier").on('click','#liste_achats',function( event ) {
+        if ($('#panier').hasClass('summary')) {
             modify_cart("expanded");
+        }
     });
     
     $('#myModal').on('hidden.bs.modal', function (e) {

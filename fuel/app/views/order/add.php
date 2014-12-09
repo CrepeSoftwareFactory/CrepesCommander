@@ -50,6 +50,11 @@
                             
                             <input type="button" value="+" data-diff="1" class="achat_btn_qtt achat_btn_moins btn btn-primary btn-lg" >
                              
+                            <?php echo Form::input(array(
+                                'name'      => null,
+                                'class'     => 'price form-control',
+                                'value'     => 0,
+                            )); ?>
                             <span class="achat_total" data-valeur="0">0</span>
                             <br>
 <!--                            <span class="gratuite" style="margin-left: 10px;">-->

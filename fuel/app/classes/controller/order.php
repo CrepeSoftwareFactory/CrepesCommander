@@ -37,23 +37,25 @@ class Controller_Order extends Controller_Template
                     throw new Exception('Aucun produit défini');
                 }
                 
-                foreach (Input::post('products') as $product_id => $quantity) {
+                foreach (Input::post('products') as $product_id => $product_data) {
                     $product = Model_Product::find_by_pk($product_id);
                     if ($product === null) {
                         throw new Excepetion('Produit invalide');
                     }
                     
+                    
                     $i = 1;
-                    while ($i <= $quantity) {
+                    while ($i <= $product_data['quantity']) {
                         $product_order = new Model_Product_Order(array(
                             'product_id'    => $product->get_id(),
                             'order_id'      => $order->get_id(),
-                            'price'         => $product->price,
+                            'price'         => $i == $product_data['quantity'] ? $product_data['price'] : ($product->price < $product_data['price'] ? $product->price : $product_data['price']),
                             'free'          => isset($free[$product_id]) ? 1 : 0,
                         ));
                         if (!$product_order->save()) {
                             throw new Exception($product_order->validation()->show_errors());
                         }
+                        $product_data['price'] -= $product_order->price;
                         $i++;
                     }
                 }
