@@ -52,15 +52,15 @@
                              
                             <span class="achat_total" data-valeur="0">0</span>
                             <br>
-                            <span class="gratuite" style="margin-left: 10px;">
-                                <?php echo Form::checkbox(array(
-                                    'id'       => null,       
-                                    'name'     => null,       
-                                    'value'    => 1,
-                                    'class'    => 'free'    
-                                )); ?>
-                                <span>Gratuité</span>
-                            </span>
+<!--                            <span class="gratuite" style="margin-left: 10px;">-->
+                                <?php // echo Form::checkbox(array(
+//                                    'id'       => null,       
+//                                    'name'     => null,       
+//                                    'value'    => 1,
+//                                    'class'    => 'free'    
+//                                )); ?>
+<!--                                <span>Gratuité</span>-->
+<!--                            </span>-->
                             <?php echo Form::hidden(array(
                                 'name'     => null,
                                 'value'    => 0,
