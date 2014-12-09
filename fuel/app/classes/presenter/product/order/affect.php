@@ -8,7 +8,7 @@ class Presenter_Product_Order_Affect extends Presenter
         $this->orders = Model_Order::find(function($query) {
             $query
                 ->where('status', 'NOT IN', array(Model_Order::STATUS_CANCEL, Model_Order::STATUS_DELIVERED))
-                ->order_by('date', 'ASC')
+                ->order_by('date', 'DESC')
             ;
         });
     }
