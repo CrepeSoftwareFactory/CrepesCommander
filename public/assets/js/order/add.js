@@ -177,16 +177,39 @@ $( document ).ready(function() {
         modify_cart("summary");
     });
     
-    /* Empeche le formulaire d'etre validé si le nom n'est pas rempli */
-    $( "#formulaire_panier" ).submit(function( event ) {
-        if ( $( "#lastname" ).val() !== "" ) {
-            return;
-        } else {
-            alert("Il faut saisir un nom !");
-            event.preventDefault();
+    //Envoi du formulaire de création de commande Ajax
+    $('form#formulaire_panier').submit(function() {
+        if ( $.trim($( "#lastname" ).val()) == '') {
+            alert('Il faut saisir un nom !')
+            return false;
         }
         
+        $('input#submit').val('En cours de création...');
+        $('.flash_success').hide();
+        $('.flash_errors').hide();
         
+        $.ajax({
+            url: '/rest/order/add.json',
+            type: 'post',
+            dataType: 'json',
+            data: $(this).serialize(),
+            success: function(data) {
+                if (data.error) {
+                    $('.flash_errors').html(data.message).show();
+                } else {
+                    $('ul#liste_achats').empty();
+                    $('input#lastname').val(null);
+                    $('span#total').html(0);
+                    $('span#monnaie_rendu').html(0);
+                    $('input#monnaie').val(null);
+                    
+                    $('.flash_success').html(data.message).show();
+                }
+                
+                $('input#submit').val('Valider et payer');
+            }
+        });
+        return false;
     });
 
     /*$("#panier").on('click','#submit',function( event ) {
