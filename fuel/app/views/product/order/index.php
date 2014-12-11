@@ -31,14 +31,37 @@
         <?php } ?>
         </div>
         <div class="row">
-            <div class="well" >
-                <ul class="list-inline">
-                    <?php if ($alone_products) { ?>
-                        <?php foreach ($alone_products as $product) { ?>
-                            <li><?php echo $product; ?></li>
-                        <?php } ?>  
-                    <?php } ?>
-                </ul>
-            </div>
+            <?php foreach (Model_Product::$types as $key => $type) { ?>
+                <div class="col-md-4">
+                    <h3><?php echo $type; ?></h3>
+                    <ul class="colonne_pile">
+                        <?php if ($alone_products) { ?>
+                            <?php foreach ($alone_products as $product) { ?>
+                                <?php if ($product->get_product()->type == $key) { ?>
+                                    <li><?php echo $product; ?></li>
+                                <?php } ?>
+                            <?php } ?>  
+                        <?php } ?>
+                    </ul>
+                </div>
+            <?php } ?>
+            
+            
         </div>
     </div>
+
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-body">
+                   commentaires de la commande !
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    
+
+

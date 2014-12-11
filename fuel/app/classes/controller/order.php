@@ -51,6 +51,7 @@ class Controller_Order extends Controller_Template
                             'order_id'      => $order->get_id(),
                             'price'         => $i == $product_data['quantity'] ? $product_data['price'] : ($product->price < $product_data['price'] ? $product->price : $product_data['price']),
                             'free'          => isset($free[$product_id]) ? 1 : 0,
+                            'comment'       => $product_data['comment'] ?: null,
                         ));
                         if (!$product_order->save()) {
                             throw new Exception($product_order->validation()->show_errors());

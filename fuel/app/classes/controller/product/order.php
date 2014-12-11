@@ -11,16 +11,6 @@ class Controller_Product_Order extends Controller_Template
         $this->template->content = $presenter;
     }
     
-    public function action_newindex()
-    {
-        $this->template->menu = 'product-order';
-        $this->template->css = array('product/order/newindex.css');
-        
-        
-        $presenter = Presenter::forge('product/order/newindex');
-        $this->template->content = $presenter;
-    }    
-    
     public function action_cook($station_id)
     {
         try {
@@ -40,6 +30,16 @@ class Controller_Product_Order extends Controller_Template
                $waiting_products[0]->start = date('Y-m-d H:i:s');
                if (!$waiting_products[0]->save()) {
                    throw new Exception($waiting_products[0]->validation()->show_errors());
+               }
+           } else {
+               $unaffected_products = Model_Product_Order::get_unaffected();
+               Log::error(print_r($unaffected_products, true));
+               if ($unaffected_products) {
+                    $unaffected_products[0]->start = date('Y-m-d H:i:s');
+                    $unaffected_products[0]->station_id = $station_id;
+                    if (!$unaffected_products[0]->save()) {
+                        throw new Exception($unaffected_products[0]->validation()->show_errors());
+                    }
                }
            }
            

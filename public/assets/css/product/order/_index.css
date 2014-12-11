@@ -8,12 +8,12 @@
     font-weight: bold;
 }
 
-.liste_poste > LI.proco_pile_top SPAN {
+.liste_poste > LI.proco_pile_top > SPAN {
     font-size: 0.8em;
     font-weight: normal;
 }
 
-.liste_poste > LI.proco_pile_top SPAN {
+.liste_poste > LI.proco_pile_top > SPAN {
     display:block;
 }
 
@@ -22,7 +22,7 @@
 }
 
 .proco_pile_waiting {
-    padding: 5px;
+    
 }
 
 #liste_poste_1 .label-poste {
@@ -39,33 +39,4 @@
 
 #liste_poste_4 .label-poste {
     background-color: #d55813;
-}
-
-.produit_0 {
-    float:left;
-/*    margin-left: 10px;*/
-}
-
-#pile_globale {
-    width: 600px;
-}
-
-#pile_globale LI {
-     width:200px;
-     float:left;
-}
-
-.produit_1 {
-/*    float:right;*/
-/*    margin-left: 30px;*/
-}
-
-.produit_2 {
-/*    float:left;*/
-/*    margin-left: 50px;*/
-}
-
-.colonne_pile {
-    background-color: white;
-    padding-top:15px;
 }

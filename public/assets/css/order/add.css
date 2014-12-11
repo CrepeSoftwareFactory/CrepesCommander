@@ -124,7 +124,7 @@ INPUT#submit {
 /* Gestion panier et popup */
 
 /* version summary */
-.summary .achat_btn_plus, .summary .achat_btn_moins, .summary .gratuite, .summary .price {
+.summary .achat_btn_plus, .summary .achat_btn_moins, .summary .gratuite, .summary .price, .summary .comment  {
     display: none;
 }
 

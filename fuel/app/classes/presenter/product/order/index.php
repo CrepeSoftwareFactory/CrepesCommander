@@ -11,6 +11,7 @@ class Presenter_Product_Order_Index extends Presenter
                     ->on('or.order_id', '=', 'product_order.order_id')
                 ->where('or.status', 'NOT IN', array(Model_Order::STATUS_CANCEL, Model_Order::STATUS_DELIVERED))
                 ->where('product_order.station_id', null)
+                ->order_by('or.date', 'ASC')
             ;
         });
     }

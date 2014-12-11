@@ -23,10 +23,6 @@
             }
         }
     ?>
-    
-<!--    TODO : bricolage Simon Newindex -->
-    <?php echo Asset::css('product/order/newindex.css'); ?>
-    
   </head>
 
   <body>

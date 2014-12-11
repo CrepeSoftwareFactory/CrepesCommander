@@ -135,6 +135,7 @@ $( document ).ready(function() {
                     add_produit_ref.removeClass("achat_default");
                     add_produit_ref.find('input[type="hidden"].quantity').attr('name', 'products['+produit_id+'][quantity]');
                     add_produit_ref.find('input[type="text"].price').attr('name', 'products['+produit_id+'][price]');
+                    add_produit_ref.find('input[type="text"].comment').attr('name', 'products['+produit_id+'][comment]').val(null);
                     add_produit_ref.find('input[type="checkbox"].free').attr('name', 'free['+produit_id+'][free]');
 
                     li_achat_base.detach();

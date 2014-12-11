@@ -56,6 +56,11 @@
                                 'value'     => 0,
                             )); ?>
                             <span class="achat_total" data-valeur="0">0</span>
+                            
+                            <?php echo Form::input(array(
+                                'name'      => null,
+                                'class'     => 'comment form-control',
+                            )); ?>
                             <br>
 <!--                            <span class="gratuite" style="margin-left: 10px;">-->
                                 <?php // echo Form::checkbox(array(

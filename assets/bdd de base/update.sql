@@ -1,0 +1,1 @@
+ALTER TABLE  `product_order` ADD  `comment` VARCHAR( 255 ) NULL ;
