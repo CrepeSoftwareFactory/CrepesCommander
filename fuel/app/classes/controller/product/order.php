@@ -6,6 +6,7 @@ class Controller_Product_Order extends Controller_Template
     {
         $this->template->menu = 'product-order';
         $this->template->css = array('product/order/index.css');
+        $this->template->js = array('product/order/index.js');
         
         $presenter = Presenter::forge('product/order/index');
         $this->template->content = $presenter;

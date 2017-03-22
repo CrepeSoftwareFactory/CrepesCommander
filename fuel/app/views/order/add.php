@@ -8,22 +8,23 @@
         <div class="col-xs-9">
             <div id="choix_produit" >
                 <?php foreach ($types as $key => $type) { ?>
-                    
-                    <ul data-role="listview" class="list-unstyled btn-group btn-group-lg" id="<?php echo strtolower($type); ?>">
-                    <?php foreach ($products[$key] as $product) {  ?>
-                        <li>                            
-                            <?php 
-                            $content_a = $product->code." <span>".$product->name."</span>";
-                            echo Html::anchor('#', $content_a, array(
-                                'id'                    => 'product_'.$product->get_id(),
-                                'class'                 => 'btn btn-lg btn-default',
-                                'data-id'               => $product->get_id(),
-                                'data-valeurmarchande'  => $product->price,
-                                'data-nomcomplet'       => $product->name,
-                            )); ?>
-                        </li>
+                    <?php if(!empty($products[$key])) { ?>
+                        <ul data-role="listview" class="list-unstyled btn-group btn-group-lg" id="<?php echo strtolower($type); ?>">
+                        <?php foreach ($products[$key] as $product) {  ?>
+                            <li>                            
+                                <?php 
+                                $content_a = $product->code." <span>".$product->name."</span>";
+                                echo Html::anchor('#', $content_a, array(
+                                    'id'                    => 'product_'.$product->get_id(),
+                                    'class'                 => 'btn btn-lg btn-default',
+                                    'data-id'               => $product->get_id(),
+                                    'data-valeurmarchande'  => $product->price,
+                                    'data-nomcomplet'       => $product->name,
+                                )); ?>
+                            </li>
+                        <?php } ?>
+                        </ul>
                     <?php } ?>
-                    </ul>
                 <?php } ?>
             </div>
         </div>

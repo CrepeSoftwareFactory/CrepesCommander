@@ -14,7 +14,7 @@
                 
                 <ul class="liste_poste list-unstyled panel panel-default">
                     <li class="btn btn-default btn-lg btn-block proco_pile_top">
-                        <?php echo Html::anchor('product/order/cook/'.$station->get_id(), $station->get_cooking_product() ?: 'Vide !'); ?>
+                        <?php echo Html::anchor('product/order/cook/'.$station->get_id(), $station->get_cooking_product() ?: 'Vide !', array('class' => 'cook')); ?>
                     </li>
                     <?php if ($station->get_waiting_products()) { ?>
                         <?php foreach ($station->get_waiting_products() as $product) { ?>

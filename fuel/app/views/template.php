@@ -64,9 +64,5 @@
             }
         } 
     ?>
-    
-<!--    TODO : bricolage Simon Newindex -->
-    <?php echo Asset::js('product/order/newindex.js'); ?>
-
   </body>
 </html>
