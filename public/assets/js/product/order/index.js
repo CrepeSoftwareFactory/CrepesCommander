@@ -5,7 +5,7 @@ $(function() {
         window.location.replace($(this).children("a").attr("href"));
     });
     
-    // permet de déclencher une popup si on reste le doigts sur le bouton
+    // permet de dÃ©clencher une popup si on reste le doigts sur le bouton
     $( ".proco_pile_top" ).bind( "taphold",function( event ) {
         $('#myModal').modal('show');
         //alert("dfs");
@@ -13,6 +13,7 @@ $(function() {
     });
     
     $('a.cook').click(function() {
+        /* a rebrancher quand l'ajax sera pret
         $.ajax({
             url: '/rest/product/order/cook.json',
             type: 'post',
@@ -27,5 +28,6 @@ $(function() {
             }
         });
         return false;
+        */
     });
 });
