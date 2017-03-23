@@ -2,6 +2,26 @@
 
 class Controller_Rest_Product_Order extends Controller_Rest 
 {
+    //Fonction pour renvoyer les commentaires sur la page 'au boulot' via appel Ajax
+    public function post_comment()
+    {
+        try{
+            DB::start_transaction();
+            $station_id = Input::post('id');
+            $station = Model_Station::find_by_pk($station_id);
+            $cooking_product = $station->get_cooking_product();
+            
+            return $this->response($cooking_product);
+            
+        }catch (Exception $ex) {
+            DB::rollback_transaction();
+            $response = array(
+              'error'       => true,  
+              'message'     => $ex->getMessage(),  
+            );
+        }
+    }
+    
     public function post_cook()
     {
         try {

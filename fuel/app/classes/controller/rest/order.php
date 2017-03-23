@@ -2,6 +2,8 @@
 
 class Controller_Rest_Order extends Controller_Rest 
 {
+    
+    //Fonction pour ajouter dans la bdd les différentes proco
     public function post_add()
     {
         try {
