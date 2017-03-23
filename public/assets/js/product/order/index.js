@@ -2,7 +2,21 @@ $(function() {
     
     // permet de rendre toute la case qui englobe le lien cliquable
     $(".liste_poste").on('click','.proco_pile_top',function( event ) {
-        window.location.replace($(this).children("a").attr("href"));
+//        var href = $('.cook', this).attr('href');
+//        var id_commande = href.substr(href.lastIndexOf('/')+1);
+//        $.ajax({
+//            url: '/rest/product/order/cook.json',
+//            type: 'post',
+//            dataType: 'json',
+//            data: {id: id_commande},
+//            success: function(data) {
+//                if (data.error) {
+//                } else {
+//                    
+//                }
+//            }
+//        });
+      window.location.replace($(this).children("a").attr("href"));
     });
     
     //Vérifie les commentaires de chaque pile pour savoir si il y en a ou pas et ajout d'un icone dans le code si c'est le cas
@@ -24,7 +38,6 @@ $(function() {
                 if (data.error) {
                     $('.flash_errors').html(data.message).show();
                 } else {
-                    console.log(data['comment']);
                     if(data['comment']!==null){
                          messageComment = data['comment'];
                     }
@@ -40,22 +53,7 @@ $(function() {
         //event.preventDefault(event);
     });
     
-    $('a.cook').click(function() {
-        /* a rebrancher quand l'ajax sera pret
-        $.ajax({
-            url: '/rest/product/order/cook.json',
-            type: 'post',
-            dataType: 'json',
-            data: '',
-            success: function(data) {
-                if (data.error) {
-                } else {
-                }
-                
-                $('input#submit').val('Valider et payer');
-            }
-        });
-        return false;
-        */
+   $('a.cook').click(function(event) {
+        event.preventDefault(event);
     });
 });

@@ -26,6 +26,7 @@ class Controller_Rest_Product_Order extends Controller_Rest
     {
         try {
            DB::start_transaction();
+            $station_id = Input::post('id');
            $station = Model_Station::find_by_pk($station_id);
            
            $cooking_product = $station->get_cooking_product();

@@ -16,8 +16,14 @@
                     <li class="btn btn-default btn-lg btn-block proco_pile_top">
                         <?php 
                             $cookedProduct = $station->get_cooking_product();
-                            echo Html::anchor('product/order/cook/'.$station->get_id(), $cookedProduct ?: 'Vide !', array('class' => 'cook'));
-                            if($cookedProduct['comment']!==null) {echo '<a href="#"><span class="glyphicon glyphicon-comment"></span></a>';}
+                            if($cookedProduct['comment']!==null) { 
+                                $icone_commentaire = '<a href="#"><span class="glyphicon glyphicon-comment"></span></a>';
+                            }else{
+                                $icone_commentaire = '';
+                            }
+                            $produit = Html::anchor('product/order/cook/'.$station->get_id(), $cookedProduct ?: 'Vide !', array('class' => 'cook')) . $icone_commentaire;
+                            echo $produit;
+                            
                         ?>
                     </li>
                     <?php if ($station->get_waiting_products()) { ?>
