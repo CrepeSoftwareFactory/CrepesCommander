@@ -38,10 +38,10 @@ function display_new_qtt(cible,qtt) {
 function update_achat_total(cible) {
 	var total = parseFloat(cible.data("achat-qtt")) * parseFloat(cible.data("valeurmarchande"));
 	cible.data("achat_total",total);
-	//console.log('cible = '+cible+' && cible.data("achat_total") = '+cible.data("achat_total"));
+//	console.log('cible = '+cible+' && cible.data("achat_total") = '+cible.data("achat_total"));
 	cible.find(".achat_total").html(total);
         
-	//console.log('cible = '+cible+' && cible.data("achat_total") = '+cible.data("achat_total"));
+//	console.log('cible = '+cible+' && cible.data("achat_total") = '+cible.data("achat_total"));
 	cible.find(".price").val(total);
 	update_total();
 }
@@ -94,6 +94,16 @@ function calcul_monnaie(champ_monnaie,total) {
     return valeur_a_rendre;
 }
 /* Fin Function de rendu monnaie ! */
+
+//Fonction pour modifier la valeur marchande d'un produit quand on veut faire une ristourne sur le total dans la popup
+function update_valeur_marchande(cible){
+    var nouvelle_valeur = cible.val();
+//    console.log(nouvelle_valeur);
+    var quotient = cible.parent().data("achat-qtt");
+    nouvelle_valeur=parseFloat(nouvelle_valeur)/parseFloat(quotient);
+    cible.parent().data("valeurmarchande",parseFloat(nouvelle_valeur));
+//  console.log(cible.parent().data("valeurmarchande"));
+}
 
 $( document ).ready(function() {
     
@@ -155,6 +165,8 @@ $( document ).ready(function() {
     });
 
     $("#liste_achats").on('change','.price',function( event ) {
+            var btn_qtt = $(this);
+            update_valeur_marchande(btn_qtt);
             update_achat_total(btn_qtt.parent());
     });
     
@@ -180,7 +192,7 @@ $( document ).ready(function() {
     //Envoi du formulaire de création de commande Ajax
     $('form#formulaire_panier').submit(function() {
         if ( $.trim($( "#lastname" ).val()) == '') {
-            alert('Il faut saisir un nom !')
+            alert('Il faut saisir un nom !');
             return false;
         }
         
