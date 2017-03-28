@@ -22,17 +22,49 @@ class Controller_Rest_Product_Order extends Controller_Rest
         }
     }
     
+    public function post_refresh_unaffected(){
+        try
+        {
+            DB::start_transaction();
+            $return_alone_product = '';
+            $unaffected_products = Model_Product_Order::get_unaffected();
+            
+            foreach (Model_Product::$types as $key => $type) { 
+                $return_alone_product .= '<div class="col-md-4"><h3>'.$type.'</h3><ul class="colonne_pile">';
+                if ($unaffected_products) { 
+                    foreach ($unaffected_products as $product) { 
+                         if ($product->get_product()->type == $key) {
+                             $return_alone_product .= '<li>'.$product.'</li>';
+                         } 
+                    }   
+                }
+                $return_alone_product .= '</ul></div>';
+            }
+            DB::commit_transaction();
+            $response = array(
+                'error'         => false,  
+                'alone_product' => $return_alone_product,
+            );
+        }
+        catch (Exception $ex) {
+            DB::rollback_transaction();
+            $response = array(
+              'error'       => true,  
+              'message'     => $ex->getMessage(),  
+            );
+        }
+        return $this->response($response);
+    }
+    
     public function post_refresh(){
         try
         {
             DB::start_transaction();
             $liste_attente = '<li class="panel-body proco_pile_waiting">Aucune commande en attente.</li>';
             $station_id = Input::post('id');
-            $return_alone_product = '';
             $station = Model_Station::find_by_pk($station_id);
             $cooking_product = $station->get_cooking_product();
             $waiting_products = $station->get_waiting_products();
-            $unaffected_products = Model_Product_Order::get_unaffected();
             
             if($cooking_product && $cooking_product['comment']!==null) { 
                 $icone_commentaire = '<a href="#"><span class="glyphicon glyphicon-comment"></span></a>';
@@ -47,18 +79,6 @@ class Controller_Rest_Product_Order extends Controller_Rest
                        $liste_attente .= '<li class="panel-body proco_pile_waiting">'.$product.'</span></li>';
                 }
             }
-            foreach (Model_Product::$types as $key => $type) { 
-                $return_alone_product .= '<div class="col-md-4"><h3>'.$type.'</h3><ul class="colonne_pile">';
-                if ($unaffected_products) { 
-                    foreach ($unaffected_products as $product) { 
-                         if ($product->get_product()->type == $key) {
-                             $return_alone_product .= '<li>'.$product.'</li>';
-                         } 
-                    }   
-                }
-                $return_alone_product .= '</ul></div>';
-            }
-            
             
             DB::commit_transaction();
            
@@ -66,7 +86,6 @@ class Controller_Rest_Product_Order extends Controller_Rest
                 'error'         => false,  
                 'message'       => $produit,
                 'attente'       => $liste_attente,
-                'alone_product' => $return_alone_product,
             );
         }
         catch (Exception $ex) {

@@ -29,10 +29,10 @@ $(function() {
                 }
             },
             timeout: function() {
-                $('.flash_success').html('Impossible de joindre le serveur !!!');
+                $('.flash_errors').html('Impossible de joindre le serveur !!!');
             },
             error: function() {
-                $('.flash_success').html('Impossible de joindre le serveur !!!');
+                $('.flash_errors').html('Impossible de joindre le serveur !!!');
             }
         });
     }
@@ -60,19 +60,40 @@ $(function() {
                     $('a', parent).click(function(e){
                         e.preventDefault();
                     });
+                }
+            },
+            timeout: function() {
+                $('.flash_errors').html('Impossible de joindre le serveur !!!');
+            },
+            error: function() {
+                $('.flash_errors').html('Impossible de joindre le serveur !!!');
+            }
+        });
+    }
+    
+    function go_to_refresh_unaffected(){
+        $.ajax({
+            url: '/rest/product/order/refresh_unaffected.json',
+            type: 'post',
+            dataType: 'json',
+            success: function(data) {
+                if (data.error==true) {
+                    $('.flash_errors').html(data.message);
+                } else {
                     $('.alone_products').empty();
                     $('.alone_products').html(data.alone_product);
                     $('.flash_success').html('Refresh !');
                 }
             },
             timeout: function() {
-                $('.flash_success').html('Impossible de joindre le serveur !!!');
+                $('.flash_errors').html('Impossible de joindre le serveur !!!');
             },
             error: function() {
-                $('.flash_success').html('Impossible de joindre le serveur !!!');
+                $('.flash_errors').html('Impossible de joindre le serveur !!!');
             }
         });
     }
+    
     //Fonction pour rafraichir la page en Ajax toutes les 5 secondes
     setInterval(function(){
         reloadPage()
@@ -80,8 +101,9 @@ $(function() {
     
     function reloadPage(){
         $('.proco_pile_top').each(function(){
-           go_to_refresh($(this));
+            go_to_refresh($(this));
         });
+        go_to_refresh_unaffected();
     }
     
     // permet de rendre toute la case qui englobe le lien cliquable
