@@ -1,22 +1,48 @@
 $(function() {
     
+    function go_to_cooked(obj){
+        var proco_pile = obj;
+        var href = $('.cook', obj).attr('href');
+        var id_commande = href.substr(href.lastIndexOf('/')+1);
+        $('.flash_errors').empty();
+        $('.flash_success').empty();
+        $.ajax({
+            url: '/rest/product/order/cook.json',
+            type: 'post',
+            dataType: 'json',
+            data: {id: id_commande},
+            success: function(data) {
+                if (data.error==true) {
+                    $('.flash_errors').html(data.message);
+                } else {
+                    proco_pile.empty();
+                    proco_pile.html(data.message);
+                    var parent = proco_pile.parent();
+                    $('.proco_pile_waiting', parent).remove();
+                    parent.append(data.attente);
+                    $('a', parent).click(function(e){
+                        e.preventDefault();
+                    });
+                    $('.flash_success').html('Pile mise à jour');
+                }
+            },
+            timeout: function() {
+                $('.flash_success').html('Impossible de joindre le serveur !!!');
+            },
+            error: function() {
+                $('.flash_success').html('Impossible de joindre le serveur !!!');
+            }
+        });
+    }
+    
     // permet de rendre toute la case qui englobe le lien cliquable
     $(".liste_poste").on('click','.proco_pile_top',function( event ) {
-//        var href = $('.cook', this).attr('href');
-//        var id_commande = href.substr(href.lastIndexOf('/')+1);
-//        $.ajax({
-//            url: '/rest/product/order/cook.json',
-//            type: 'post',
-//            dataType: 'json',
-//            data: {id: id_commande},
-//            success: function(data) {
-//                if (data.error) {
-//                } else {
-//                    
-//                }
-//            }
-//        });
-      window.location.replace($(this).children("a").attr("href"));
+        $(this).click(function(event){
+            event.preventDefault();
+        });
+       go_to_cooked($(this));
+    // Ancienne methode
+    // window.location.replace($(this).children("a").attr("href"));
     });
     
     //Vérifie les commentaires de chaque pile pour savoir si il y en a ou pas et ajout d'un icone dans le code si c'est le cas
