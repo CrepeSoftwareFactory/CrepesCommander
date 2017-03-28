@@ -40,7 +40,7 @@
             } ?>
         <?php } ?>
         </div>
-        <div class="row">
+        <div class="row alone_products">
             <?php foreach (Model_Product::$types as $key => $type) { ?>
                 <div class="col-md-4">
                     <h3><?php echo $type; ?></h3>

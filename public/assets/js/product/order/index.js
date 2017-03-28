@@ -23,6 +23,8 @@ $(function() {
                     $('a', parent).click(function(e){
                         e.preventDefault();
                     });
+                    $('.alone_products').empty();
+                    $('.alone_products').html(data.alone_product);
                     $('.flash_success').html('Pile mise à jour');
                 }
             },
@@ -32,6 +34,53 @@ $(function() {
             error: function() {
                 $('.flash_success').html('Impossible de joindre le serveur !!!');
             }
+        });
+    }
+    
+    function go_to_refresh(obj){
+        var proco_pile = obj;
+        var href = $('.cook', obj).attr('href');
+        var id_commande = href.substr(href.lastIndexOf('/')+1);
+        $('.flash_errors').empty();
+        $('.flash_success').empty();
+        $.ajax({
+            url: '/rest/product/order/refresh.json',
+            type: 'post',
+            dataType: 'json',
+            data: {id: id_commande},
+            success: function(data) {
+                if (data.error==true) {
+                    $('.flash_errors').html(data.message);
+                } else {
+                    proco_pile.empty();
+                    proco_pile.html(data.message);
+                    var parent = proco_pile.parent();
+                    $('.proco_pile_waiting', parent).remove();
+                    parent.append(data.attente);
+                    $('a', parent).click(function(e){
+                        e.preventDefault();
+                    });
+                    $('.alone_products').empty();
+                    $('.alone_products').html(data.alone_product);
+                    $('.flash_success').html('Refresh !');
+                }
+            },
+            timeout: function() {
+                $('.flash_success').html('Impossible de joindre le serveur !!!');
+            },
+            error: function() {
+                $('.flash_success').html('Impossible de joindre le serveur !!!');
+            }
+        });
+    }
+    //Fonction pour rafraichir la page en Ajax toutes les 5 secondes
+    setInterval(function(){
+        reloadPage()
+    }, 5000);
+    
+    function reloadPage(){
+        $('.proco_pile_top').each(function(){
+           go_to_refresh($(this));
         });
     }
     
