@@ -2,6 +2,34 @@
 
 class Controller_Rest_Product_Order extends Controller_Rest 
 {
+    //Fonction pour modifier la pile d'un proco
+    public function post_affect()
+    {
+        $product_id = Input::post('product_id');
+        $station_id = Input::post('station_id');
+        
+        if ($product_id) {
+            try {
+                $product = Model_Product_Order::find_by_pk($product_id);
+                $product->station_id = $station_id;
+                if (!$product->save()) {
+                    throw new Exception($product->validation()->show_errors());
+                }
+                $response = array(
+                    'error'       => false,  
+                    'message'     => $station_id,  
+                );
+            } catch (Exception $ex) {
+                $response = array(
+                    'error'       => true,  
+                    'message'     => $ex->getMessage(),  
+                );
+            }
+            
+            return $this->response($response);
+        }
+    }
+    
     //Fonction pour renvoyer les commentaires sur la page 'au boulot' via appel Ajax
     public function post_comment()
     {
