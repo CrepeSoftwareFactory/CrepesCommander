@@ -41,6 +41,9 @@ $(function() {
                     obj.html('Annuler cmde');
                     $(this).dialog('close');
                 }
+            },
+            close: function( event, ui ) {
+                obj.html('Annuler cmde');
             }
         });
     }); 
@@ -62,6 +65,9 @@ $(function() {
                     obj.html("C'est livré !");
                     $(this).dialog('close');
                 }
+            },
+            close: function( event, ui ) {
+                obj.html("C'est livré !");
             }
         });
     }); 
