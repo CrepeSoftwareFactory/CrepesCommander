@@ -2,6 +2,58 @@
 
 class Controller_Rest_Product_Order extends Controller_Rest 
 {
+    //Fonction pour annuler une commande dont les proco ne sont pas terminées
+     public function post_cancel()
+    {
+        $order_id = Input::post('order_id');
+        try {
+            $order = Model_Order::find_by_pk($order_id);
+            $order->status = Model_Order::STATUS_CANCEL;
+            if (!$order->save()) {
+                throw new Exception($order->validation()->show_errors());
+            }
+            $response = array(
+                'error'       => false,  
+                'message'     => 'Commande annulée',  
+            );
+            Session::set_flash('success', 'Commande annulée');
+        } catch (Exception $ex) {
+            DB::rollback_transaction();
+            $response = array(
+                'error'       => true,  
+                'message'     => $ex->getMessage(),  
+            );
+        }
+        
+        return $this->response($response);
+    }
+    
+    //Action pour livrer une commande où toutes les proco ont été terminées 
+    public function post_finish()
+    {
+        $order_id = Input::post('order_id');
+        try {
+            $order = Model_Order::find_by_pk($order_id);
+            $order->status = Model_Order::STATUS_DELIVERED;
+            if (!$order->save()) {
+                throw new Exception($order->validation()->show_errors());
+            }
+            $response = array(
+                'error'       => false,  
+                'message'     => 'Commande livrée !',  
+            );
+            Session::set_flash('success', 'Commande livrée !');
+        } catch (Exception $ex) {
+            DB::rollback_transaction();
+            $response = array(
+                'error'       => true,  
+                'message'     => $ex->getMessage(),  
+            );
+        }
+        
+        return $this->response($response);
+    }
+    
     //Fonction qui va supprimer une proco d'une commande
     public function post_delete() 
     {

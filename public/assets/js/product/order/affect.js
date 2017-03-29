@@ -1,4 +1,71 @@
 $(function() {
+    //Fonction avec requête ajax pour livrer ou annuler une commande
+    function action_commande(type_action, obj, texte_boutton){
+        var href = obj.attr('href');
+        var order_id = href.substr(href.lastIndexOf('/')+1);
+        $.ajax({
+            url: '/rest/product/order/'+type_action+'.json',
+            type: 'post',
+            dataType: 'json',
+            data: {order_id: order_id},
+            success: function(data){
+                if (data.error==true) {
+                    $('.flash_errors').html(data.message);
+                } else {
+                    $('.flash_success').html(data.message);
+                    obj.closest('tr').remove();
+                    $('a.color-pile[data-order="'+order_id+'"]').closest('tr').remove();
+                }
+            },
+            error: function() {
+                $('.flash_errors').html('Impossible de joindre le serveur !!!');
+                obj.html(texte_boutton);
+            }
+        });
+    };
+    
+    //Action du click sur le boutton cancel
+    $('a.order-cancel').on('click', function(e) {
+        e.preventDefault(); 
+        $('.flash_errors').html();
+        $('.flash_success').html();
+        var obj = $(this);
+        $(this).html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
+        $('<div>'+$(this).attr('title')+' ?</div>').dialog({
+            buttons: {
+                'Oui': function() {
+                    action_commande('cancel', obj, 'Annuler cmde');
+                    $(this).dialog('close');
+                },
+                'Non': function() {
+                    obj.html('Annuler cmde');
+                    $(this).dialog('close');
+                }
+            }
+        });
+    }); 
+    
+    //Action du click sur le boutton c'est livré
+    $('a.order-finished').on('click', function(e) {
+        e.preventDefault();
+        $('.flash_errors').html();
+        $('.flash_success').html();
+        var obj = $(this);
+        $(this).html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
+        $('<div>'+$(this).attr('title')+' ?</div>').dialog({
+            buttons: {
+                'Oui': function() {
+                    action_commande('finish', obj, "C'est livré !");
+                    $(this).dialog('close');
+                },
+                'Non': function() {
+                    obj.html("C'est livré !");
+                    $(this).dialog('close');
+                }
+            }
+        });
+    }); 
+    
     //Fonction avec requête ajax pour supprimer une ligne de proco
     $('.product-delete').on('click', function(e){
         e.preventDefault();
@@ -100,22 +167,23 @@ $(function() {
             });
         }
     });
-    
-    $('a.order-cancel').on('click', function(e) {
-       var link = this;
-       e.preventDefault();
 
-        $('<div>'+$(this).attr('title')+' ?</div>').dialog({
-            buttons: {
-                'Oui': function() {
-                    window.location = link.href;
-                },
-                'Non': function() {
-                    $(this).dialog('close');
-                }
-            }
-        });
-    }); 
+    //Fonctions obsolète sans ajax
+//    $('a.order-cancel').on('click', function(e) {
+//       var link = this;
+//       e.preventDefault();
+//
+//        $('<div>'+$(this).attr('title')+' ?</div>').dialog({
+//            buttons: {
+//                'Oui': function() {
+//                    window.location = link.href;
+//                },
+//                'Non': function() {
+//                    $(this).dialog('close');
+//                }
+//            }
+//        });
+//    }); 
     
 //    $('a.product-delete').on('click', function(e) {
 //       var link = this;

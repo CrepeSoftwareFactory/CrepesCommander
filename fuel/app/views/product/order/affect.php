@@ -42,16 +42,17 @@
                                     <td>
                                         <?php echo Html::anchor('product/order/affect/'.$product->get_id(), 'Pile', array(
                                             'class' => 'btn btn-primary btn-lg color-pile '.(!$product->station_id ? ' active ' : ' '),
-                                            'data-station' => '0',
-                                            'data-product' => $product->get_id()
+                                            'data-station'  => '0',
+                                            'data-product'  => $product->get_id(),
+                                            'data-order'    => $order->get_id(),
                                         )); ?>
                                         <?php 
                                         $i = 1;
                                         foreach ($this->stations as $station) { ?>
                                             <?php echo Html::anchor('product/order/affect/'.$product->get_id().'/'.$station->get_id(), $station->name, array(
                                                 'class' => 'btn btn-primary btn-lg color-poste-'.$i.($product->station_id == $station->get_id() ? ' active ' : ' '),
-                                                'data-station' => $station->get_id(),
-                                                'data-product' => $product->get_id()
+                                                'data-station'  => $station->get_id(),
+                                                'data-product'  => $product->get_id(),
                                             )); ?>
                                         <?php 
                                             $i++;
