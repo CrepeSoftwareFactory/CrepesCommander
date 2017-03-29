@@ -35,19 +35,19 @@ class Controller_Product_Order extends Controller_Template
         $presenter = Presenter::forge('product/order/affect');
         $this->template->content = $presenter;
     }
-    
-    public function action_delete($product_id) 
-    {
-        try {
-            $product = Model_Product_Order::find_by_pk($product_id);
-            if (!$product->delete()) {
-                throw new Exception('Erreur lors de la suppression');
-            }
-        } catch (Exception $ex) {
-            Session::set_flash('errors', $ex->getMessage());
-        }
-        
-        Response::redirect('product/order/affect');
-    }
+//Fonction obsolète depuis sa mise en place dans les fonctions REST    
+//    public function action_delete($product_id) 
+//    {
+//        try {
+//            $product = Model_Product_Order::find_by_pk($product_id);
+//            if (!$product->delete()) {
+//                throw new Exception('Erreur lors de la suppression');
+//            }
+//        } catch (Exception $ex) {
+//            Session::set_flash('errors', $ex->getMessage());
+//        }
+//        
+//        Response::redirect('product/order/affect');
+//    }
 }
 

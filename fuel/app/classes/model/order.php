@@ -58,4 +58,14 @@ class Model_Order extends Model_Crud
         
         return true;
     }
+    
+    public static function get_alone(){
+        return self::find_by(function($query)  {
+            $query
+                ->join(array('product_order', 'pro'), 'LEFT')
+                    ->on('order.order_id', '=', 'pro.order_id')
+                ->where('pro.product_order_id', 'is', null)
+            ;
+        });
+    }
 }

@@ -2,6 +2,58 @@
 
 class Controller_Rest_Product_Order extends Controller_Rest 
 {
+    //Fonction qui va supprimer une proco d'une commande
+    public function post_delete() 
+    {
+        $product_id = Input::post('product_id');
+        try 
+        {
+            $product = Model_Product_Order::find_by_pk($product_id);
+            if (!$product->delete()) {
+                throw new Exception('Erreur lors de la suppression');
+            }
+            else
+            {
+                //On recupère la commande si il n'y a plus de proco associée, on la met dans la variable alone
+                $alone = Model_Order::get_alone();
+                if($alone[0]){
+                    //si cette commande seule existe, on la supprime après avoir récupéré son id
+                    $commande_id = $alone[0]->order_id;
+                    $commande = Model_Order::find_by_pk($commande_id);
+                    if (!$commande->delete())
+                    {
+                        throw new Exception('Erreur lors de la suppression');
+                    }
+                    else
+                    {
+                        $message = 'La proco et La commande ont été bien supprimé';
+                        $delete_commande = true;
+                    }
+                }
+                else
+                {
+                    $message = 'La proco a bien été supprimé';
+                    $delete_commande = false;
+                }
+                
+                DB::commit_transaction();
+                $response = array(
+                        'error'             => false,  
+                        'message'           => $message, 
+                        'delete_commande'   => $delete_commande,
+                );
+            }
+        } catch (Exception $ex) {
+            DB::rollback_transaction();
+            $response = array(
+                'error'       => true,  
+                'message'     => $ex->getMessage(),  
+            );
+        }
+        
+        return $this->response($response);
+    }
+    
     //Fonction pour modifier la pile d'un proco
     public function post_affect()
     {
