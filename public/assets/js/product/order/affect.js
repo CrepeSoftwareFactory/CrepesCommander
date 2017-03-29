@@ -55,6 +55,8 @@ $(function() {
         else{ 
             parent.addClass('on-load');
             var prev_proco = $('a.active', parent);
+            var new_proco = $(this);
+            var proco_html = new_proco.html();
             prev_proco.removeClass('active');
             //Affichage de l'icone animé d'attente
             $(this).html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
@@ -74,6 +76,9 @@ $(function() {
                 success: function(data) {
                     if (data.error==true) {
                         $('.flash_errors').html(data.message);
+                        prev_proco.addClass('active');
+                        new_proco.html(proco_html);
+                        parent.removeClass('on-load');
                     } else {
                         if(data.message == ""){
                             console.log('in');
@@ -89,6 +94,8 @@ $(function() {
                 error: function() {
                     $('.flash_errors').html('Impossible de joindre le serveur !!!');
                     prev_proco.addClass('active');
+                    new_proco.html(proco_html);
+                    parent.removeClass('on-load');
                 }
             });
         }
