@@ -191,8 +191,11 @@ $( document ).ready(function() {
     
     //Envoi du formulaire de création de commande Ajax
     $('form#formulaire_panier').submit(function() {
-        if ( $.trim($( "#lastname" ).val()) == '') {
+        if ( $.trim($( "#lastname" ).val()) == '' ) {
             alert('Il faut saisir un nom !');
+            return false;
+        }
+        else if ($('input#submit').val()=='En cours de création...'){
             return false;
         }
         
