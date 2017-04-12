@@ -42,9 +42,11 @@ $(function() {
                 },
                 timeout: function() {
                     $('.flash_errors').html('Impossible de joindre le serveur !!!');
+                    refreshPage();
                 },
                 error: function() {
                     $('.flash_errors').html('Impossible de joindre le serveur !!!');
+                    refreshPage();
                 }
             });
         }
