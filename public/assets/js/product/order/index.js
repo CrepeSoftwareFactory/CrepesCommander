@@ -1,5 +1,13 @@
 $(function() {
-    
+    var gotoRefresh = '';
+    function refreshPage(){
+        // Fonction pour rafraichir la page en Ajax toutes les 5 secondes
+        gotoRefresh = setInterval(function(){
+            reloadPage();
+
+        }, 5000);
+    }
+    refreshPage();
     function go_to_cooked(obj){
         var proco_pile = obj;
         var href = $('.cook', obj).attr('href');
@@ -28,9 +36,9 @@ $(function() {
                         $('.alone_products').empty();
                         $('.alone_products').html(data.alone_product);
                         $('.flash_success').html('Pile mise à jour');
-                        reloadPage();
                         proco_pile.removeClass('clicked');
                     }
+                    refreshPage();
                 },
                 timeout: function() {
                     $('.flash_errors').html('Impossible de joindre le serveur !!!');
@@ -99,12 +107,6 @@ $(function() {
         });
     }
     
-    //Fonction pour rafraichir la page en Ajax toutes les 5 secondes
-    setInterval(function(){
-            reloadPage()
-        
-    }, 5000);
-    
     function reloadPage(){
         $('.proco_pile_top').each(function(){
             if($(this).hasClass('clicked')){
@@ -118,6 +120,7 @@ $(function() {
     
     // permet de rendre toute la case qui englobe le lien cliquable
     $(".liste_poste").on('click','.proco_pile_top',function( event ) {
+        clearInterval(gotoRefresh);
         if($(this).hasClass('clicked')){
             return false;
         }
