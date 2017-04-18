@@ -11,5 +11,6 @@ class Presenter_Product_Order_Affect extends Presenter
                 ->order_by('date', 'DESC')
             ;
         });
+        $this->statuses = Model_Proco_Status::find();
     }
 }

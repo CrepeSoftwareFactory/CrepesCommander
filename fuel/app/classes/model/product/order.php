@@ -15,11 +15,13 @@ class Model_Product_Order extends Model_Crud
         'station_id',
         'free',
         'comment',
+        'status',
     );
     
     protected $_station = false;
     protected $_product = false;
     protected $_order = false;
+    protected $_status = false;
     
     public function get_station()
     {
@@ -35,6 +37,14 @@ class Model_Product_Order extends Model_Crud
             $this->_product = Model_Product::find_by_pk($this->product_id);
         }
         return $this->_product;
+    }
+    
+    public function get_status()
+    {
+        if ($this->_status === false) {
+            $this->_status = Model_Proco_Status::find_by_pk($this->status);
+        }
+        return $this->_status;
     }
     
     public function get_order()

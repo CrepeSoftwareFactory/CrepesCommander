@@ -8,14 +8,15 @@
                         <td class="col2">Produit</td>
                         <td class="col3">Heure</td>
                         <td class="col4">Poste</td>
-                        <td class="col5">Actions</td>
+                        <td class="col5">Statut</td>
+                        <td class="col6">Actions</td>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if ($orders) { ?>
                        <?php foreach ($orders as $order) { ?>
                             <tr>
-                                <th colspan="4">Commande de <?php echo $order->get_customer()->lastname; ?></th>
+                                <th colspan="5">Commande de <?php echo $order->get_customer()->lastname; ?></th>
                                 <td>
                                 <!--
                                     <a href="#" class="btn btn-success btn-lg">voir</a>
@@ -57,6 +58,31 @@
                                         <?php 
                                             $i++;
                                         } ?>
+                                    </td>
+                                    <td>
+                                        <?php 
+                                        if(!$product->is_cooked()){
+                                        ?>
+                                        <div class="dropdown">
+                                          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            <?php echo $product->get_status()->name; ?>
+                                            <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                            <?php
+                                            foreach ($this->statuses as $status)
+                                            {
+                                                echo '<li><a href="#" data-status='.$status->proco_status_id.' data-idproduct='.$product->get_id().' >'.$status->name.'</a></li>';
+                                            }
+                                            ?>
+                                            </ul>
+                                        </div>
+                                        <?php
+                                        }
+                                        else{
+                                             echo '<a href="#" class="btn btn-primary btn-lg disabled" role="button">Terminé</a>';
+                                        }
+                                        ?>
                                     </td>
                                     <td>
             <!--                        <a href="#" class="btn btn-success btn-lg">voir</a>
