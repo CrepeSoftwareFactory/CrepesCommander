@@ -63,18 +63,18 @@
                                         <?php 
                                         if(!$product->is_cooked()){
                                         ?>
-                                        <div class="dropdown">
-                                          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                            <?php echo $product->get_status()->name; ?>
-                                            <span class="caret"></span>
+                                        <div class="dropdown modif_status">
+                                            <button class="btn btn-default dropdown-toggle" data-status='<?php echo $product->get_status()->proco_status_id ?>' type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                <?php echo $product->get_status()->name; ?>
+                                                <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                            <?php
-                                            foreach ($this->statuses as $status)
-                                            {
-                                                echo '<li><a href="#" data-status='.$status->proco_status_id.' data-idproduct='.$product->get_id().' >'.$status->name.'</a></li>';
-                                            }
-                                            ?>
+                                                <?php
+                                                foreach ($this->statuses as $status)
+                                                {
+                                                    echo '<li><a href="#" data-status='.$status->proco_status_id.' data-idproduct='.$product->get_id().' >'.$status->name.'</a></li>';
+                                                }
+                                                ?>
                                             </ul>
                                         </div>
                                         <?php

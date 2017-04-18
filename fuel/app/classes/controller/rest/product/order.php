@@ -322,4 +322,36 @@ class Controller_Rest_Product_Order extends Controller_Rest
         
         return $this->response($response);
     }
+    
+    //Fonction qui va modifier le status d'une proco
+    //Entrée : idProduct, newStatus
+    //Sortie : newStatus
+    public function post_change_status() 
+    {
+        $idProduct = Input::post('idProduct');
+        $newStatus = Input::post('newStatus');
+        try {
+            $proco = Model_Product_Order::find_by_pk($idProduct);
+            $procoStatus = Model_Proco_Status::find_by_pk($newStatus);
+            $proco->status = $newStatus;
+            if (!$proco->save()) {
+                throw new Exception($order->validation()->show_errors());
+            }
+            $response = array(
+                'error'      => false,  
+                'message'    => 'Priorité changée',
+                'newStatus'  => $procoStatus
+            );
+            Session::set_flash('success', 'Priorité changée');
+        } catch (Exception $ex) {
+            DB::rollback_transaction();
+            $response = array(
+                'error'       => true,  
+                'message'     => $ex->getMessage(),  
+            );
+        }
+        
+        return $this->response($response);
+    }
+    
 }

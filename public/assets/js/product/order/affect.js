@@ -1,4 +1,39 @@
 $(function() {
+    
+    //Fonction avec requête ajax pour modifier le status de priorité d'une proco
+    $('.modif_status li').on('click', function(){
+        var newStatus = $('a', this).attr('data-status').toString();
+        var idproduct = $('a', this).attr('data-idproduct');
+        var oldStatus = $(this).parent('ul').prev('button').attr('data-status').toString();
+        if( newStatus !== oldStatus ){
+            var obj = $(this);
+            obj.parent('ul').prev('button').addClass('disabled');
+            obj.parent('ul').prev('button').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
+            $.ajax({
+                url: '/rest/product/order/change_status.json',
+                type: 'post',
+                dataType: 'json',
+                data: {idProduct: idproduct, newStatus: newStatus},
+                success: function(data){
+                    if (data.error==true) {
+                        $('.flash_errors').html(data.message);
+                    } else {
+                        $('.flash_success').html(data.message);
+                        console.log(data);
+                        obj.parent('ul').prev('button').html(data.newStatus.name+' <span class="caret"></span>');
+                        obj.parent('ul').prev('button').attr('data-status', data.newStatus.proco_status_id);
+                    }
+                    obj.parent('ul').prev('button').removeClass('disabled');
+                },
+                error: function() {
+                    $('.flash_errors').html('Impossible de joindre le serveur !!!');
+                    obj.parent('ul').prev('button').removeClass('disabled');
+                }
+            });
+        }
+        
+    });
+    
     //Fonction avec requête ajax pour livrer ou annuler une commande
     function action_commande(type_action, obj, texte_boutton){
         var href = obj.attr('href');
