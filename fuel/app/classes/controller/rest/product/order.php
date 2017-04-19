@@ -115,6 +115,9 @@ class Controller_Rest_Product_Order extends Controller_Rest
         if ($product_id) {
             try {
                 $product = Model_Product_Order::find_by_pk($product_id);
+                if(empty($station_id)){
+                    $station_id=NULL;
+                }
                 $product->station_id = $station_id;
                 if (!$product->save()) {
                     throw new Exception($product->validation()->show_errors());
@@ -166,7 +169,7 @@ class Controller_Rest_Product_Order extends Controller_Rest
                 if ($unaffected_products) { 
                     foreach ($unaffected_products as $product) { 
                          if ($product->get_product()->type == $key) {
-                             $return_alone_product .= '<li>'.$product.'</li>';
+                             $return_alone_product .= '<li id="'.$product->product_order_id.'">'.$product.'</li>';
                          } 
                     }   
                 }
