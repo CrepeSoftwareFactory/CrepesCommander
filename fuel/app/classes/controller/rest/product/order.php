@@ -122,6 +122,10 @@ class Controller_Rest_Product_Order extends Controller_Rest
                 if (!$product->save()) {
                     throw new Exception($product->validation()->show_errors());
                 }
+                
+                if($station_id==NULL){
+                    $station_id=0;
+                }
                 $response = array(
                     'error'       => false,  
                     'message'     => $station_id,  
