@@ -105,6 +105,32 @@ class Controller_Rest_Product_Order extends Controller_Rest
         
         return $this->response($response);
     }
+    //Fonction pour récupérer la valeur de statut d'une proco
+    public function post_status()
+    {
+        $product_id = Input::post('id');
+        if ($product_id) {
+             try {
+                $product = Model_Product_Order::find_by_pk($product_id);
+                
+                $status = Model_Proco_Status::find_by_pk($product->status);
+                $comment = $product->comment;
+                
+                $response = array(
+                    'error'       => false,  
+                    'message'     => $status,  
+                    'comment'     => $comment,  
+                );
+            } catch (Exception $ex) {
+                $response = array(
+                    'error'       => true,  
+                    'message'     => $ex->getMessage(),  
+                );
+            }
+            
+            return $this->response($response);
+         }
+    }
     
     //Fonction pour modifier la pile d'un proco
     public function post_affect()
@@ -173,7 +199,7 @@ class Controller_Rest_Product_Order extends Controller_Rest
                 if ($unaffected_products) { 
                     foreach ($unaffected_products as $product) { 
                          if ($product->get_product()->type == $key) {
-                             $return_alone_product .= '<li id="'.$product->product_order_id.'">'.$product.'</li>';
+                             $return_alone_product .= '<li  class="status_'.$product->status.'" id="'.$product->product_order_id.'">'.$product.'</li>';
                          } 
                     }   
                 }
@@ -215,7 +241,7 @@ class Controller_Rest_Product_Order extends Controller_Rest
             if(count($waiting_products) > 0){
                 $liste_attente = '';
                 foreach ($waiting_products as $i => $product) {
-                       $liste_attente .= '<li class="panel-body proco_pile_waiting">'.$product.'</span></li>';
+                       $liste_attente .= '<li class="panel-body proco_pile_waiting status_'.$product->status.'" id="'.$product->product_order_id.'">'.$product.'</span></li>';
                 }
             }
             
@@ -271,7 +297,7 @@ class Controller_Rest_Product_Order extends Controller_Rest
                else{
                    foreach ($waiting_products as $i => $product) {
                        if($i>0){
-                           $liste_attente .= '<li class="panel-body proco_pile_waiting">'.$product.'</span></li>';
+                           $liste_attente .= '<li class="panel-body proco_pile_waiting status_'.$product->status.'" id="'.$product->product_order_id.'">'.$product.'</span></li>';
                        }
                     }
                }

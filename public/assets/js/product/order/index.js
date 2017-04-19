@@ -99,6 +99,7 @@ $(function() {
                     $('.alone_products').html(data.alone_product);
                     $('.flash_success').html('Refresh !');
                 }
+                refresh_proco();
             },
             timeout: function() {
                 $('.flash_errors').html('Impossible de joindre le serveur !!!');
@@ -117,7 +118,84 @@ $(function() {
                 go_to_refresh($(this)); 
             }
         });
+        
         go_to_refresh_unaffected();
+    }
+    
+    //Bind de fonction sur le clic des listes des crêpes unaffected
+    function refresh_proco(){
+        $(".colonne_pile li, .proco_pile_waiting").bind( "taphold",function( event ) {
+            var obj = $(this);
+            obj.css('background-color', 'cadetblue');
+            var id = $(this).attr("id");
+            $('.modal-body').empty();
+            $('.modif_status .dropdown-toggle').attr('data-status', '');
+            $('.modif_status .dropdown-toggle').attr('data-idproduct', '');
+            $('.modal-body').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
+            $('.modif_status .dropdown-toggle').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> <span class="caret"></span>');
+            $.ajax({
+                url: '/rest/product/order/status.json',
+                type: 'post',
+                dataType: 'json',
+                data: {id: id},
+                success: function(data) {
+                    var messageComment = "Pas de commentaires !";
+                    if (data.error) {
+                        $('.flash_errors').html(data.message).show();
+                    } else {
+                        console.log(data);
+                    }
+                    if(data['comment']!==null){
+                         messageComment = data['comment'];
+                    }
+                    $('.modal-body').empty();
+                    $('.modal-body').html(messageComment);
+                    $('.modif_status .dropdown-toggle').attr('data-status', data.message.proco_status_id);
+                    $('.linkStatus').attr('data-idproduct', id);
+                    $('.modif_status .dropdown-toggle').html(data.message.name+' <span class="caret"></span>');
+                    maj_status();
+                    obj.css('background-color', '');
+                }
+            });
+            $('#myModal').modal('show');
+        });
+    }
+    
+    //Fonction de maj de status d'un proco
+    function maj_status(){
+        //Fonction avec requête ajax pour modifier le status de priorité d'une proco
+        $('.modif_status li').on('click', function(){
+            var newStatus = $('a', this).attr('data-status').toString();
+            var idproduct = $('a', this).attr('data-idproduct');
+            var oldStatus = $(this).parent('ul').prev('button').attr('data-status').toString();
+            if( newStatus !== oldStatus ){
+                var obj = $(this);
+                obj.parent('ul').prev('button').addClass('disabled');
+                obj.parent('ul').prev('button').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
+                $.ajax({
+                    url: '/rest/product/order/change_status.json',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {idProduct: idproduct, newStatus: newStatus},
+                    success: function(data){
+                        if (data.error==true) {
+                            $('.flash_errors').html(data.message);
+                        } else {
+                            $('.flash_success').html(data.message);
+                            console.log(data);
+                            obj.parent('ul').prev('button').html(data.newStatus.name+' <span class="caret"></span>');
+                            obj.parent('ul').prev('button').attr('data-status', data.newStatus.proco_status_id);
+                        }
+                        obj.parent('ul').prev('button').removeClass('disabled');
+                    },
+                    error: function() {
+                        $('.flash_errors').html('Impossible de joindre le serveur !!!');
+                        obj.parent('ul').prev('button').removeClass('disabled');
+                    }
+                });
+            }
+
+        });
     }
     
     // permet de rendre toute la case qui englobe le lien cliquable
@@ -173,4 +251,5 @@ $(function() {
    $('a.cook').click(function(event) {
         event.preventDefault(event);
     });
+    refresh_proco();
 });

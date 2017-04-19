@@ -28,7 +28,7 @@
                     </li>
                     <?php if ($station->get_waiting_products()) { ?>
                         <?php foreach ($station->get_waiting_products() as $product) { ?>
-                            <li class="panel-body proco_pile_waiting"><?php echo $product; ?></span></li>
+                            <li class="panel-body proco_pile_waiting status_<?php echo $product->status; ?>"  id="<?php echo $product->product_order_id; ?>"><?php echo $product; ?></span></li>
                         <?php } ?>
                     <?php } else { ?>
                             <li class="panel-body proco_pile_waiting">Aucune commande en attente.</li>
@@ -48,7 +48,7 @@
                         <?php if ($alone_products) { ?>
                             <?php foreach ($alone_products as $product) { ?>
                                 <?php if ($product->get_product()->type == $key) { ?>
-                                    <li><?php echo $product; ?></li>
+                                    <li class="status_<?php echo $product->status; ?>" id="<?php echo $product->product_order_id; ?>"><?php echo $product; ?></li>
                                 <?php } ?>
                             <?php } ?>  
                         <?php } ?>
@@ -67,6 +67,20 @@
                    commentaires de la commande !
                 </div>
                 <div class="modal-footer">
+                    <div class="dropdown modif_status">
+                        <button class="btn btn-default dropdown-toggle" data-status='' type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span><span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <?php
+                            $statuses = Model_Proco_Status::find();
+                            foreach ($statuses as $status)
+                            {
+                                echo '<li><a href="#" class="linkStatus" data-status='.$status->proco_status_id.' data-idproduct= >'.$status->name.'</a></li>';
+                            }
+                            ?>
+                        </ul>
+                    </div>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
                 </div>
             </div><!-- /.modal-content -->

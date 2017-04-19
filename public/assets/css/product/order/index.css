@@ -73,6 +73,24 @@
 .flash_success {
     height: 10px;
 }
+    
+.status_1{
+    color: cornflowerblue;
+}    
+.status_2{
+    color: darkmagenta;
+}    
+.status_3{
+    color: firebrick;
+}
+    
+.colonne_pile li, .proco_pile_waiting {
+    cursor: pointer;
+}
+
+.colonne_pile li:hover ,.proco_pile_waiting:hover {
+    background-color: antiquewhite;
+}
 
 .glyphicon-refresh-animate {
     -animation: spin .7s infinite linear;
