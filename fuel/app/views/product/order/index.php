@@ -11,11 +11,10 @@
                     'value'     => $station->get_id(),    
                 )); ?>
                 <span class="label label-poste"><?php echo $station->name; ?></span>
-                
+                <?php $cookedProduct = $station->get_cooking_product(); ?>
                 <ul class="liste_poste list-unstyled panel panel-default">
-                    <li class="btn btn-default btn-lg btn-block proco_pile_top">
+                    <li class="btn btn-default btn-lg btn-block proco_pile_top" id="<?php if($cookedProduct){echo $cookedProduct->product_order_id;} ?>">
                         <?php 
-                            $cookedProduct = $station->get_cooking_product();
                             if($cookedProduct['comment']!==null) { 
                                 $icone_commentaire = '<a href="#"><span class="glyphicon glyphicon-comment"></span></a>';
                             }else{
@@ -61,12 +60,31 @@
     </div>
 
     <div id="myModal" class="modal fade">
+        <input type="hidden" name="hadToRefresh" class="hadToRefresh" value="0">
         <div class="modal-dialog">
             <div class="modal-content">
-               <div class="modal-body">
+                <div class="modal-header"></div>
+                <div class="modal-body">
                    commentaires de la commande !
                 </div>
                 <div class="modal-footer">
+                    <div class="dropdown modif_pile">
+                        <?php
+                        $stations = Model_Station::find();
+                        ?>
+                        <button class="btn btn-default dropdown-toggle" data-status='' type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span><span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="#" class="linkStatus" data-pile="0" data-idproduct="" >PILE</a></li>
+                            <?php
+                            foreach ($stations as $station)
+                            {
+                                echo '<li><a href="#" class="linkStatus" data-pile='.$station->station_id.' data-idproduct= >'.$station->name.'</a></li>';
+                            }
+                            ?>
+                        </ul>
+                    </div>
                     <div class="dropdown modif_status">
                         <button class="btn btn-default dropdown-toggle" data-status='' type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span><span class="caret"></span>

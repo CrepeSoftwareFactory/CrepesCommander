@@ -61,11 +61,15 @@ class Model_Product_Order extends Model_Crud
             $query
                 ->join(array('order', 'or'), 'INNER')
                     ->on('or.order_id', '=', 'product_order.order_id')
+                ->join(array('proco_status', 'pro'), 'INNER')
+                    ->on('pro.proco_status_id', '=', 'product_order.status')
                 ->where('station_id', null)
                 ->where('start',  null)
                 ->where('end', null)
                 ->where('or.status', 'IN', array(Model_Order::STATUS_SUBMITTED, Model_Order::STATUS_PAID))
-                ->order_by('or.date', 'ASC')    
+                ->order_by('pro.priority', 'ASC')
+                ->order_by('or.date', 'ASC')   
+                ->order_by('product_order_id', 'ASC')     
             ;
         });
     }

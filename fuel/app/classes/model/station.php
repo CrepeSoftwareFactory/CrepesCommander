@@ -16,6 +16,7 @@ class Model_Station extends Model_Crud
     protected $_products = false;
     protected $_cooking_product = false;
     protected $_waiting_products = false;
+    protected $_urgent_product = false;
     
     public function get_products()
     {
@@ -31,9 +32,12 @@ class Model_Station extends Model_Crud
             $station_id = $this->get_id();
             $this->_cooking_product = Model_Product_Order::find_one_by(function($query) use($station_id) {
                 $query
+                    ->join(array('proco_status', 'pro'), 'INNER')
+                        ->on('pro.proco_status_id', '=', 'product_order.status')
                     ->where('station_id', $station_id)
                     ->where('start', '!=', null)
                     ->where('end', null)
+                    ->order_by('pro.priority', 'ASC')
                 ;
             });
         }
@@ -48,15 +52,59 @@ class Model_Station extends Model_Crud
                 $query
                     ->join(array('order', 'or'), 'INNER')
                         ->on('or.order_id', '=', 'product_order.order_id')
+                    ->join(array('proco_status', 'pro'), 'INNER')
+                        ->on('pro.proco_status_id', '=', 'product_order.status')
                     ->where('station_id', $station_id)
                     ->where('start',  null)
                     ->where('end', null)
                     ->where('or.status', 'IN', array(Model_Order::STATUS_SUBMITTED, Model_Order::STATUS_PAID))
+                    ->order_by('pro.priority', 'ASC')
                     ->order_by('or.date', 'ASC')    
+                    ->order_by('product_order_id', 'ASC')    
                 ;
             });
         }
         return $this->_waiting_products;
+    }
+    
+    public function get_urgent_product()
+    {
+        if ($this->_urgent_product === false) {
+            $station_id = $this->get_id();
+            $this->_urgent_product = Model_Product_Order::find_by(function($query) use($station_id) {
+                $query
+                    ->join(array('order', 'or'), 'INNER')
+                        ->on('or.order_id', '=', 'product_order.order_id')
+                    ->join(array('proco_status', 'pro'), 'INNER')
+                        ->on('pro.proco_status_id', '=', 'product_order.status')
+                    ->where('station_id', $station_id)
+                    ->where('pro.priority', 1)
+                    ->where('start',  null)
+                    ->where('end', null)
+                    ->where('or.status', 'IN', array(Model_Order::STATUS_SUBMITTED, Model_Order::STATUS_PAID))
+                    ->order_by('or.date', 'ASC')    
+                    ->order_by('product_order_id', 'ASC')    
+                ;
+            });
+            if(!$this->_urgent_product){
+                $this->_urgent_product = Model_Product_Order::find_by(function($query) {
+                    $query
+                        ->join(array('order', 'or'), 'INNER')
+                            ->on('or.order_id', '=', 'product_order.order_id')
+                        ->join(array('proco_status', 'pro'), 'INNER')
+                            ->on('pro.proco_status_id', '=', 'product_order.status')
+                        ->where('station_id', null)
+                        ->where('pro.priority', 1)
+                        ->where('start',  null)
+                        ->where('end', null)
+                        ->where('or.status', 'IN', array(Model_Order::STATUS_SUBMITTED, Model_Order::STATUS_PAID))
+                        ->order_by('or.date', 'ASC')    
+                        ->order_by('product_order_id', 'ASC')    
+                    ;
+                });
+            }
+        }
+        return $this->_urgent_product;
     }
     
     /**

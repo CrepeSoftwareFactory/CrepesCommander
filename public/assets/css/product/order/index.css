@@ -73,6 +73,10 @@
 .flash_success {
     height: 20px;
 }
+
+.modif_status, .modif_pile{
+    display: inline;
+}
     
 .status_1{
     color: cornflowerblue;

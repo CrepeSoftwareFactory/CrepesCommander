@@ -105,21 +105,33 @@ class Controller_Rest_Product_Order extends Controller_Rest
         
         return $this->response($response);
     }
-    //Fonction pour récupérer la valeur de statut d'une proco
+    //Fonction pour récupérer la valeur de statut et de pile d'une proco
     public function post_status()
     {
         $product_id = Input::post('id');
         if ($product_id) {
              try {
                 $product = Model_Product_Order::find_by_pk($product_id);
+                $product_info = $product->get_product();
+                 $product_order = $product->get_order();
+                 $product_customer = $product_order->get_customer();
+                 
                 
                 $status = Model_Proco_Status::find_by_pk($product->status);
                 $comment = $product->comment;
                 
+                $pile = $product->get_station();
+                 
+                 if($pile==NULL){
+                     $pile = "PILE";
+                 }
+                
                 $response = array(
-                    'error'       => false,  
-                    'message'     => $status,  
-                    'comment'     => $comment,  
+                    'error'     => false,  
+                    'message'   => $status,  
+                    'comment'   => $comment,  
+                    'pile'      => $pile,
+                    'title'    => '<h3>'.$product_info->name.' - '.$product_customer->lastname.'</h3>',
                 );
             } catch (Exception $ex) {
                 $response = array(
@@ -231,13 +243,20 @@ class Controller_Rest_Product_Order extends Controller_Rest
             $cooking_product = $station->get_cooking_product();
             $waiting_products = $station->get_waiting_products();
             
+            if($cooking_product){
+                $idProduct = $cooking_product->product_order_id;
+            }
+            else{
+                $idProduct = '';
+            }
+            
             if($cooking_product && $cooking_product['comment']!==null) { 
                 $icone_commentaire = '<a href="#"><span class="glyphicon glyphicon-comment"></span></a>';
             }else{
                 $icone_commentaire = '';
             }
             $produit = Html::anchor('product/order/cook/'.$station->get_id(), $cooking_product ?: 'Vide !', array('class' => 'cook')) . $icone_commentaire;
-
+            
             if(count($waiting_products) > 0){
                 $liste_attente = '';
                 foreach ($waiting_products as $i => $product) {
@@ -251,6 +270,7 @@ class Controller_Rest_Product_Order extends Controller_Rest
                 'error'         => false,  
                 'message'       => $produit,
                 'attente'       => $liste_attente,
+                'idProduct'     => $idProduct,
             );
         }
         catch (Exception $ex) {
@@ -282,10 +302,20 @@ class Controller_Rest_Product_Order extends Controller_Rest
                    throw new Exception($cooking_product->validation()->show_errors());
                }
             }
-           
+            
+            $urgent_product = $station->get_urgent_product();
             $waiting_products = $station->get_waiting_products();
             $unaffected_products = Model_Product_Order::get_unaffected();
-            if ($waiting_products) {
+            
+            if($urgent_product){
+                $future_product = $urgent_product[0];
+                $urgent_product[0]->start = date('Y-m-d H:i:s');
+                $urgent_product[0]->station_id = $station_id;
+                if (!$urgent_product[0]->save()) {
+                    throw new Exception($waiting_products[0]->validation()->show_errors());
+                }
+            }
+            else if ($waiting_products && $waiting_products[0]->status!=3) {
                $waiting_products[0]->start = date('Y-m-d H:i:s');
                $future_product = $waiting_products[0];
                if (!$waiting_products[0]->save()) {
@@ -307,7 +337,7 @@ class Controller_Rest_Product_Order extends Controller_Rest
                 $liste_attente = '<li class="panel-body proco_pile_waiting">Aucune commande en attente.</li>';
                 
                 Log::error(print_r($unaffected_products, true));
-                if ($unaffected_products) {
+                if ($unaffected_products && $unaffected_products[0]->status!=3) {
                     $unaffected_products[0]->start = date('Y-m-d H:i:s');
                     $unaffected_products[0]->station_id = $station_id;
                     $future_product = $unaffected_products[0];
@@ -335,15 +365,19 @@ class Controller_Rest_Product_Order extends Controller_Rest
             }else{
                 $icone_commentaire = '';
             }
-            $produit = Html::anchor('product/order/cook/'.$station->get_id(), $future_product ?: 'Vide !', array('class' => 'cook')) . $icone_commentaire;
+            $produit = Html::anchor('product/order/cook/'.$station->get_id(), $future_product ?: 'Vide !', array( 'class' => 'cook' )) . $icone_commentaire;
             
-           DB::commit_transaction();
+            DB::commit_transaction();
+            
+            $idProduct = ($future_product) ? $future_product->product_order_id : '';
            
             $response = array(
                 'error'         => false,  
                 'message'       => $produit,
                 'attente'       => $liste_attente,
-                'alone_product'       => $return_alone_product,
+                'alone_product' => $return_alone_product,
+                'idProduct'     => $idProduct,
+                
             );
         } catch (Exception $ex) {
             DB::rollback_transaction();
@@ -387,4 +421,37 @@ class Controller_Rest_Product_Order extends Controller_Rest
         return $this->response($response);
     }
     
+    //Fonction qui va modifier la pile d'une proco
+    //Entrée : idProduct, newPile
+    //Sortie : newPile
+    public function post_change_pile()
+    {
+        $idProduct = Input::post('idProduct');
+        $newPile = Input::post('newPile');
+        try
+        {
+            $proco = Model_Product_Order::find_by_pk($idProduct);
+            if($newPile==0){$newPile=NULL;}
+            if($proco->start!==NULL && $newPile !== null || $newPile !== "0"){$proco->start=NULL;}
+            $proco->station_id = $newPile;
+            if (!$proco->save()) {
+                throw new Exception($order->validation()->show_errors());
+            }
+            $procoPile = $proco->get_station();
+             $response = array(
+                'error'      => false,  
+                'message'    => 'pile changée',
+                'newPile'  => $procoPile
+            );
+            Session::set_flash('success', 'Pile changée');
+        } catch (Exception $ex) {
+            DB::rollback_transaction();
+            $response = array(
+                'error'       => true,  
+                'message'     => $ex->getMessage(),  
+            );
+        }
+        
+        return $this->response($response);
+    }
 }
