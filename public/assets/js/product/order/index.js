@@ -1,12 +1,12 @@
 $(function() {
     var gotoRefresh = '';
-    function refreshPage(){
-        // Fonction pour rafraichir la page en Ajax toutes les 5 secondes
-        gotoRefresh = setInterval(function(){
-            reloadPage();
-        }, 5000);
-    }
-    refreshPage();
+//    function refreshPage(){
+//        // Fonction pour rafraichir la page en Ajax toutes les 5 secondes
+//        gotoRefresh = setInterval(function(){
+//            reloadPage();
+//        }, 5000);
+//    }
+//    refreshPage();
     
     function reloadPage(){
         var hadToRefresh = $('.hadToRefresh').val();
@@ -14,6 +14,18 @@ $(function() {
             go_to_refresh();
             go_to_refresh_unaffected();
         }
+    }
+    
+    function verif_no_proco_pile(){
+        $('.proco_pile_top').each(function(){
+            var nb_proco = 0;
+            var parent = $(this).parent('ul');
+            nb_proco = $('.proco_pile_waiting', parent).length;
+            console.log(nb_proco);
+            if(nb_proco == 0){
+                parent.append('<li class="panel-body proco_pile_waiting">Aucune commande en attente.</li>');
+            }
+        });
     }
     
     function go_to_cooked(obj){
@@ -110,6 +122,7 @@ $(function() {
                     $('.alone_products').empty();
                     $('.alone_products').html(data.alone_product);
                     $('.flash_success').html('Refresh !');
+                    console.log('IN');
                 }
                 refresh_proco();
             },
@@ -275,13 +288,15 @@ $(function() {
                                 obj.parent('ul').prev('button').html('PILE <span class="caret"></span>');
                                 obj.parent('ul').prev('button').attr('data-pile', 0);
                                 $('#'+idproduct).remove();
-                                go_to_refresh();
+                                verif_no_proco_pile();
+                                go_to_refresh_unaffected();
                             }
                             else{
                                 obj.parent('ul').prev('button').html(data.newPile.name+' <span class="caret"></span>');
                                 obj.parent('ul').prev('button').attr('data-pile', data.newPile.station_id);
                                 $('#'+idproduct).remove();
-                                go_to_refresh_unaffected();
+                                verif_no_proco_pile();
+                                go_to_refresh();
                             }
                         }
                         obj.parent('ul').prev('button').removeClass('disabled');
