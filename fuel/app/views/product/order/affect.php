@@ -1,5 +1,5 @@
 
-    <div>
+    <div class="liste_proco_client">
         <div class="row">
             <table class="table table-striped">
                 <thead>

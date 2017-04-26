@@ -1,12 +1,12 @@
 $(function() {
     var gotoRefresh = '';
-//    function refreshPage(){
-//        // Fonction pour rafraichir la page en Ajax toutes les 5 secondes
-//        gotoRefresh = setInterval(function(){
-//            reloadPage();
-//        }, 5000);
-//    }
-//    refreshPage();
+    function refreshPage(){
+        // Fonction pour rafraichir la page en Ajax toutes les 5 secondes
+        gotoRefresh = setInterval(function(){
+            reloadPage();
+        }, 5000);
+    }
+    refreshPage();
     
     function reloadPage(){
         var hadToRefresh = $('.hadToRefresh').val();
@@ -21,7 +21,6 @@ $(function() {
             var nb_proco = 0;
             var parent = $(this).parent('ul');
             nb_proco = $('.proco_pile_waiting', parent).length;
-            console.log(nb_proco);
             if(nb_proco == 0){
                 parent.append('<li class="panel-body proco_pile_waiting">Aucune commande en attente.</li>');
             }
@@ -29,6 +28,7 @@ $(function() {
     }
     
     function go_to_cooked(obj){
+        $('.hadToRefresh').val(1);
         var proco_pile = obj;
         var href = $('.cook', obj).attr('href');
         var product_before = proco_pile.attr('id');
@@ -49,7 +49,7 @@ $(function() {
                         proco_pile.html(contenuObj);
                     } else {
                         $('#'+data.idProduct).remove();
-                        proco_pile.html();
+                        proco_pile.empty();
                         proco_pile.html(data.message);
                         var parent = proco_pile.parent();
                         proco_pile.attr('id', data.idProduct);
@@ -57,6 +57,7 @@ $(function() {
                     }
                     proco_pile.removeClass('clicked');
                     $('.hadToRefresh').val(0);
+                    verif_no_proco_pile();
                 },
                 timeout: function() {
                     $('.flash_errors').html('Impossible de joindre le serveur !!!');
@@ -122,7 +123,6 @@ $(function() {
                     $('.alone_products').empty();
                     $('.alone_products').html(data.alone_product);
                     $('.flash_success').html('Refresh !');
-                    console.log('IN');
                 }
                 refresh_proco();
             },
@@ -269,6 +269,7 @@ $(function() {
             $('.hadToRefresh').val(1);
             var newPile = $('a', this).attr('data-pile');
             var idproduct = $('a', this).attr('data-idproduct');
+            var hasCooked = $('#'+idproduct).hasClass('proco_pile_top');
             var oldPile = $(this).parent('ul').prev('button').attr('data-pile');
             if( newPile !== oldPile ){
                 var obj = $(this);
@@ -287,7 +288,9 @@ $(function() {
                             if(data.newPile=="PILE" || data.newPile==null){
                                 obj.parent('ul').prev('button').html('PILE <span class="caret"></span>');
                                 obj.parent('ul').prev('button').attr('data-pile', 0);
-                                $('#'+idproduct).remove();
+                                if(!hasCooked){
+                                    $('#'+idproduct).remove();
+                                }
                                 verif_no_proco_pile();
                                 go_to_refresh_unaffected();
                             }
@@ -354,6 +357,7 @@ $(function() {
         event.preventDefault();
         $('.hadToRefresh').val(1);
         if($(this).hasClass('clicked')){
+            $('.hadToRefresh').val(0);
             return false;
         }
         $(this).addClass('clicked');

@@ -454,4 +454,80 @@ class Controller_Rest_Product_Order extends Controller_Rest
         
         return $this->response($response);
     }
+    
+    public function post_refresh_pending_orders()
+    {
+        $html='';
+        $this->stations = Model_Station::find();
+        $orders = Model_Order::find(function($query) {
+            $query
+                ->where('status', 'NOT IN', array(Model_Order::STATUS_CANCEL, Model_Order::STATUS_DELIVERED))
+                ->order_by('date', 'DESC')
+            ;
+        });
+        $this->statuses = Model_Proco_Status::find();
+        
+       
+        $html .= '<div class="row"><table class="table table-striped"><thead><tr><td class="col1">Nom</td><td class="col2">Produit</td><td class="col3">Heure</td><td class="col4">Poste</td><td class="col5">Statut</td><td class="col6">Actions</td></tr></thead><tbody>';
+        if ($orders) {
+            foreach ($orders as $order) {
+                $html .= '<tr><th colspan="5">Commande de '.$order->get_customer()->lastname.'</th><td>';
+                if ($order->is_finished()) {
+                $html .= Html::anchor('order/finish/'.$order->get_id(), 'C\'est livré !', array(
+                                                    'class' => 'btn btn-success btn-lg order-finished', 
+                                                    'title' => 'Livrer la commande de '.$order->get_customer()->lastname,
+                                                ));
+                } else {
+                $html .= Html::anchor('order/cancel/'.$order->get_id(), 'Annuler cmde', array(
+                                                    'class' => 'btn btn-success btn-lg order-cancel', 
+                                                    'title' => 'Annuler la commande de '.$order->get_customer()->lastname,
+                                                ));
+                }
+                $html .= '</td></tr>';
+                foreach ($order->get_products() as $product) {
+                    $html .= '<tr><th>'.$order->get_customer()->lastname.'</th><td>'.$product->get_product()->name.'</td><td>'.date('H\hi', strtotime($order->date)).'</td><td>'. Html::anchor('product/order/affect/'.$product->get_id(), 'Pile', array(
+                                                        'class' => 'btn btn-primary btn-lg color-pile '.(!$product->station_id ? ' active ' : ' '),
+                                                        'data-station'  => '0',
+                                                        'data-product'  => $product->get_id(),
+                                                        'data-order'    => $order->get_id(),
+                                                    ));
+                    $i = 1;
+                    foreach ($this->stations as $station) { 
+                    $html .=  ' '.Html::anchor('product/order/affect/'.$product->get_id().'/'.$station->get_id(), $station->name, array(
+                                                                'class' => 'btn btn-primary btn-lg color-poste-'.$i.($product->station_id == $station->get_id() ? ' active ' : ' '),
+                                                                'data-station'  => $station->get_id(),
+                                                                'data-product'  => $product->get_id(),
+                                                            )); 
+                    $i++;
+                    }
+                    $html .= '</td><td>';
+                    if(!$product->is_cooked()){
+                        $html .= '<div class="dropdown modif_status"><button class="btn btn-default dropdown-toggle" data-status='.$product->get_status()->proco_status_id.' type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">'.$product->get_status()->name.' <span class="caret"></span></button><ul class="dropdown-menu" aria-labelledby="dropdownMenu1">';
+                        foreach ($this->statuses as $status)
+                        {
+                        $html .= '<li><a href="#" data-status='.$status->proco_status_id.' data-idproduct='.$product->get_id().' >'.$status->name.'</a></li>';
+                        }
+                        $html .= '</ul></div>';
+                    }
+                    else
+                    {
+                        $html .= '<a href="#" class="btn btn-primary btn-lg disabled" role="button">Terminé</a>';
+                    }
+                    $html .= '</td><td>';
+                    $html .= Html::anchor('product/order/delete/'.$product->get_id(), 'Supprimer', array(
+                                                            'class' => 'btn btn-success btn-lg product-delete',
+                                                            'title' => 'Supprimer '.$product,
+                                                        )); 
+                    $html .= '</td></tr>';
+                }
+            }
+         } 
+         $html .= '</tbody></table></div>';
+         $response = array(
+                'error'      => false,  
+                'message'    => 'pile changée',
+                'response'  => $html,
+            );
+        return $this->response($response);
+    }
 }
