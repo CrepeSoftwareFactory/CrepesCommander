@@ -397,10 +397,14 @@ class Controller_Rest_Product_Order extends Controller_Rest
     {
         $idProduct = Input::post('idProduct');
         $newStatus = Input::post('newStatus');
+        $isTop = Input::post('isTop');
         try {
             $proco = Model_Product_Order::find_by_pk($idProduct);
             $procoStatus = Model_Proco_Status::find_by_pk($newStatus);
             $proco->status = $newStatus;
+            if($isTop && $newStatus == 3){
+                $proco->start = null;
+            }
             if (!$proco->save()) {
                 throw new Exception($order->validation()->show_errors());
             }

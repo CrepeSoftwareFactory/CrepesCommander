@@ -340,6 +340,7 @@ $(function() {
             $('.hadToRefresh').val(1);
             var newStatus = $('a', this).attr('data-status').toString();
             var idproduct = $('a', this).attr('data-idproduct');
+            var isTop = $('#'+idproduct).hasClass('proco_pile_top');
             var oldStatus = $(this).parent('ul').prev('button').attr('data-status').toString();
             if( newStatus !== oldStatus ){
                 var obj = $(this);
@@ -349,7 +350,7 @@ $(function() {
                     url: '/rest/product/order/change_status.json',
                     type: 'post',
                     dataType: 'json',
-                    data: {idProduct: idproduct, newStatus: newStatus},
+                    data: {idProduct: idproduct, newStatus: newStatus, isTop: isTop},
                     success: function(data){
                         if (data.error==true) {
                             $('.flash_errors').html(data.message);
@@ -359,6 +360,13 @@ $(function() {
                             obj.parent('ul').prev('button').attr('data-status', data.newStatus.proco_status_id);
                             $('#'+idproduct).removeClass('status_'+oldStatus);
                             $('#'+idproduct).addClass('status_'+newStatus);
+                        }
+                        if(isTop && newStatus==3){
+                            var top = $('#'+idproduct);
+                            top.attr('id', '');
+                            var htmlBefore = $('a.cook', top).html();
+                            $('a.cook', top).html('Vide !');
+                            top.parent('ul').append('<li class="panel-body proco_pile_waiting status_3" id="'+idproduct+'">'+htmlBefore+'</li>');
                         }
                         obj.parent('ul').prev('button').removeClass('disabled');
                         $('.hadToRefresh').val(0);
