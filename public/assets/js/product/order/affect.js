@@ -40,7 +40,8 @@ $(function() {
     }
     function generate_all_script(){
         //Fonction avec requête ajax pour modifier le status de priorité d'une proco
-        $('.modif_status li').on('click', function(){
+        $('.modif_status li').on('click', function(e){
+            e.preventDefault();
             var newStatus = $('a', this).attr('data-status').toString();
             var idproduct = $('a', this).attr('data-idproduct');
             var oldStatus = $(this).parent('ul').prev('button').attr('data-status').toString();

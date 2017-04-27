@@ -46,7 +46,6 @@ $(function() {
                 success: function(data) {
                     if (data.error==true) {
                         $('.flash_errors').html(data.message);
-                        proco_pile.html(contenuObj);
                     } else {
                         $('#'+data.idProduct).remove();
                         proco_pile.empty();
@@ -77,37 +76,41 @@ $(function() {
         $('.proco_pile_top').each(function(){
             var proco_pile = $(this);
             var href = $('.cook', this).attr('href');
-            var id_commande = href.substr(href.lastIndexOf('/')+1);
-            $('.flash_errors').empty();
-            $('.flash_success').empty();
-            $.ajax({
-                url: '/rest/product/order/refresh.json',
-                type: 'post',
-                dataType: 'json',
-                data: {id: id_commande},
-                success: function(data) {
-                    if (data.error==true) {
-                        $('.flash_errors').html(data.message);
-                    } else {
-                        var parent = proco_pile.parent();
-                        parent.empty();
-                        parent.html('<li class="btn btn-default btn-lg btn-block proco_pile_top" id="'+data.idProduct+'"></li>')
-                        $('li', parent).html(data.message);
-                        $('.proco_pile_waiting', parent).remove();
-                        parent.append(data.attente);
-                        $('a', parent).click(function(e){
-                            e.preventDefault();
-                        });
-                        refresh_procopile_top($('li', parent));
+            if(href){
+                var id_commande = href.substr(href.lastIndexOf('/')+1);
+                $('.flash_errors').empty();
+                $('.flash_success').empty();
+                $.ajax({
+                    url: '/rest/product/order/refresh.json',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {id: id_commande},
+                    success: function(data) {
+                        if (data.error==true) {
+                            $('.flash_errors').html(data.message);
+                        } else {
+                            var parent = proco_pile.parent();
+                            if($('.hadToRefresh').val()==0){
+                                parent.empty();
+                                parent.html('<li class="btn btn-default btn-lg btn-block proco_pile_top" id="'+data.idProduct+'"></li>');
+                                $('li', parent).html(data.message);
+                            }
+                            $('.proco_pile_waiting', parent).remove();
+                            parent.append(data.attente);
+                            $('a', parent).click(function(e){
+                                e.preventDefault();
+                            });
+                            refresh_procopile_top($('li', parent));
+                        }
+                    },
+                    timeout: function() {
+                        $('.flash_errors').html('Impossible de joindre le serveur !!!');
+                    },
+                    error: function() {
+                        $('.flash_errors').html('Impossible de joindre le serveur !!!');
                     }
-                },
-                timeout: function() {
-                    $('.flash_errors').html('Impossible de joindre le serveur !!!');
-                },
-                error: function() {
-                    $('.flash_errors').html('Impossible de joindre le serveur !!!');
-                }
-            });
+                });
+            }
         });
     }
     
