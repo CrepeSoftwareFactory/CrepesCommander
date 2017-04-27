@@ -264,7 +264,7 @@ $(function() {
     maj_status();
     //Fonction de maj de status d'un proco
     function maj_status(){
-        //Fonction avec Ajax pour modifier la pile d'une proco depuis la modale
+        //Fonction avec Ajax pour modifier et changer la pile d'une proco depuis la modale
         $('.modif_pile li').on('click', function(){
             $('.hadToRefresh').val(1);
             var newPile = $('a', this).attr('data-pile');
@@ -290,6 +290,13 @@ $(function() {
                                 obj.parent('ul').prev('button').attr('data-pile', 0);
                                 if(!hasCooked){
                                     $('#'+idproduct).remove();
+                                }else{
+                                    var pile = $('#'+idproduct);
+                                    pile.attr('id', '');
+                                    var href = $('.cook', pile).attr('href');
+                                    var id_commande = href.substr(href.lastIndexOf('/')+1);
+                                    pile.html('<a class="cook" href="http://localhost/product/order/cook/'+id_commande+'">Vide !</a></li>');
+                                    
                                 }
                                 verif_no_proco_pile();
                                 go_to_refresh_unaffected();
@@ -297,7 +304,19 @@ $(function() {
                             else{
                                 obj.parent('ul').prev('button').html(data.newPile.name+' <span class="caret"></span>');
                                 obj.parent('ul').prev('button').attr('data-pile', data.newPile.station_id);
-                                $('#'+idproduct).remove();
+                                var pile = $('#'+idproduct);
+                                if(pile.hasClass('proco_pile_top')){
+                                    var href = $('.cook', pile).attr('href');
+                                    var id_commande = href.substr(href.lastIndexOf('/')+1);
+                                    pile.attr('id', '');
+                                    pile.html('<a class="cook" href="http://localhost/product/order/cook/'+id_commande+'">Vide !</a></li>');
+                                }else{
+                                    $('#'+idproduct).remove();
+                                    if($('#liste_poste_'+data.newPile.station_id+' .panel-default .proco_pile_waiting').html()=='Aucune commande en attente.'){
+                                        $('#liste_poste_'+data.newPile.station_id+' .panel-default .proco_pile_waiting').empty();
+                                    }
+                                    $('#liste_poste_'+data.newPile.station_id+' .panel-default').append(pile);
+                                }
                                 verif_no_proco_pile();
                                 go_to_refresh();
                             }
