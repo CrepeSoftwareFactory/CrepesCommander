@@ -1,3 +1,6 @@
+a {
+    -webkit-touch-callout: none !important; 
+}
 
 .liste_poste > LI {
     text-align: center;

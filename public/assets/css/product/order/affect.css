@@ -1,3 +1,6 @@
+a {
+    -webkit-touch-callout: none !important; 
+}
 
 TABLE {
     background-color: white;
