@@ -251,7 +251,7 @@ class Controller_Rest_Product_Order extends Controller_Rest
             }
             
             if($cooking_product && $cooking_product['comment']!==null) { 
-                $icone_commentaire = '<a href="#"><span class="glyphicon glyphicon-comment"></span></a>';
+                $icone_commentaire = '<button class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-comment"></span></button>';
             }else{
                 $icone_commentaire = '';
             }
@@ -361,7 +361,7 @@ class Controller_Rest_Product_Order extends Controller_Rest
             }
 
             if($future_product && $future_product['comment']!==null) { 
-                $icone_commentaire = '<a href="#"><span class="glyphicon glyphicon-comment"></span></a>';
+                $icone_commentaire = '<button class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-comment"></span></button>';
             }else{
                 $icone_commentaire = '';
             }
@@ -509,13 +509,13 @@ class Controller_Rest_Product_Order extends Controller_Rest
                         $html .= '<div class="dropdown modif_status"><button class="btn btn-default dropdown-toggle" data-status='.$product->get_status()->proco_status_id.' type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">'.$product->get_status()->name.' <span class="caret"></span></button><ul class="dropdown-menu" aria-labelledby="dropdownMenu1">';
                         foreach ($this->statuses as $status)
                         {
-                        $html .= '<li><a href="#" data-status='.$status->proco_status_id.' data-idproduct='.$product->get_id().' >'.$status->name.'</a></li>';
+                        $html .= '<li><button class="btn btn-primary btn-lg" data-status='.$status->proco_status_id.' data-idproduct='.$product->get_id().' >'.$status->name.'</button></li>';
                         }
                         $html .= '</ul></div>';
                     }
                     else
                     {
-                        $html .= '<a href="#" class="btn btn-primary btn-lg disabled" role="button">Terminé</a>';
+                        $html .= '<button class="btn btn-primary btn-lg disabled" role="button">Terminé</button>';
                     }
                     $html .= '</td><td>';
                     $html .= Html::anchor('product/order/delete/'.$product->get_id(), 'Supprimer', array(

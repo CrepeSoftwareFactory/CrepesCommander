@@ -76,11 +76,11 @@
                             <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span><span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <li><a href="#" class="linkStatus" data-pile="0" data-idproduct="" >PILE</a></li>
+                            <li><button class="linkStatus btn btn-primary btn-lg" data-pile="0" data-idproduct="" >PILE</button></li>
                             <?php
                             foreach ($stations as $station)
                             {
-                                echo '<li><a href="#" class="linkStatus" data-pile='.$station->station_id.' data-idproduct= >'.$station->name.'</a></li>';
+                                echo '<li><button class="linkStatus btn btn-primary btn-lg" data-pile='.$station->station_id.' data-idproduct= >'.$station->name.'</button></li>';
                             }
                             ?>
                         </ul>
@@ -94,7 +94,7 @@
                             $statuses = Model_Proco_Status::find();
                             foreach ($statuses as $status)
                             {
-                                echo '<li><a href="#" class="linkStatus" data-status='.$status->proco_status_id.' data-idproduct= >'.$status->name.'</a></li>';
+                                echo '<li><button class="linkStatus btn btn-primary btn-lg" data-status='.$status->proco_status_id.' data-idproduct= >'.$status->name.'</button></li>';
                             }
                             ?>
                         </ul>

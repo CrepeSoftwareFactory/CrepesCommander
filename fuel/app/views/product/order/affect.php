@@ -72,7 +72,7 @@
                                                 <?php
                                                 foreach ($this->statuses as $status)
                                                 {
-                                                    echo '<li><a href="#" data-status='.$status->proco_status_id.' data-idproduct='.$product->get_id().' >'.$status->name.'</a></li>';
+                                                    echo '<li><button class="btn btn-primary btn-lg" data-status='.$status->proco_status_id.' data-idproduct='.$product->get_id().' >'.$status->name.'</button></li>';
                                                 }
                                                 ?>
                                             </ul>
@@ -80,7 +80,7 @@
                                         <?php
                                         }
                                         else{
-                                             echo '<a href="#" class="btn btn-primary btn-lg disabled" role="button">Terminé</a>';
+                                             echo '<button class="btn btn-primary btn-lg disabled" role="button">Terminé</button>';
                                         }
                                         ?>
                                     </td>

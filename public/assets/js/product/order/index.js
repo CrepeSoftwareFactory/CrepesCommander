@@ -270,8 +270,8 @@ $(function() {
         //Fonction avec Ajax pour modifier et changer la pile d'une proco depuis la modale
         $('.modif_pile li').on('click', function(){
             $('.hadToRefresh').val(1);
-            var newPile = $('a', this).attr('data-pile');
-            var idproduct = $('a', this).attr('data-idproduct');
+            var newPile = $('button', this).attr('data-pile');
+            var idproduct = $('button', this).attr('data-idproduct');
             var hasCooked = $('#'+idproduct).hasClass('proco_pile_top');
             var oldPile = $(this).parent('ul').prev('button').attr('data-pile');
             if( newPile !== oldPile ){
@@ -336,10 +336,11 @@ $(function() {
             }
         });
         //Fonction avec requête ajax pour modifier le status de priorité d'une proco depuis la modale
-        $('.modif_status li').on('click', function(){
+        $('.modif_status li').on('click', function(e){
+            e.preventDefault();
             $('.hadToRefresh').val(1);
-            var newStatus = $('a', this).attr('data-status').toString();
-            var idproduct = $('a', this).attr('data-idproduct');
+            var newStatus = $('button', this).attr('data-status').toString();
+            var idproduct = $('button', this).attr('data-idproduct');
             var isTop = $('#'+idproduct).hasClass('proco_pile_top');
             var oldStatus = $(this).parent('ul').prev('button').attr('data-status').toString();
             if( newStatus !== oldStatus ){
