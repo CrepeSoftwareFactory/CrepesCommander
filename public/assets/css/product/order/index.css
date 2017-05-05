@@ -1,3 +1,21 @@
+.modif_pile ul.dropdown-menu .linkStatus {
+    width: 73px !important;
+}
+
+ul.dropdown-menu {
+    padding: 0;
+    margin: 10px 0 0 0;
+    min-width: 20px !important;
+}
+
+ul.dropdown-menu li {
+    padding: 2px;
+}
+
+ul.dropdown-menu .linkStatus {
+    width: 100px;
+}
+
 a {
     -webkit-touch-callout: none !important; 
 }

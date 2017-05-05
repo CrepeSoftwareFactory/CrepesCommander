@@ -72,7 +72,7 @@
                                                 <?php
                                                 foreach ($this->statuses as $status)
                                                 {
-                                                    echo '<li><button class="btn btn-primary btn-lg" data-status='.$status->proco_status_id.' data-idproduct='.$product->get_id().' >'.$status->name.'</button></li>';
+                                                    echo '<li><button class="btn btn-primary btn-lg color-status-'.$status->proco_status_id.'" data-status='.$status->proco_status_id.' data-idproduct='.$product->get_id().' >'.$status->name.'</button></li>';
                                                 }
                                                 ?>
                                             </ul>

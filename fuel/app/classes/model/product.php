@@ -24,12 +24,10 @@ class Model_Product extends Model_Crud
     
     const TYPE_SALT     = 0;
     const TYPE_SWEET    = 1;
-    const TYPE_BURGER   = 2;
     
     public static $types = array(
         self::TYPE_SALT     => 'Galette',
         self::TYPE_SWEET    => 'Crepe',
-        self::TYPE_BURGER   => 'Burger',
     );
     
     public function get_ingredients()

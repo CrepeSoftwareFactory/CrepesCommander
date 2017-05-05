@@ -4,14 +4,16 @@
             <?php 
             $i = 1;
             foreach ($stations as $station) { ?>
-            <div class="col-md-3" id="liste_poste_<?php echo $i; ?>">
+            <div class="col-sm-6 col-md-3" id="liste_poste_<?php echo $i; ?>">
                 <?php echo Form::hidden(array(
                     'class'     => 'station_id',    
                     'name'      => 'station_id[]',    
                     'value'     => $station->get_id(),    
                 )); ?>
                 <span class="label label-poste"><?php echo $station->name; ?></span>
-                <?php $cookedProduct = $station->get_cooking_product(); ?>
+                <?php $cookedProduct = $station->get_cooking_product();
+                print_r($cookedProduct);
+                ?>
                 <ul class="liste_poste list-unstyled panel panel-default">
                     <li class="btn btn-default btn-lg btn-block proco_pile_top" id="<?php if($cookedProduct){echo $cookedProduct->product_order_id;} ?>">
                         <?php 
@@ -76,11 +78,11 @@
                             <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span><span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <li><button class="linkStatus btn btn-primary btn-lg" data-pile="0" data-idproduct="" >PILE</button></li>
+                            <li><button class="linkStatus btn btn-primary btn-lg color-pile" data-pile="0" data-idproduct="" >PILE</button></li>
                             <?php
                             foreach ($stations as $station)
                             {
-                                echo '<li><button class="linkStatus btn btn-primary btn-lg" data-pile='.$station->station_id.' data-idproduct= >'.$station->name.'</button></li>';
+                                echo '<li><button class="linkStatus btn btn-primary btn-lg color-poste-'.$station->station_id.'" data-pile='.$station->station_id.' data-idproduct= >'.$station->name.'</button></li>';
                             }
                             ?>
                         </ul>
@@ -94,7 +96,7 @@
                             $statuses = Model_Proco_Status::find();
                             foreach ($statuses as $status)
                             {
-                                echo '<li><button class="linkStatus btn btn-primary btn-lg" data-status='.$status->proco_status_id.' data-idproduct= >'.$status->name.'</button></li>';
+                                echo '<li><button class="linkStatus btn btn-primary btn-lg color-status-'.$status->proco_status_id.'" data-status='.$status->proco_status_id.' data-idproduct= >'.$status->name.'</button></li>';
                             }
                             ?>
                         </ul>
