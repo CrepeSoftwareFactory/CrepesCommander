@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title><?php echo isset($title) ? $title : 'Crepes Commander'; ?> 2017</title>
+    <title><?php echo isset($title) ? $title : 'Crepes Commander'; ?> 2017 !</title>
 
     <!-- Bootstrap core CSS -->
     <?php echo Asset::css('bootstrap.min.css'); ?>
