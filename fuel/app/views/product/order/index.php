@@ -29,7 +29,7 @@
                     </li>
                     <?php if ($station->get_waiting_products()) { ?>
                         <?php foreach ($station->get_waiting_products() as $product) { ?>
-                            <li class="panel-body proco_pile_waiting status_<?php echo $product->status; ?>"  id="<?php echo $product->product_order_id; ?>"><?php echo $product; ?></span></li>
+                            <li class="panel-body notSelectable proco_pile_waiting status_<?php echo $product->status; ?>"  id="<?php echo $product->product_order_id; ?>"><?php echo $product; ?></span></li>
                         <?php } ?>
                     <?php } else { ?>
                             <li class="panel-body proco_pile_waiting">Aucune commande en attente.</li>
@@ -49,7 +49,7 @@
                         <?php if ($alone_products) { ?>
                             <?php foreach ($alone_products as $product) { ?>
                                 <?php if ($product->get_product()->type == $key) { ?>
-                                    <li class="status_<?php echo $product->status; ?>" id="<?php echo $product->product_order_id; ?>"><?php echo $product; ?></li>
+                                    <li class="notSelectable status_<?php echo $product->status; ?>" id="<?php echo $product->product_order_id; ?>"><?php echo $product; ?></li>
                                 <?php } ?>
                             <?php } ?>  
                         <?php } ?>
