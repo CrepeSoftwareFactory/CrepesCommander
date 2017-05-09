@@ -4,7 +4,7 @@
             <?php 
             $i = 1;
             foreach ($stations as $station) { ?>
-            <div class="col-sm-6 col-md-3" id="liste_poste_<?php echo $i; ?>">
+            <div class="col-sm-6 col-md-6" id="liste_poste_<?php echo $i; ?>">
                 <?php echo Form::hidden(array(
                     'class'     => 'station_id',    
                     'name'      => 'station_id[]',    
@@ -12,7 +12,7 @@
                 )); ?>
                 <span class="label label-poste"><?php echo $station->name; ?></span>
                 <?php $cookedProduct = $station->get_cooking_product();
-                print_r($cookedProduct);
+                //print_r($cookedProduct);
                 ?>
                 <ul class="liste_poste list-unstyled panel panel-default">
                     <li class="btn btn-default btn-lg btn-block proco_pile_top" id="<?php if($cookedProduct){echo $cookedProduct->product_order_id;} ?>">
