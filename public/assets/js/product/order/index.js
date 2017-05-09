@@ -1,6 +1,7 @@
 $(function() {
     var gotoRefresh = '';
-    $("#icon_refresh").fadeTo(1, 0);
+    $("#icon_refresh").fadeTo(1, 0); // cache l'icone qui permet de savoir quand les refresh sont lancés
+    $('.notSelectable').disableSelection(); // active un script qui rend certains textes non selectionnable avec un taphold
     function refreshPage(){
         // Fonction pour rafraichir la page en Ajax toutes les 5 secondes
         gotoRefresh = setInterval(function(){
@@ -411,10 +412,26 @@ $(function() {
     });
     
     //Vérifie les commentaires de chaque pile pour savoir si il y en a ou pas et ajout d'un icone dans le code si c'est le cas
-    
+   
+   
    $('a.cook').click(function(event) {
         event.stopPropagation();
         event.preventDefault(event);
     });
     refresh_proco();
+});
+
+// This jQuery Plugin will disable text selection for Android and iOS devices.
+// Stackoverflow Answer: http://stackoverflow.com/a/2723677/1195891
+$.fn.extend({
+    disableSelection: function() {
+        this.each(function() {
+            this.onselectstart = function() {
+                return false;
+            };
+            this.unselectable = "on";
+            $(this).css('-moz-user-select', 'none');
+            $(this).css('-webkit-user-select', 'none');
+        });
+    }
 });

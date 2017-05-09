@@ -22,7 +22,7 @@
                             }else{
                                 $icone_commentaire = '';
                             }
-                            $produit = Html::anchor('product/order/cook/'.$station->get_id(), $cookedProduct ?: 'Vide !', array('class' => 'cook')) . $icone_commentaire;
+                            $produit = Html::anchor('product/order/cook/'.$station->get_id(), $cookedProduct ?: 'Vide !', array('class' => 'cook notSelectable')) . $icone_commentaire;
                             echo $produit;
                             
                         ?>
