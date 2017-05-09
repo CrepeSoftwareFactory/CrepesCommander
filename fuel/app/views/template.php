@@ -23,6 +23,14 @@
             }
         }
     ?>
+    <script type="text/javascript">
+        
+        window.oncontextmenu = function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            return false;
+       };
+    </script>
   </head>
 
   <body>
