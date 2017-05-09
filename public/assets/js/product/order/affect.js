@@ -1,7 +1,15 @@
 $(function() {
+    $("#icon_refresh").fadeTo(1, 0);
     function refreshPage(){
         // Fonction pour rafraichir la page en Ajax toutes les 5 secondes
         gotoRefresh = setInterval(function(){
+            $("#icon_refresh").fadeTo(1, 100);
+            window.setTimeout(function() {
+                $("#icon_refresh").fadeTo(500, 0, function(){
+                    //$(this).remove(); 
+                    //$('#icon_refresh').addClass('fade');
+                });
+            }, 2000);
             refresh_pending_orders();
         }, 10000);
     }

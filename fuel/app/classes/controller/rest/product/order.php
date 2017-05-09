@@ -529,7 +529,7 @@ class Controller_Rest_Product_Order extends Controller_Rest
          $html .= '</tbody></table></div>';
          $response = array(
                 'error'      => false,  
-                'message'    => 'pile changée',
+                'message'    => '',
                 'response'  => $html,
             );
         return $this->response($response);

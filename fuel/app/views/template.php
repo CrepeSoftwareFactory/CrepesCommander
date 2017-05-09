@@ -36,10 +36,11 @@
                     <?php !isset($menu) and $menu = ''; ?>
                     <li class="<?php echo ($menu == 'order-add' ? 'active' : ''); ?>"><?php echo Html::anchor('order/add', 'J\'ai faim...'); ?></li>
                     <li class="<?php echo ($menu == 'product-order' ? 'active' : ''); ?>"><?php echo Html::anchor('product/order', 'Au boulot !'); ?></li>
-                    <li class="<?php echo ($menu == 'product-order-affect' ? 'active' : ''); ?>"><?php echo Html::anchor('product/order/affect', 'Commandes en cours'); ?></li>
-                    <li class="<?php echo ($menu == 'order-finished' ? 'active' : ''); ?>"><?php echo Html::anchor('order/finished', 'Commandes terminées'); ?></li>
+                    <li class="<?php echo ($menu == 'product-order-affect' ? 'active' : ''); ?>"><?php echo Html::anchor('product/order/affect', 'Cmdes en cours'); ?></li>
+                    <li class="<?php echo ($menu == 'order-finished' ? 'active' : ''); ?>"><?php echo Html::anchor('order/finished', 'Cmdes terminées'); ?></li>
                     <li class="<?php echo ($menu == 'temp' ? 'active' : ''); ?>"><?php echo Html::anchor('temp', 'Rapport'); ?></li>
                     <li><?php echo Html::anchor('user/logout', 'Quitter'); ?></li>
+                    <li><div id="icon_refresh" class="well well-sm icon-autorefresh"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></div></li>
                 </ul>
             </div>
         <?php } ?>

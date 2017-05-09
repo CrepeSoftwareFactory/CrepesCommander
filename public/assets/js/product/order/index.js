@@ -1,5 +1,6 @@
 $(function() {
     var gotoRefresh = '';
+    $("#icon_refresh").fadeTo(1, 0);
     function refreshPage(){
         // Fonction pour rafraichir la page en Ajax toutes les 5 secondes
         gotoRefresh = setInterval(function(){
@@ -125,7 +126,16 @@ $(function() {
                 } else {
                     $('.alone_products').empty();
                     $('.alone_products').html(data.alone_product);
-                    $('.flash_success').html('Refresh !');
+                    //$('.flash_success').html('Refresh !');
+                    //$('#icon_refresh').css('opacity');
+                    $("#icon_refresh").fadeTo(1, 100);
+                    window.setTimeout(function() {
+                        $("#icon_refresh").fadeTo(500, 0, function(){
+                            //$(this).remove(); 
+                            //$('#icon_refresh').addClass('fade');
+                        });
+                    }, 2000);
+                    //$('#icon_refresh').addClass('fade');
                 }
                 refresh_proco();
             },
