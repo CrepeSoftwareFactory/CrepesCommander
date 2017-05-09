@@ -1,7 +1,7 @@
 
     <div class="liste_proco_client">
         <div class="row">
-            <table class="table table-striped">
+            <table class="table table-striped" >
                 <thead>
                     <tr>
                         <td class="col1">Nom</td>
@@ -12,11 +12,11 @@
                         <td class="col6">Actions</td>
                     </tr>
                 </thead>
-                <tbody>
+                
                     <?php if ($orders) { ?>
                        <?php foreach ($orders as $order) { ?>
                             <tr>
-                                <th colspan="5">Commande de <?php echo $order->get_customer()->lastname; ?></th>
+                                <th colspan="5"><button class="btn btn-info" data-toggle="collapse" data-target="#collapse-<?php echo $order->get_customer()->customer_id; ?>" aria-expanded="false" aria-controls="collapseExample" >Commande de <?php echo $order->get_customer()->lastname; ?></button></th>
                                 <td>
                                 <!--
                                     <a href="#" class="btn btn-success btn-lg">voir</a>
@@ -35,6 +35,7 @@
                                     <?php } ?>
                                 </td>
                             </tr>
+                            <tbody class="collapse" id="collapse-<?php echo $order->get_customer()->customer_id; ?>">
                             <?php foreach ($order->get_products() as $product) { ?>
                                 <tr>
                                     <th><?php echo $order->get_customer()->lastname; ?></th>
@@ -94,9 +95,10 @@
                                     </td>
                                 </tr>
                             <?php } ?>
+                            </tbody>
                         <?php } ?>
                     <?php } ?>
-                </tbody>
+                
                 
             </table>
         </div>        
