@@ -509,7 +509,7 @@ class Controller_Rest_Product_Order extends Controller_Rest
                         $html .= '<div class="dropdown modif_status"><button class="btn btn-default dropdown-toggle" data-status='.$product->get_status()->proco_status_id.' type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">'.$product->get_status()->name.' <span class="caret"></span></button><ul class="dropdown-menu" aria-labelledby="dropdownMenu1">';
                         foreach ($this->statuses as $status)
                         {
-                        $html .= '<li><button class="btn btn-primary btn-lg" data-status='.$status->proco_status_id.' data-idproduct='.$product->get_id().' >'.$status->name.'</button></li>';
+                        $html .= '<li><button class="btn btn-primary btn-lg color-status-'.$status->proco_status_id.'" data-status='.$status->proco_status_id.' data-idproduct='.$product->get_id().' >'.$status->name.'</button></li>';
                         }
                         $html .= '</ul></div>';
                     }

@@ -368,6 +368,7 @@ $(function() {
             var oldStatus = $(this).parent('ul').prev('button').attr('data-status').toString();
             if( newStatus !== oldStatus ){
                 var obj = $(this);
+                obj.parent('ul').prev('button').addClass('disabled');
                 obj.parent('ul').prev('button').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
                 $.ajax({
                     url: '/rest/product/order/change_status.json',
