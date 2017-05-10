@@ -361,15 +361,12 @@ $(function() {
         });
         //Fonction avec requête ajax pour modifier le status de priorité d'une proco depuis la modale
         $('.modif_status li').on('click', function(){
-            alert('youpi1');
             $('.hadToRefresh').val(1);
             var newStatus = $('button', this).attr('data-status');
             var idproduct = $('button', this).attr('data-idproduct');
             var isTop = $('#'+idproduct).hasClass('proco_pile_top');
             var oldStatus = $(this).parent('ul').prev('button').attr('data-status');
-             alert('youpi2');
             if( newStatus !== oldStatus ){
-                 alert('youpi3');
                 var obj = $(this);
                 obj.parent('ul').prev('button').addClass('disabled');
                 obj.parent('ul').prev('button').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
@@ -382,7 +379,6 @@ $(function() {
                         if (data.error==true) {
                             $('.flash_errors').html(data.message);
                         } else {
-                             alert('youpi4');
                             $('.flash_success').html(data.message);
                             obj.parent('ul').prev('button').html(data.newStatus.name+' <span class="caret"></span>');
                             obj.parent('ul').prev('button').attr('data-status', data.newStatus.proco_status_id);
