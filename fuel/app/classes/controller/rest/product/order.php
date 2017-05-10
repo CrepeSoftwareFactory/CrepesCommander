@@ -472,10 +472,10 @@ class Controller_Rest_Product_Order extends Controller_Rest
         $this->statuses = Model_Proco_Status::find();
         
        
-        $html .= '<div class="row"><table class="table table-striped"><thead><tr><td class="col1">Nom</td><td class="col2">Produit</td><td class="col3">Heure</td><td class="col4">Poste</td><td class="col5">Statut</td><td class="col6">Actions</td></tr></thead><tbody>';
+        $html .= '<div class="row"><table class="table table-striped"><thead><tr><td class="col1">Nom</td><td class="col2">Produit</td><td class="col3">Heure</td><td class="col4">Poste</td><td class="col5">Statut</td><td class="col6">Actions</td></tr></thead>';
         if ($orders) {
             foreach ($orders as $order) {
-                $html .= '<tr><th colspan="5">Commande de '.$order->get_customer()->lastname.'</th><td>';
+                $html .= '<tr><th colspan="5"><button class="btn btn-info" data-toggle="collapse" data-target="#collapse-'.$order->get_customer()->customer_id.'" aria-expanded="false" aria-controls="collapseExample" >Commande de '.$order->get_customer()->lastname.'</button></th><td>';
                 if ($order->is_finished()) {
                 $html .= Html::anchor('order/finish/'.$order->get_id(), 'C\'est livré !', array(
                                                     'class' => 'btn btn-success btn-lg order-finished', 
@@ -487,7 +487,7 @@ class Controller_Rest_Product_Order extends Controller_Rest
                                                     'title' => 'Annuler la commande de '.$order->get_customer()->lastname,
                                                 ));
                 }
-                $html .= '</td></tr>';
+                $html .= '</td></tr><tbody class="collapse" id="collapse-'.$order->get_customer()->customer_id.'">';
                 foreach ($order->get_products() as $product) {
                     $html .= '<tr><th>'.$order->get_customer()->lastname.'</th><td>'.$product->get_product()->name.'</td><td>'.date('H\hi', strtotime($order->date)).'</td><td>'. Html::anchor('product/order/affect/'.$product->get_id(), 'Pile', array(
                                                         'class' => 'btn btn-primary btn-lg color-pile '.(!$product->station_id ? ' active ' : ' '),
@@ -524,9 +524,10 @@ class Controller_Rest_Product_Order extends Controller_Rest
                                                         )); 
                     $html .= '</td></tr>';
                 }
+                $html .= '</tbody>';
             }
          } 
-         $html .= '</tbody></table></div>';
+         $html .= '</table></div>';
          $response = array(
                 'error'      => false,  
                 'message'    => '',
