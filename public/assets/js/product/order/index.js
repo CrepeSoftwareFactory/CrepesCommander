@@ -363,10 +363,10 @@ $(function() {
         $('.modif_status li').on('click', function(){
             alert('youpi1');
             $('.hadToRefresh').val(1);
-            var newStatus = $('button', this).attr('data-status').toString();
+            var newStatus = $('button', this).attr('data-status');
             var idproduct = $('button', this).attr('data-idproduct');
             var isTop = $('#'+idproduct).hasClass('proco_pile_top');
-            var oldStatus = $(this).parent('ul').prev('button').attr('data-status').toString();
+            var oldStatus = $(this).parent('ul').prev('button').attr('data-status');
              alert('youpi2');
             if( newStatus !== oldStatus ){
                  alert('youpi3');
