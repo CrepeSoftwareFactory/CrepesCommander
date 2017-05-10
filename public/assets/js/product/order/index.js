@@ -200,6 +200,10 @@ $(function() {
                         }
                         $('.linkStatus').attr('data-idproduct', id);
                         $('.modif_status .dropdown-toggle').html(data.message.name+' <span class="caret"></span>');
+                        
+                        $('.modif_pile .dropdown-toggle').removeClass('disabled');
+                        $('.modif_status .dropdown-toggle').removeClass('disabled');
+                        
                         $('.modal-header').empty();
                         $('.modal-header').append(data.title);
                     }
