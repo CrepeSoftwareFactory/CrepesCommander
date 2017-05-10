@@ -170,8 +170,8 @@ $(function() {
             $('.modal-header').empty();
             $('.modal-header').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
             $('.modal-body').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
-            $('.modif_status .dropdown-toggle').addClass('disabled', true);
-            $('.modif_pile .dropdown-toggle').addClass('disabled', true);
+//            $('.modif_status .dropdown-toggle').addClass('disabled', true);
+//            $('.modif_pile .dropdown-toggle').addClass('disabled', true);
             $.ajax({
                 url: '/rest/product/order/status.json',
                 type: 'post',
@@ -181,8 +181,8 @@ $(function() {
                     var messageComment = "Pas de commentaires !";
                     if (data.error) {
                         $('.flash_errors').html(data.message).show();
-                        $('.modif_pile .dropdown-toggle').removeClass('disabled');
-                        $('.modif_status .dropdown-toggle').removeClass('disabled');
+//                        $('.modif_pile .dropdown-toggle').removeClass('disabled');
+//                        $('.modif_status .dropdown-toggle').removeClass('disabled');
                     } else {
                         if(data['comment']!==null){
                              messageComment = data['comment'];
@@ -201,14 +201,14 @@ $(function() {
                         $('.linkStatus').attr('data-idproduct', id);
                         $('.modif_status .dropdown-toggle').html(data.message.name+' <span class="caret"></span>');
                         
-                        $('.modif_pile .dropdown-toggle').removeClass('disabled');
-                        $('.modif_status .dropdown-toggle').removeClass('disabled');
+//                        $('.modif_pile .dropdown-toggle').removeClass('disabled');
+//                        $('.modif_status .dropdown-toggle').removeClass('disabled');
                         
                         $('.modal-header').empty();
                         $('.modal-header').append(data.title);
                     }
-                    $('.modif_pile .dropdown-toggle').removeClass('disabled');
-                    $('.modif_status .dropdown-toggle').removeClass('disabled');
+//                    $('.modif_pile .dropdown-toggle').removeClass('disabled');
+//                    $('.modif_status .dropdown-toggle').removeClass('disabled');
                     
                     obj.css('background-color', '');
                     $('.hadToRefresh').val(0);
@@ -216,8 +216,8 @@ $(function() {
                 }
             });
             $('#myModal').modal('show');
-            $('.modif_pile .dropdown-toggle').removeClass('disabled');
-            $('.modif_status .dropdown-toggle').removeClass('disabled');
+//            $('.modif_pile .dropdown-toggle').removeClass('disabled');
+//            $('.modif_status .dropdown-toggle').removeClass('disabled');
         });
     }
     
@@ -240,8 +240,8 @@ $(function() {
             $('.modal-header').empty();
             $('.modal-header').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
             $('.modal-body').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
-            $('.modif_status .dropdown-toggle').addClass('disabled', true);
-            $('.modif_pile .dropdown-toggle').addClass('disabled', true);
+//            $('.modif_status .dropdown-toggle').addClass('disabled', true);
+//            $('.modif_pile .dropdown-toggle').addClass('disabled', true);
             $.ajax({
                 url: '/rest/product/order/status.json',
                 type: 'post',
@@ -251,8 +251,8 @@ $(function() {
                     var messageComment = "Pas de commentaires !";
                     if (data.error) {
                         $('.flash_errors').html(data.message).show();
-                        $('.modif_pile .dropdown-toggle').removeClass('disabled');
-                        $('.modif_status .dropdown-toggle').removeClass('disabled');
+//                        $('.modif_pile .dropdown-toggle').removeClass('disabled');
+//                        $('.modif_status .dropdown-toggle').removeClass('disabled');
                     } else {
                         if(data['comment']!==null){
                              messageComment = data['comment'];
@@ -273,8 +273,8 @@ $(function() {
                         $('.modal-header').empty();
                         $('.modal-header').append(data.title);
                     }
-                    $('.modif_pile .dropdown-toggle').removeClass('disabled');
-                    $('.modif_status .dropdown-toggle').removeClass('disabled');
+//                    $('.modif_pile .dropdown-toggle').removeClass('disabled');
+//                    $('.modif_status .dropdown-toggle').removeClass('disabled');
                     
                     obj.css('background-color', '');
                     $('.hadToRefresh').val(0);
@@ -283,8 +283,8 @@ $(function() {
             });
             $('#myModal').modal('show');
             
-            $('.modif_pile .dropdown-toggle').removeClass('disabled');
-            $('.modif_status .dropdown-toggle').removeClass('disabled');
+//            $('.modif_pile .dropdown-toggle').removeClass('disabled');
+//            $('.modif_status .dropdown-toggle').removeClass('disabled');
         });
     }
     
