@@ -360,8 +360,7 @@ $(function() {
             }
         });
         //Fonction avec requête ajax pour modifier le status de priorité d'une proco depuis la modale
-        $('.modif_status li').on('click', function(e){
-            e.preventDefault();
+        $('.modif_status li').on('click', function(){
             $('.hadToRefresh').val(1);
             var newStatus = $('button', this).attr('data-status').toString();
             var idproduct = $('button', this).attr('data-idproduct');
