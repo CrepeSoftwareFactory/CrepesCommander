@@ -247,6 +247,8 @@ $(function() {
                     var messageComment = "Pas de commentaires !";
                     if (data.error) {
                         $('.flash_errors').html(data.message).show();
+                        $('.modif_pile .dropdown-toggle').removeClass('disabled');
+                        $('.modif_status .dropdown-toggle').removeClass('disabled');
                     } else {
                         if(data['comment']!==null){
                              messageComment = data['comment'];
