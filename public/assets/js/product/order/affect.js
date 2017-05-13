@@ -11,7 +11,7 @@ $(function() {
                 });
             }, 2000);
             refresh_pending_orders();
-        }, 10000);
+        }, 17000);
     }
     refreshPage();
     
