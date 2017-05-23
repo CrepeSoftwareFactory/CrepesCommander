@@ -11,7 +11,7 @@ $(function() {
                 });
             }, 2000);
             refresh_pending_orders();
-        }, 17000);
+        }, 5000);
     }
     refreshPage();
     
@@ -19,6 +19,7 @@ $(function() {
     function refresh_pending_orders(){
         $('.flash_success').empty();
         $('.flash_errors').empty();
+        var array_objets_collapse = new Array();
         var html ="";
         html = $('.liste_proco_client').html();
         $.ajax({
@@ -30,8 +31,21 @@ $(function() {
                         $('.flash_errors').html(data.message);
                     } else {
                         if($('.liste_proco_client').html() != data.response){ 
+                            /* Récupère les ID des items dépliés */ 
+                            $('.liste_proco_client .collapse').each( function(){
+                                if($(this).hasClass('in')) {
+                                    array_objets_collapse.push($(this).attr("id"));
+                                }
+                            } );
+                            
                             $('.liste_proco_client').empty();
                             $('.liste_proco_client').html(data.response);
+                            /* déplie les items dépliés avant le refresh */
+                            for (let valeur of array_objets_collapse) {
+                                var idDiv = "#" + valeur;
+                                $(idDiv).addClass('in');
+                            }
+                            
                             $('.flash_success').html(data.message);
                             generate_all_script();
                         }
@@ -194,6 +208,7 @@ $(function() {
                     }
                 }
             });
+            refresh_pending_orders();
 
         });
 

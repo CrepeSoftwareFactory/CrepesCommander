@@ -88,8 +88,10 @@
                                         ?>
                                     </td>
                                     <td>
-                                    <a href="#" class="btn btn-success btn-lg">voir</a>
+                                        <!-- 
+                                        <a href="#" class="btn btn-success btn-lg">voir</a>
                                         <a href="#" class="btn btn-success btn-lg">modifier</a>
+                                        -->
                                         <?php echo Html::anchor('product/order/delete/'.$product->get_id(), 'Supprimer', array(
                                             'class' => 'btn btn-success btn-lg product-delete',
                                             'title' => 'Supprimer '.$product,
