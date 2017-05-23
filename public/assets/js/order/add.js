@@ -198,7 +198,16 @@ $( document ).ready(function() {
         else if ($('input#submit').val()=='En cours de création...'){
             return false;
         }
-        
+        var sum = 0;
+        $('.achat_qtt').each(function() {
+            sum += Number($(this).html());
+        });
+        if(sum<=0){
+            alert('Vous n\'avez aucun produit dans votre commande !');
+            return false;
+        }
+
+
         $('input#submit').val('En cours de création...');
         $('.flash_success').hide();
         $('.flash_errors').hide();

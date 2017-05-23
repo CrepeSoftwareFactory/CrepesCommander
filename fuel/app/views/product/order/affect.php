@@ -36,7 +36,9 @@
                                 </td>
                             </tr>
                             <tbody class="collapse" id="collapse-<?php echo $order->get_customer()->customer_id; ?>">
-                            <?php foreach ($order->get_products() as $product) { ?>
+                            <?php
+                                if($order->get_products()){
+                                foreach ($order->get_products() as $product) { ?>
                                 <tr>
                                     <th><?php echo $order->get_customer()->lastname; ?></th>
                                     <td><?php echo $product->get_product()->name; ?></td>
@@ -86,15 +88,19 @@
                                         ?>
                                     </td>
                                     <td>
-            <!--                        <a href="#" class="btn btn-success btn-lg">voir</a>
-                                        <a href="#" class="btn btn-success btn-lg">modifier</a>-->
+                                    <a href="#" class="btn btn-success btn-lg">voir</a>
+                                        <a href="#" class="btn btn-success btn-lg">modifier</a>
                                         <?php echo Html::anchor('product/order/delete/'.$product->get_id(), 'Supprimer', array(
                                             'class' => 'btn btn-success btn-lg product-delete',
                                             'title' => 'Supprimer '.$product,
                                         )); ?>
                                     </td>
                                 </tr>
-                            <?php } ?>
+                            <?php 
+                                } 
+                            } else{ ?>
+                            <tr><th>Pas de crêpes sur cette commande</th></tr>
+                                <?php } ?>
                             </tbody>
                         <?php } ?>
                     <?php } ?>

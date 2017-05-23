@@ -18,13 +18,25 @@
                                     <span style="color:red"> - <?php echo Model_Order::$status[$order->status]; ?></span>
                                 </th>
                             </tr>
-                            <?php foreach ($order->get_products() as $product) { ?>
-                                <tr>
-                                    <th><?php echo $order->get_customer()->lastname; ?></th>
-                                    <td><?php echo $product->get_product()->name; ?></td>
-                                    <td><?php echo date('H\hi', strtotime($order->date)); ?></td>
-                                </tr>
-                            <?php } ?>
+                            <?php 
+                                if($order->get_products()){
+                                    foreach ($order->get_products() as $product) { ?>
+                                    <tr>
+                                        <th><?php echo $order->get_customer()->lastname; ?></th>
+                                        <td><?php echo $product->get_product()->name; ?></td>
+                                        <td><?php echo date('H\hi', strtotime($order->date)); ?></td>
+                                    </tr>
+                                <?php } ?>
+                            <?php 
+                                } 
+                                else{
+                                        ?>
+                                    <tr>
+                                        <th>Pas de produits commandés</th>
+                                    </tr>
+                            <?php
+                                    }
+                            ?>
                         <?php } ?>
                     <?php } ?>
                 </tbody>

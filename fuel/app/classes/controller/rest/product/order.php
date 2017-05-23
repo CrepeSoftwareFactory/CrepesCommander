@@ -488,41 +488,46 @@ class Controller_Rest_Product_Order extends Controller_Rest
                                                 ));
                 }
                 $html .= '</td></tr><tbody class="collapse" id="collapse-'.$order->get_customer()->customer_id.'">';
-                foreach ($order->get_products() as $product) {
-                    $html .= '<tr><th>'.$order->get_customer()->lastname.'</th><td>'.$product->get_product()->name.'</td><td>'.date('H\hi', strtotime($order->date)).'</td><td>'. Html::anchor('product/order/affect/'.$product->get_id(), 'Pile', array(
-                                                        'class' => 'btn btn-primary btn-lg color-pile '.(!$product->station_id ? ' active ' : ' '),
-                                                        'data-station'  => '0',
-                                                        'data-product'  => $product->get_id(),
-                                                        'data-order'    => $order->get_id(),
-                                                    ));
-                    $i = 1;
-                    foreach ($this->stations as $station) { 
-                    $html .=  ' '.Html::anchor('product/order/affect/'.$product->get_id().'/'.$station->get_id(), $station->name, array(
-                                                                'class' => 'btn btn-primary btn-lg color-poste-'.$i.($product->station_id == $station->get_id() ? ' active ' : ' '),
-                                                                'data-station'  => $station->get_id(),
-                                                                'data-product'  => $product->get_id(),
-                                                            )); 
-                    $i++;
-                    }
-                    $html .= '</td><td>';
-                    if(!$product->is_cooked()){
-                        $html .= '<div class="dropdown modif_status"><button class="btn btn-default dropdown-toggle" data-status='.$product->get_status()->proco_status_id.' type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">'.$product->get_status()->name.' <span class="caret"></span></button><ul class="dropdown-menu" aria-labelledby="dropdownMenu1">';
-                        foreach ($this->statuses as $status)
-                        {
-                        $html .= '<li><button class="btn btn-primary btn-lg color-status-'.$status->proco_status_id.'" data-status='.$status->proco_status_id.' data-idproduct='.$product->get_id().' >'.$status->name.'</button></li>';
+                if($order->get_products()){
+                    foreach ($order->get_products() as $product) {
+                        $html .= '<tr><th>'.$order->get_customer()->lastname.'</th><td>'.$product->get_product()->name.'</td><td>'.date('H\hi', strtotime($order->date)).'</td><td>'. Html::anchor('product/order/affect/'.$product->get_id(), 'Pile', array(
+                                                            'class' => 'btn btn-primary btn-lg color-pile '.(!$product->station_id ? ' active ' : ' '),
+                                                            'data-station'  => '0',
+                                                            'data-product'  => $product->get_id(),
+                                                            'data-order'    => $order->get_id(),
+                                                        ));
+                        $i = 1;
+                        foreach ($this->stations as $station) { 
+                        $html .=  ' '.Html::anchor('product/order/affect/'.$product->get_id().'/'.$station->get_id(), $station->name, array(
+                                                                    'class' => 'btn btn-primary btn-lg color-poste-'.$i.($product->station_id == $station->get_id() ? ' active ' : ' '),
+                                                                    'data-station'  => $station->get_id(),
+                                                                    'data-product'  => $product->get_id(),
+                                                                )); 
+                        $i++;
                         }
-                        $html .= '</ul></div>';
+                        $html .= '</td><td>';
+                        if(!$product->is_cooked()){
+                            $html .= '<div class="dropdown modif_status"><button class="btn btn-default dropdown-toggle" data-status='.$product->get_status()->proco_status_id.' type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">'.$product->get_status()->name.' <span class="caret"></span></button><ul class="dropdown-menu" aria-labelledby="dropdownMenu1">';
+                            foreach ($this->statuses as $status)
+                            {
+                            $html .= '<li><button class="btn btn-primary btn-lg color-status-'.$status->proco_status_id.'" data-status='.$status->proco_status_id.' data-idproduct='.$product->get_id().' >'.$status->name.'</button></li>';
+                            }
+                            $html .= '</ul></div>';
+                        }
+                        else
+                        {
+                            $html .= '<button class="btn btn-primary btn-lg disabled" role="button">Terminé</button>';
+                        }
+                        $html .= '</td><td>';
+                        $html .= Html::anchor('product/order/delete/'.$product->get_id(), 'Supprimer', array(
+                                                                'class' => 'btn btn-success btn-lg product-delete',
+                                                                'title' => 'Supprimer '.$product,
+                                                            )); 
+                        $html .= '</td></tr>';
                     }
-                    else
-                    {
-                        $html .= '<button class="btn btn-primary btn-lg disabled" role="button">Terminé</button>';
-                    }
-                    $html .= '</td><td>';
-                    $html .= Html::anchor('product/order/delete/'.$product->get_id(), 'Supprimer', array(
-                                                            'class' => 'btn btn-success btn-lg product-delete',
-                                                            'title' => 'Supprimer '.$product,
-                                                        )); 
-                    $html .= '</td></tr>';
+                }
+                else{
+                    $html .= '<tr><th>Pas de crêpes sur cette commande</th>';
                 }
                 $html .= '</tbody>';
             }

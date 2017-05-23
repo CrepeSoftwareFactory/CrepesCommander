@@ -42,6 +42,9 @@ class Model_Order extends Model_Crud
     {
         if ($this->_products === false) {
             $this->_products = Model_Product_Order::find_by('order_id', $this->get_id());
+            if(empty($this->_products)){
+                return false;
+            }
         }
         return $this->_products;   
     }
