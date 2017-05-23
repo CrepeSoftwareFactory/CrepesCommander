@@ -99,7 +99,7 @@
                             <?php 
                                 } 
                             } else{ ?>
-                            <tr><th>Pas de crêpes sur cette commande</th></tr>
+                            <tr><th>Pas de produits sur cette commande</th></tr>
                                 <?php } ?>
                             </tbody>
                         <?php } ?>

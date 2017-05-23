@@ -527,7 +527,7 @@ class Controller_Rest_Product_Order extends Controller_Rest
                     }
                 }
                 else{
-                    $html .= '<tr><th>Pas de crêpes sur cette commande</th>';
+                    $html .= '<tr><th>Pas de produits sur cette commande</th>';
                 }
                 $html .= '</tbody>';
             }
