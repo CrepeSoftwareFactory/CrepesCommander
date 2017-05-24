@@ -4,6 +4,9 @@
             <?php 
             $i = 1;
             foreach ($stations as $station) { ?>
+            <?php if($i == 3) { //on ferme la ligne pour les deux premièrs blocs ?> 
+    </div><div class="row">
+            <?php } ?>
             <div class="col-sm-6 col-md-6" id="liste_poste_<?php echo $i; ?>">
                 <?php echo Form::hidden(array(
                     'class'     => 'station_id',    
