@@ -3,7 +3,7 @@
 
 .expanded .achat_libelle {
 	display:inline-block;
-	width:150px;
+	width:270px;
 }
 
 .achat_qtt_display {
@@ -12,6 +12,10 @@
 
 .achat_ligne {
 	display:block;
+}
+
+.ligne_achat {
+    clear:both;
 }
 
 .achat_default {
@@ -140,7 +144,15 @@ INPUT#submit {
    display:none; 
 }
 
+
+
 /* version complete */
 .expanded #submit, .expanded .achat_total {
     display:none;
+}
+
+.expanded .price {
+    width: 61px;
+    display: inline;
+    margin-left: 30px;
 }

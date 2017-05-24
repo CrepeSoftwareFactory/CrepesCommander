@@ -43,7 +43,7 @@
                     </div>
                     <h3>Panier</h3>
                     <ul id="liste_achats" class="list-unstyled">  
-                        <li class="achat_default" id="default">
+                        <li class="achat_default ligne_achat" id="default">
                             <span class="achat_qtt" data-achat-qtt="0">0</span> x 
                             <span class="achat_libelle">Aucun produit</span>
                             
@@ -61,6 +61,7 @@
                             <?php echo Form::input(array(
                                 'name'      => null,
                                 'class'     => 'comment form-control',
+                                'placeholder' => 'Commentaire ( -- pour enlever ++ pour rajouter <> pour remplacer)',
                             )); ?>
                             <br>
 <!--                            <span class="gratuite" style="margin-left: 10px;">-->
