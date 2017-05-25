@@ -42,7 +42,7 @@ flash_success {
     color: white;
 }
 
-@media(max-width:1025px){
+@media(max-width:1225px){
     body{
         font-size: 200%;
     }

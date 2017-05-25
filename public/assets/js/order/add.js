@@ -37,11 +37,10 @@ function display_new_qtt(cible,qtt) {
 
 function update_achat_total(cible) {
 	var total = parseFloat(cible.data("achat-qtt")) * parseFloat(cible.data("valeurmarchande"));
+        total = Math.round(total*100)/100;
 	cible.data("achat_total",total);
-//	console.log('cible = '+cible+' && cible.data("achat_total") = '+cible.data("achat_total"));
 	cible.find(".achat_total").html(total);
         
-//	console.log('cible = '+cible+' && cible.data("achat_total") = '+cible.data("achat_total"));
 	cible.find(".price").val(total);
 	update_total();
 }
@@ -49,13 +48,10 @@ function update_achat_total(cible) {
 function update_total() {
 	var total = 0;
 	$("#liste_achats LI").each(function() {
-		//console.log('$(this) = '+$(this)+' && $(this).data("achat_total") = '+$(this).data("achat_total"));
 		var current_total = parseFloat($(this).data("achat_total"));
-		//console.log('$(this).data("achat_total") = ' + $(this).data("achat_total"));
                 if ($(this).find('input[type="checkbox"].free:checked').length === 0) {
                     total = parseFloat(total) + parseFloat(current_total);
                 }
-//		console.log("total = "+parseFloat(total));
 	});
 	$("#panier #total").data("valeur",total);
 	$("#panier #total").html(total);

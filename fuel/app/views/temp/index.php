@@ -15,5 +15,10 @@
         <div>
             Ventes : <?php echo $sales; ?>
         </div>
+        <div>
+            Infos : raspiCC3544
+        </div>
+        
+        
     </div>
 </div>
