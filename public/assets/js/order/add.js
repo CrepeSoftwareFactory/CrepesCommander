@@ -38,7 +38,8 @@ function display_new_qtt(cible,qtt) {
 function update_achat_total(cible) {
 	var total = parseFloat(cible.data("achat-qtt")) * parseFloat(cible.data("valeurmarchande"));
         total = Math.round(total*100)/100;
-	cible.data("achat_total",total);
+	
+        cible.data("achat_total",total);
 	cible.find(".achat_total").html(total);
         
 	cible.find(".price").val(total);
@@ -49,8 +50,10 @@ function update_total() {
 	var total = 0;
 	$("#liste_achats LI").each(function() {
 		var current_total = parseFloat($(this).data("achat_total"));
+                current_total = Math.round(current_total*100)/100;
                 if ($(this).find('input[type="checkbox"].free:checked').length === 0) {
                     total = parseFloat(total) + parseFloat(current_total);
+                    total = Math.round(total*100)/100;
                 }
 	});
 	$("#panier #total").data("valeur",total);
@@ -80,6 +83,7 @@ function modify_cart(type) { /* type = expanded || summary */
 function calcul_monnaie(champ_monnaie,total) {
     var valeur_monnaie = champ_monnaie.val();
     var total = parseFloat(total);
+    total = Math.round(total*100)/100;
     
     if(valeur_monnaie > total) {
         var valeur_a_rendre = valeur_monnaie - total;
@@ -97,6 +101,7 @@ function update_valeur_marchande(cible){
 //    console.log(nouvelle_valeur);
     var quotient = cible.parent().data("achat-qtt");
     nouvelle_valeur=parseFloat(nouvelle_valeur)/parseFloat(quotient);
+    nouvelle_valeur = Math.round(nouvelle_valeur*100)/100;
     cible.parent().data("valeurmarchande",parseFloat(nouvelle_valeur));
 //  console.log(cible.parent().data("valeurmarchande"));
 }
