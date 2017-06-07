@@ -18,6 +18,9 @@
         <div>
             Infos : raspiCC3544
         </div>
+        <div>
+            Infos : <a href="/assets/misc/CC-KaraokenavoCarnetdechansons.pdf">Paroles du karaokenavo</a>
+        </div>
         
         
     </div>
