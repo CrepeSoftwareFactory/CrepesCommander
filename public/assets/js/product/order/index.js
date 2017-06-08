@@ -1,4 +1,4 @@
-$(function() {
+﻿$(function() {
     var gotoRefresh = '';
     $("#icon_refresh").fadeTo(1, 0); // cache l'icone qui permet de savoir quand les refresh sont lancés
     $('.notSelectable').disableSelection(); // active un script qui rend certains textes non selectionnable avec un taphold
