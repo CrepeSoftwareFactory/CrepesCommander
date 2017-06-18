@@ -1,5 +1,6 @@
 $(function() {
     $("#icon_refresh").fadeTo(1, 0);
+    
     function refreshPage(){
         // Fonction pour rafraichir la page en Ajax toutes les 5 secondes
         gotoRefresh = setInterval(function(){
@@ -212,7 +213,7 @@ $(function() {
 
         });
 
-        //Fonction avec requete ajax pour modifier une pile ne cliquant sur Pile,P1,P2...Pn
+        //Fonction avec requete ajax pour modifier une pile en cliquant sur Pile,P1,P2...Pn
         $('a.btn-primary.btn-lg').on('click', function(e){
             //On empeche toute action sur le click en question une fois un premier click effectué
             e.preventDefault();

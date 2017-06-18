@@ -13,7 +13,7 @@
                     'name'      => 'station_id[]',    
                     'value'     => $station->get_id(),    
                 )); ?>
-                <span class="label label-poste"><?php echo $station->name; ?></span>
+                <span class="label label-poste"><?php echo $station->name; ?> <span id="chrono-proco">x</span></span>
                 <?php $cookedProduct = $station->get_cooking_product();
                 //print_r($cookedProduct);
                 ?>

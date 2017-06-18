@@ -91,6 +91,7 @@ function calcul_monnaie(champ_monnaie,total) {
         var valeur_a_rendre = 0;
     }
     
+    valeur_a_rendre = Math.round(valeur_a_rendre*100)/100;
     return valeur_a_rendre;
 }
 /* Fin Function de rendu monnaie ! */

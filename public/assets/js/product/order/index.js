@@ -33,11 +33,12 @@
         $('.hadToRefresh').val(1);
         var proco_pile = obj;
         var href = $('.cook', obj).attr('href');
-        var product_before = proco_pile.attr('id');
+        var product_before = proco_pile.attr('id'); // stock l'id de la proco qui viens d'être terminée et qui est encore affichée
         if(href){
             var contenuObj = obj.html();
             obj.html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
-            var id_commande = href.substr(href.lastIndexOf('/')+1);
+            var id_commande = href.substr(href.lastIndexOf('/')+1); // numéro de la pile
+           
             $('.flash_errors').empty();
             $('.flash_success').empty();
             $.ajax({
@@ -50,6 +51,7 @@
                         $('.flash_errors').html(data.message);
                     } else {
                         $('#'+data.idProduct).remove();
+                        // data.idProduct = id du prochain produit à afficher
                         proco_pile.empty();
                         proco_pile.html(data.message);
                         var parent = proco_pile.parent();
@@ -59,6 +61,7 @@
                     proco_pile.removeClass('clicked');
                     $('.hadToRefresh').val(0);
                     verif_no_proco_pile();
+                    start_chrono(id_commande);
                 },
                 timeout: function() {
                     $('.flash_errors').html('Impossible de joindre le serveur !!!');
@@ -405,8 +408,98 @@
         });
     }
     
+    // Fonction pour initialiser les chronos JS qui s'affichent sur les différentes proco en cours de prepa
+    function init_chronos() {
+        var array_chronos = new Array();
+        $('body').data('array_chronos',array_chronos);
+        
+        for (var iter = 1; iter <= 4; iter++) {
+            array_chronos[iter] = new Array();
+            array_chronos[iter]['minutes'] = 0;
+            array_chronos[iter]['secondes'] = 0;
+            array_chronos[iter]['timer'] = false;
+        }
+        
+        //var chrono_1 = array_chronos[0] ({"minutes":0, "sec":0});
+    }
+    
+    function reset_chronos(id_chrono) {
+        clearTimeout(array_chronos[id_chrono]['timer']);
+        // TODO : reset dynamique des chronos et passage en parametre d'un id chrono ou de "all"
+        console.log("reset du crono "+  id_chrono);
+        if(id_chrono == "all") {
+            for (var iter = 1; iter <= 4; iter++) {
+                array_chronos[iter] = new Array();
+                array_chronos[iter]['minutes'] = 0;
+                array_chronos[iter]['secondes'] = 0;
+                array_chronos[iter]['timer'] = false;
+            }
+        } else {
+            array_chronos[id_chrono] = new Array();
+            array_chronos[id_chrono]['minutes'] = 0;
+            array_chronos[id_chrono]['secondes'] = 0;
+            array_chronos[id_chrono]['timer'] = false;
+        }
+    }
+    
+    function stop_chronos() {
+        
+    }
+    
+    function start_chrono(id_chrono) {
+        
+        array_chronos = $('body').data('array_chronos');
+        chrono_params = array_chronos[id_chrono];
+        
+        console.log("chrono_params['timer'] = "+chrono_params["timer"]);
+        if(chrono_params["timer"] === false) {
+            //timer false donc on lance
+            chrono_params["timer"] == 0;
+            boucle_chrono(id_chrono);
+        } else {
+            restart_chrono(id_chrono);
+        } 
+    }
+
+    function restart_chrono(id_chrono) {
+        reset_chronos(id_chrono);
+        boucle_chrono(id_chrono);
+    }
+    
+    function boucle_chrono(id_chrono){
+        // la fonction se lance toutes les secondes 
+        var frequence_chrono = 1000;
+        array_chronos = $('body').data('array_chronos');
+        minu = array_chronos[id_chrono]["minutes"];
+        secon = array_chronos[id_chrono]["secondes"];
+        secon++;
+        if (secon > 59){ 
+            secon = 0; 
+            minu ++ ;
+        } //si les secondes > 59, on les réinitialise à 0 et on incrémente les minutes de 1
+        
+        var display_time = minu +":"+secon;
+        $("#liste_poste_"+id_chrono+" .label-poste #chrono-proco").html(display_time);
+        //console.log("chrono "+id_chrono+" : " + minu +":"+secon );
+        array_chronos[id_chrono]["minutes"] = minu;
+        array_chronos[id_chrono]["secondes"] = secon;
+        compte = array_chronos[id_chrono]["timer"];
+        compte = setTimeout(function(){ boucle_chrono(id_chrono); },frequence_chrono) ; //la fonction est relancée 
+        array_chronos[id_chrono]["timer"] = compte ;
+    }
+    
+    init_chronos();
+    
     // permet de rendre toute la case qui englobe le lien cliquable
     $(".liste_poste").on('click','.proco_pile_top',function( event ) {
+        //array_chronos = $('body').data('array_chronos');
+        //start_chrono(0);
+        //if(array_chronos[0]["timer"] == false) {
+            
+        /*} else {
+            console.log("stop du chrono");
+            reset_chronos();
+       }*/
         event.stopPropagation();
         event.preventDefault();
         $('.hadToRefresh').val(1);
