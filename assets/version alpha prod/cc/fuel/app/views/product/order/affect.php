@@ -24,7 +24,7 @@
                                     <?php if ($order->is_finished()) { ?>
                                     <?php echo Html::anchor('order/finish/'.$order->get_id(), 'C\'est livré !', array(
                                         'class' => 'btn btn-success btn-lg order-finished', 
-                                        'title' => 'Livrer la commande de '.$order->get_customer()->lastname,
+                                        'title' => 'Commande de '.$order->get_customer()->lastname.' livrée',
                                     )); ?>
                                     <?php } else { ?>
                                     <?php echo Html::anchor('order/cancel/'.$order->get_id(), 'Annuler cmde', array(

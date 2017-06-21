@@ -153,7 +153,9 @@ $(function() {
             $('.flash_success').html();
             var obj = $(this);
             $(this).html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
-            $('<div>'+$(this).attr('title')+' ?</div>').dialog({
+            
+            action_commande('finish', obj, "C'est livré !");
+            /*$('<div>'+$(this).attr('title')+' ?</div>').dialog({
                 buttons: {
                     'Oui': function() {
                         action_commande('finish', obj, "C'est livré !");
@@ -165,9 +167,10 @@ $(function() {
                     }
                 },
                 close: function( event, ui ) {
+                    action_commande('finish', obj, "C'est livré !");
                     obj.html("C'est livré !");
                 }
-            });
+            });*/
         }); 
 
         //Fonction avec requête ajax pour supprimer une ligne de proco
