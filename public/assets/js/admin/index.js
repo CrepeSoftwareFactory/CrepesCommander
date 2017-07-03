@@ -8,7 +8,7 @@ $( document ).ready(function() {
         $('.nbPiles').append('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
         $('.flash_success').hide();
         $('.flash_errors').hide();
-        nbPiles = $(this).val();
+        var nbPiles = $(this).val();
         $.ajax({
             url: '/rest/admin/changeNbPiles.json',
             type: 'post',

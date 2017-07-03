@@ -1,4 +1,4 @@
-﻿$(function() {
+$(function() {
     var gotoRefresh = '';
     $("#icon_refresh").fadeTo(1, 0); // cache l'icone qui permet de savoir quand les refresh sont lancés
     $('.notSelectable').disableSelection(); // active un script qui rend certains textes non selectionnable avec un taphold
@@ -413,7 +413,7 @@
         var array_chronos = new Array();
         $('body').data('array_chronos',array_chronos);
         
-        for (var iter = 1; iter <= 4; iter++) {
+        for (var iter = 1; iter <= 10; iter++) {
             array_chronos[iter] = new Array();
             array_chronos[iter]['minutes'] = 0;
             array_chronos[iter]['secondes'] = 0;
@@ -428,7 +428,7 @@
         // TODO : reset dynamique des chronos et passage en parametre d'un id chrono ou de "all"
         console.log("reset du crono "+  id_chrono);
         if(id_chrono == "all") {
-            for (var iter = 1; iter <= 4; iter++) {
+            for (var iter = 1; iter <= 10; iter++) {
                 array_chronos[iter] = new Array();
                 array_chronos[iter]['minutes'] = 0;
                 array_chronos[iter]['secondes'] = 0;
