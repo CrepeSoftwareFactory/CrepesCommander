@@ -49,6 +49,7 @@
                     <li class="<?php echo ($menu == 'product-order-affect' ? 'active' : ''); ?>"><?php echo Html::anchor('product/order/affect', 'Cmdes en cours'); ?></li>
                     <li class="<?php echo ($menu == 'order-finished' ? 'active' : ''); ?>"><?php echo Html::anchor('order/finished', 'Cmdes terminées'); ?></li>
                     <li class="<?php echo ($menu == 'temp' ? 'active' : ''); ?>"><?php echo Html::anchor('temp', 'Rapport'); ?></li>
+                    <li class="<?php echo ($menu == 'admin' ? 'active' : ''); ?>"><?php echo Html::anchor('admin', 'Admin'); ?></li>
                     <li class="<?php echo ($menu == 'misc' ? 'active' : ''); ?>"><?php echo Html::anchor('misc', 'Quitter'); ?></li>
                     <!--<li><?php echo Html::anchor('user/logout', 'Quitter'); ?></li>-->
                     <li><div id="icon_refresh" class="well well-sm icon-autorefresh"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></div></li>

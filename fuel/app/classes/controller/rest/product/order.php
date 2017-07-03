@@ -113,8 +113,8 @@ class Controller_Rest_Product_Order extends Controller_Rest
              try {
                 $product = Model_Product_Order::find_by_pk($product_id);
                 $product_info = $product->get_product();
-                 $product_order = $product->get_order();
-                 $product_customer = $product_order->get_customer();
+                $product_order = $product->get_order();
+                $product_customer = $product_order->get_customer();
                  
                 
                 $status = Model_Proco_Status::find_by_pk($product->status);
