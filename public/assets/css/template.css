@@ -98,6 +98,14 @@ flash_success {
     background-color: #85144b;
 }
 
+.display-inline{
+    display:inline;
+}
 .icon-autorefresh {
     font-size:13px;
+}
+
+.modif_pile.open .dropdown-menu{
+    height: 250px;
+    overflow-x: auto;
 }

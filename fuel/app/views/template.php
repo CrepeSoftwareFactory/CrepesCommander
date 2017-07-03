@@ -11,6 +11,7 @@
 
     <!-- Bootstrap core CSS -->
     <?php echo Asset::css('bootstrap.min.css'); ?>
+    <?php echo Asset::css('bootstrap-select.min.css'); ?>
     <?php echo Asset::css('jquery-ui.min.css'); ?>
     <?php echo Asset::css('jquery-ui.structure.min.css'); ?>
     <?php echo Asset::css('jquery-ui.theme.min.css'); ?>
@@ -42,6 +43,7 @@
             <div id="menu">
                 <ul class="nav nav-pills nav-xs">
                     <?php !isset($menu) and $menu = ''; ?>
+                    <li class="<?php echo ($menu == '' ? 'active' : ''); ?>"><?php echo Html::anchor('', 'Home'); ?></li>
                     <li class="<?php echo ($menu == 'order-add' ? 'active' : ''); ?>"><?php echo Html::anchor('order/add', 'J\'ai faim...'); ?></li>
                     <li class="<?php echo ($menu == 'product-order' ? 'active' : ''); ?>"><?php echo Html::anchor('product/order', 'Au boulot !'); ?></li>
                     <li class="<?php echo ($menu == 'product-order-affect' ? 'active' : ''); ?>"><?php echo Html::anchor('product/order/affect', 'Cmdes en cours'); ?></li>
@@ -67,6 +69,7 @@
     <?php echo Asset::js('jquery-ui.min.js'); ?>
     <?php echo Asset::js('jquery.mobile.custom.min.js'); ?>
     <?php echo Asset::js('bootstrap.min.js'); ?>
+    <?php echo Asset::js('bootstrap-select.min.js'); ?>
     <?php
         if (isset($js)) {
             foreach ($js as $js_file) {
