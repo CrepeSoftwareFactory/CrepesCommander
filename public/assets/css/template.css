@@ -53,19 +53,49 @@ flash_success {
 }
 
 .color-poste-1 {
-    background-color: #215c1a;
+    background-color: #001f3f;
 }
 
 .color-poste-2 {
-    background-color: #557e45;
+    background-color: #0074D9;
 }
 
 .color-poste-3 {
-    background-color: #ab6500;
+    background-color: #7FDBFF;
 }
 
 .color-poste-4 {
-    background-color: #d55813;
+    background-color: #F012BE;
+}
+
+
+.color-poste-5 {
+    background-color: #3D9970;
+}
+
+
+.color-poste-6 {
+    background-color: #2ECC40;
+}
+
+
+.color-poste-7 {
+    background-color: #01FF70;
+}
+
+
+.color-poste-8 {
+    background-color: #FFDC00;
+}
+
+
+.color-poste-9 {
+    background-color: #FF851B;
+}
+
+
+.color-poste-10 {
+    background-color: #85144b;
 }
 
 .icon-autorefresh {

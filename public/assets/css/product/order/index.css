@@ -47,19 +47,47 @@ a {
 }
 
 #liste_poste_1 .label-poste {
-    background-color: #215c1a;
+    background-color: #001f3f;
 }
 
 #liste_poste_2 .label-poste {
-    background-color: #557e45;
+    background-color: #0074D9;
 }
 
 #liste_poste_3 .label-poste {
-    background-color: #ab6500;
+    background-color: #7FDBFF;
 }
 
 #liste_poste_4 .label-poste {
-    background-color: #d55813;
+    background-color: #F012BE;
+}
+
+#liste_poste_5 .label-poste {
+    background-color: #3D9970;
+}
+
+#liste_poste_6 .label-poste {
+    background-color: #2ECC40;
+}
+
+
+#liste_poste_7 .label-poste {
+    background-color: #01FF70;
+}
+
+
+#liste_poste_8 .label-poste {
+    background-color: #FFDC00;
+}
+
+
+#liste_poste_9 .label-poste {
+    background-color: #FF851B;
+}
+
+
+#liste_poste_10 .label-poste {
+    background-color: #85144b;
 }
 
 .produit_0 {
