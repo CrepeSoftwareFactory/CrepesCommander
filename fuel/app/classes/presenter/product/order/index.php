@@ -4,7 +4,17 @@ class Presenter_Product_Order_Index extends Presenter
 {
     public function view()
     {
-        $this->stations = Model_Station::find();
+        if(!empty($_GET['p']) && !empty($_GET['p'][0]) && isset($_GET['p'])){
+            $parametres = $_GET['p'];
+            $this->stations = Model_Station::find(array(
+                'where' => array(array('station_id', 'in', $parametres),
+                ),
+                'order_by' => array('station_id' => 'asc'),
+            ));
+        }
+        else{
+            $this->stations = Model_Station::find();
+        }
         $this->alone_products = Model_Product_Order::find_by(function($query) {
             $query
                 ->join(array('order', 'or'), 'INNER')
