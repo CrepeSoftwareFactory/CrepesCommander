@@ -105,6 +105,10 @@ flash_success {
     font-size:13px;
 }
 
+.redText{
+    color: crimson;
+}
+
 .modif_pile.open .dropdown-menu{
     height: 250px;
     overflow-x: auto;

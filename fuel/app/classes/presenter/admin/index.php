@@ -4,7 +4,8 @@ class Presenter_Admin_Index extends Presenter
 {
     public function view()
     {
-        $this->orders = Model_Order::find();
         $this->stations = Model_Station::find();
+        $this->products = Model_Product::find();
+        $this->types = Model_Product_Type::find();
     }
 }

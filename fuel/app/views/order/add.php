@@ -7,16 +7,18 @@
     <div class="row">
         <div class="col-xs-9">
             <div id="choix_produit" >
-                <?php foreach ($types as $key => $type) { ?>
-                    <?php if(!empty($products[$key])) { ?>
-                        <ul data-role="listview" class="list-unstyled btn-group btn-group-lg" id="<?php echo strtolower($type); ?>">
-                        <?php foreach ($products[$key] as $product) {  ?>
+                <?php foreach ($types as $type) { ?>
+                    <?php if(!empty($products[$type->type_id])) { ?>
+                        <ul data-role="listview" class="list-unstyled btn-group btn-group-lg" id="<?php echo strtolower($type->type_label); ?>">
+                        <?php foreach ($products[$type->type_id] as $product) {  ?>
                             <li>                            
                                 <?php 
+                                $color = 'background-color: '.$type->type_couleur.';';
                                 $content_a = $product->code." <span>".$product->name."</span>";
                                 echo Html::anchor('#', $content_a, array(
                                     'id'                    => 'product_'.$product->get_id(),
                                     'class'                 => 'btn btn-lg btn-default',
+                                    'style'                 => $color,
                                     'data-id'               => $product->get_id(),
                                     'data-valeurmarchande'  => $product->price,
                                     'data-nomcomplet'       => $product->name,

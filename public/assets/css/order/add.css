@@ -84,18 +84,6 @@ DIV#choix_produit LI A SPAN {
     display:block;
 }
 
-DIV#choix_produit #crepe > LI > A {
-    background-color: #fceb78;
-}
-
-DIV#choix_produit #autre > LI > A {
-    background-color: #aaecc8;
-}
-
-DIV#choix_produit #galette > LI > A {
-/*    background-color: #ac8960;*/
-}
-
 #choix_produit UL  {
     display:inline;
 }
