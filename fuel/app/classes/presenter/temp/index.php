@@ -12,7 +12,7 @@ class Presenter_Temp_Index extends Presenter
             $this->count_delivered = Model_Order::count('order_id', true, function($query) {
                 $query->where('status', Model_Order::STATUS_DELIVERED);
             });
-            
+        
             $this->count_salt = Model_Product_Order::count('product_order_id', true, function($query) {
                 $query
                     ->join(array('product', 'pr'), 'INNER')
@@ -35,6 +35,14 @@ class Presenter_Temp_Index extends Presenter
                 ;
             });
             
-            $this->sales = 0;
+            $this->sales = Model_Product_Order::find();
+            $this->price = 0;
+            foreach($this->sales as $i)
+            {
+                $this->price += intval($i->get_price());
+            }
+            
+            $this->types = Model_Product_Type::find();
+            
 	}
 }

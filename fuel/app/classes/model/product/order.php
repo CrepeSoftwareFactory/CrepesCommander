@@ -23,6 +23,28 @@ class Model_Product_Order extends Model_Crud
     protected $_order = false;
     protected $_status = false;
     
+    public function get_moyTime()
+    {
+        if($this->end != NULL){
+            $date1 = new DateTime($this->end);
+            $date2 = new DateTime($this->start);
+            $diff = $date1->diff($date2); 
+            $sec = $diff->s;
+            $min = $diff->i;
+            $totalSec = $sec + ($min*60);
+            return $totalSec;
+        }
+        else{
+            return 0;
+        }
+    }
+    
+    public function get_type(){
+        $type = Model_Product::find_by_pk($this->product_id);
+        
+        return $type;
+    }
+    
     public function get_station()
     {
         if ($this->_station === false) {
