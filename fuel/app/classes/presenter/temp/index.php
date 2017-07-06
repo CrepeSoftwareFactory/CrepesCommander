@@ -39,7 +39,10 @@ class Presenter_Temp_Index extends Presenter
             $this->price = 0;
             foreach($this->sales as $i)
             {
-                $this->price += intval($i->get_price());
+                $order = $i->get_order();
+                if($order->status == Model_Order::STATUS_DELIVERED || $order->status == Model_Order::STATUS_PAID){
+                    $this->price += intval($i->get_price());
+                }
             }
             
             $this->types = Model_Product_Type::find();
