@@ -12,6 +12,7 @@ class Model_Product extends Model_Crud
         'price',
         'time',
         'type',
+        'close',
     );
     
     protected static $_rules = array(
@@ -25,6 +26,8 @@ class Model_Product extends Model_Crud
     const TYPE_SALT     = 0;
     const TYPE_SWEET    = 1;
     const TYPE_OTHER    = 2;
+    const ACTIVATED     = 0;
+    const DESACTIVATED  = 1;
     
     public static $types = array(
         self::TYPE_SALT     => 'Galette',

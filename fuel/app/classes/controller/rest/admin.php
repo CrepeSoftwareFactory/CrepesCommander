@@ -149,7 +149,7 @@ class Controller_Rest_Admin extends Controller_Rest
         return $this->response($response);
     }
     
-    public function post_changeProduct(){
+    public function post_changeOption(){
         $value = Input::post('value');
         $champ = Input::post('champ');
         $id = Input::post('id');
@@ -265,4 +265,5 @@ class Controller_Rest_Admin extends Controller_Rest
         }
         return $this->response($response);
     }
+    
 }

@@ -36,27 +36,33 @@
     <div id="tableAffichageProduits" class="collapse">
         <table class="table table-bordered table-hover tableProduits table-striped">
             <tr style="background-color: #FFF;">
-                <th>ID</th>
                 <th>CODE</th>
                 <th>NOM</th>
                 <th>PRIX</th>
                 <th>TYPE</th>
-                <th>SUPPRIMER</th>
+                <th>DESACTIVER</th>
+                <!--<th>SUPPRIMER</th>-->
             </tr>
             <?php 
                 foreach($products as $product){
                     echo '<tr id="type'.$product->product_id.'" style="background-color: #FFF;">';
-                        echo '<td>'.$product->product_id.'</td>';
                         echo '<td><input type="text" name="code" value="'.$product->code.'" /><button data-id="'.$product->product_id.'" data-fct="changeProduct" class="btn btn-success">Ok</button></td>';
                         echo '<td><input type="text" name="name" value="'.$product->name.'" /><button data-id="'.$product->product_id.'" data-fct="changeProduct" class="btn btn-success">Ok</button></td>';
                         echo '<td><input type="text" name="price" value="'.$product->price.'" /><button data-id="'.$product->product_id.'" data-fct="changeProduct" class="btn btn-success">Ok</button></td>';
-                        echo '<td><select data-id="'.$product->product_id.'" data-fct="changeProduct" class="form-control">';
+                        echo '<td><select data-id="'.$product->product_id.'" data-fct="changeOption" class="form-control">';
                         foreach($types as $type){
                             $isSelected = ($type->type_id==$product->type)? 'selected':'';
                             echo '<option value="'.$type->type_id.'" '.$isSelected.'>'.$type->type_label.'</option>';
                         }
                         echo '</select></td>';
-                        echo '<td><button type="button" class="btn btn-danger" data-fct="supProduct" data-id="'.$product->product_id.'">Supprimer ce Produit</button></td>';
+                        echo '<td><select data-id="'.$product->product_id.'" data-fct="changeOption" class="form-control chgeClose">';
+                        for($i=0; $i<=1; $i++){
+                            $isClosed = ($product->close==$i)? 'selected':'';
+                            $valClosed = ($i==0)? 'Activé':'Désactivé';
+                            echo '<option '.$isClosed.' value="'.$i.'">'.$valClosed.'</option>';
+                        }
+                        echo '</select></td>';
+                        /*echo '<td><button type="button" class="btn btn-danger" data-fct="supProduct" data-id="'.$product->product_id.'">Supprimer ce Produit</button></td>';*/
                     echo '</tr>';
                 } 
              ?>

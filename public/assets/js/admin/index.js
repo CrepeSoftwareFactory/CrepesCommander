@@ -156,7 +156,12 @@ $( document ).ready(function() {
         var id = $(this).attr('data-id');
         var value = $( "option:selected", this).val();
         var obj = $(this);
-        var champ = 'type';
+        if($(this).hasClass('chgeClose')){
+            var champ = 'close';
+        }
+        else{
+            var champ = 'type';
+        }
         $.ajax({
             url: '/rest/admin/'+fct+'.json',
             type: 'post',
