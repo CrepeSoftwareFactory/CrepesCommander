@@ -33,7 +33,7 @@ class Model_Product_Type extends Model_Crud
                     }
                 }
             }
-            if($tab){
+            if(isset($tab)){
                 return $tab;
             }
             else{
