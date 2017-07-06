@@ -266,4 +266,35 @@ class Controller_Rest_Admin extends Controller_Rest
         return $this->response($response);
     }
     
+    public function post_addNote(){
+        $content = Input::post('content');
+        try {
+            DB::start_transaction();
+            $note = new Model_Note();
+            
+            $note->set(array(
+                'content'    => $content,
+            ));
+            
+            if (!$note->save()) {
+                throw new Exception($note->validation()->show_errors());
+            }
+            
+            DB::commit_transaction();
+            
+            $response = array(
+              'error'       => false,  
+              'message'     => 'Note créée avec succès',  
+            );
+        } catch (Exception $ex) {
+            DB::rollback_transaction();
+            $response = array(
+              'error'       => true,  
+              'message'     => $ex->getMessage(),  
+            );
+        }
+        
+        return $this->response($response);
+    }
+    
 }

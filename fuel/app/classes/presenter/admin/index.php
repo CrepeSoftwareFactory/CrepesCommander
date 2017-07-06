@@ -11,5 +11,6 @@ class Presenter_Admin_Index extends Presenter
             ;
         });
         $this->types = Model_Product_Type::find();
+        $this->notes = Model_Note::find();
     }
 }

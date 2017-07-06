@@ -12,6 +12,31 @@ $( document ).ready(function() {
         $('.btn-sauvegarder').remove();
     })
     
+    $('#addNote').on('click', function(e){
+        $('#myModal').modal('show');
+        $('.modal-body').append("<h2>Ajouter une note : </h2>");
+        $('.modal-body').append('<textarea rows="4" cols="50" class="textToSend" name="content"></textarea>');
+        $('.modal-footer').prepend('<button type="button" class="btn btn-primary btn-sauvegarder" data-dismiss="modal">Sauvegarder</button>');
+        $('.btn-sauvegarder').click(function(e){
+            e.preventDefault();
+            var content = $(".textToSend").val();
+            $.ajax({
+                url: '/rest/admin/addNote.json',
+                type: 'post',
+                dataType: 'json',
+                data: { content: content},
+                success: function(data) {
+                    if (data.error) {
+                        alert(data.message);
+                    } else {
+                        alert(data.message);
+                    }
+                    location.reload();
+                }
+            });
+        });
+    });
+    
     $('#addTypeProduct').click(function(){
         $('#myModal').modal('show');
         $('.modal-body').append("<h2>Ajouter un Type de produit : </h2>");

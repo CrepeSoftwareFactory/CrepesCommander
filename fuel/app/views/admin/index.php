@@ -1,4 +1,18 @@
 <div style="text-align: center; padding-top: 10px;">
+    <div>
+        <h2>
+            <button class="btn btn-info" data-toggle="collapse" data-target="#tableAffichageNotes" aria-expanded="false" aria-controls="collapseExample">Déplier</button> Notes : <button type="button" class="btn btn-primary" id="addNote">Ajouter une note</button></h2>
+        <div  id="tableAffichageNotes" class="collapse">
+        <?php
+        if(isset($notes) && !empty($notes)){
+            foreach($notes as $note){
+                echo '<h4>'.$note->date_crea.' : '.$note->content.'</h4>';
+            }
+        }
+        ?>
+        </div>
+    </div>
+    <br />
     <label for="nbPiles">Changer le nombre de piles/stations :</label>
     <select name="nbPiles" class="selectpicker show-tick nbPiles">
         <?php 
