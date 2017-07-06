@@ -18,22 +18,23 @@ class Model_Product_Type extends Model_Crud
     
     public static function get_productMoy(){
         $products = Model_Product_Order::find();
-        
-        foreach($products as $product){
-            $val = $product->get_moyTime();
-            if($val != 0){
-                $type = $product->get_type();
-                if(isset($tab[$type->type]['inc'])){
-                    $tab[$type->type]['inc'] = $tab[$type->type]['inc'] +1;
-                    $tab[$type->type]['sum'] = $tab[$type->type]['sum']+ $val;
-                }
-                else{
-                    $tab[$type->type]['inc'] = 1;
-                    $tab[$type->type]['sum'] = $val;
+        if($products){
+            foreach($products as $product){
+                $val = $product->get_moyTime();
+                if($val != 0){
+                    $type = $product->get_type();
+                    if(isset($tab[$type->type]['inc'])){
+                        $tab[$type->type]['inc'] = $tab[$type->type]['inc'] +1;
+                        $tab[$type->type]['sum'] = $tab[$type->type]['sum']+ $val;
+                    }
+                    else{
+                        $tab[$type->type]['inc'] = 1;
+                        $tab[$type->type]['sum'] = $val;
+                    }
                 }
             }
+            return $tab;
         }
-        return $tab;
     }
     
     public function get_nbCooked(){
