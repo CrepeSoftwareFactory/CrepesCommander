@@ -16,6 +16,16 @@ $(function() {
     }
     refreshPage();
     
+    //Fonction pour afficher les commentaires dans la modal
+    function refresh_fctComment(){
+        $(".affichComment").on('click',function(e){
+                $('.modal-body').empty();
+                $('#myModal').modal('show');
+                var comment = $(this).next('.commentaire').val();
+                $('.modal-body').html(comment);
+        });
+    }
+    refresh_fctComment();
     //Fonction ave requête ajax pour rafraichir la page des commandes en cours
     function refresh_pending_orders(){
         $('.flash_success').empty();
@@ -49,6 +59,7 @@ $(function() {
                             
                             $('.flash_success').html(data.message);
                             generate_all_script();
+                            refresh_fctComment();
                         }
                         else{
                              $('.flash_success').html('rien à mettre à jour !');

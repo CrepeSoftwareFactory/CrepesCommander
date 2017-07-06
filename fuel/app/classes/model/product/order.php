@@ -23,6 +23,10 @@ class Model_Product_Order extends Model_Crud
     protected $_order = false;
     protected $_status = false;
     
+    public function get_comment(){
+        return $this->comment;
+    }
+    
     public function get_moyTime()
     {
         if($this->end != NULL){

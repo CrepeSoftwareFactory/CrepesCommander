@@ -9,6 +9,7 @@
                         <td class="col3">Heure</td>
                         <td class="col4">Poste</td>
                         <td class="col5">Statut</td>
+                        <td class="col5b">Commentaire</td>
                         <td class="col6">Actions</td>
                     </tr>
                 </thead>
@@ -16,7 +17,7 @@
                     <?php if ($orders) { ?>
                        <?php foreach ($orders as $order) { ?>
                             <tr>
-                                <th colspan="5"><button class="btn btn-info" data-toggle="collapse" data-target="#collapse-<?php echo $order->get_customer()->customer_id; ?>" aria-expanded="false" aria-controls="collapseExample" >Commande de <?php echo $order->get_customer()->lastname; ?></button></th>
+                                <th colspan="6"><button class="btn btn-info" data-toggle="collapse" data-target="#collapse-<?php echo $order->get_customer()->customer_id; ?>" aria-expanded="false" aria-controls="collapseExample" >Commande de <?php echo $order->get_customer()->lastname; ?></button></th>
                                 <td>
                                 <!--
                                     <a href="#" class="btn btn-success btn-lg">voir</a>
@@ -88,6 +89,12 @@
                                         ?>
                                     </td>
                                     <td>
+                                        <?php
+                                        if($product->get_comment() != null){
+                                            echo '<button class="btn btn-primary btn-lg affichComment"><span class="glyphicon glyphicon-comment"></span></button><input class="commentaire" type="hidden" value="'.$product->get_comment().'"/></td>';
+                                        }
+                                        ?>
+                                    <td>
                                         <!-- 
                                         <a href="#" class="btn btn-success btn-lg">voir</a>
                                         <a href="#" class="btn btn-success btn-lg">modifier</a>
@@ -109,5 +116,17 @@
                 
                 
             </table>
-        </div>        
+        </div>
     </div>
+        <div id="myModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                   <div class="modal-body">
+                    <!-- Le contenu des commentaires est déplacé ici-->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
