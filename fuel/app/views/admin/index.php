@@ -62,7 +62,8 @@
                             echo '<option '.$isClosed.' value="'.$i.'">'.$valClosed.'</option>';
                         }
                         echo '</select></td>';
-                        /*echo '<td><button type="button" class="btn btn-danger" data-fct="supProduct" data-id="'.$product->product_id.'">Supprimer ce Produit</button></td>';*/
+                        /* //Désactivation du boutton de suppression des produits
+                        echo '<td><button type="button" class="btn btn-danger" data-fct="supProduct" data-id="'.$product->product_id.'">Supprimer ce Produit</button></td>';*/
                     echo '</tr>';
                 } 
              ?>

@@ -14,7 +14,7 @@
                             <li>                            
                                 <?php 
                                 $color = 'background-color: '.$type->type_couleur.';';
-                                $content_a = $product->code." <span>".$product->name."</span>";
+                                $content_a = $product->code." <span>".$product->name."</span>".'<span>'.$product->price.' euros</span>';
                                 echo Html::anchor('#', $content_a, array(
                                     'id'                    => 'product_'.$product->get_id(),
                                     'class'                 => 'btn btn-lg btn-default',
