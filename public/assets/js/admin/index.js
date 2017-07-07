@@ -38,6 +38,7 @@ $( document ).ready(function() {
         });
     });
     
+    //Fonction qui va bind fonction de suppression via ajax au boutton de suppression des notes
     function bindSupNotToBtn(){
         $('.supNote').on('click', function(e){
             e.preventDefault();

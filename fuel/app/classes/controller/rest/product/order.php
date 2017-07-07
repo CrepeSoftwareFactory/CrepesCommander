@@ -3,7 +3,7 @@
 class Controller_Rest_Product_Order extends Controller_Rest 
 {
     //Fonction pour annuler une commande dont les proco ne sont pas terminées
-     public function post_cancel()
+    public function post_cancel()
     {
         $order_id = Input::post('order_id');
         try {
@@ -197,6 +197,39 @@ class Controller_Rest_Product_Order extends Controller_Rest
               'message'     => $ex->getMessage(),  
             );
         }
+    }
+    
+    //Derniers produits cusinés
+    public function post_refresh_lastCooked(){
+       try
+        {
+            DB::start_transaction();
+            $station_id = Input::post('id');
+            $station = Model_Station::find_by_pk($station_id);
+            $last_cooked_product = $station->get_last_cooked_product();
+            
+            if($last_cooked_product){
+                $message = $last_cooked_product.' <button data-idProCo="'.$last_cooked_product->product_order_id.'" class="rempiler btn btn-danger btn-xs">Renvoyer en Pile</button>';
+            }
+            else{
+                $message = 'Aucun';
+            }
+            
+            DB::commit_transaction();
+           
+            $response = array(
+                'error'         => false,  
+                'message'       => $message,
+            );
+        }
+        catch (Exception $ex) {
+            DB::rollback_transaction();
+            $response = array(
+              'error'       => true,  
+              'message'     => $ex->getMessage(),  
+            );
+        }
+        return $this->response($response);
     }
     
     public function post_refresh_unaffected(){

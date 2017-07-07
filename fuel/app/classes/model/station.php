@@ -17,6 +17,7 @@ class Model_Station extends Model_Crud
     protected $_cooking_product = false;
     protected $_waiting_products = false;
     protected $_urgent_product = false;
+    protected $_last_cooked = false;
     
     public function get_products()
     {
@@ -24,6 +25,24 @@ class Model_Station extends Model_Crud
             $this->_products = Model_Product_Order::find_by('station_id', $this->get_id());
         }
         return $this->_products;
+    }
+    
+    public function get_last_cooked_product()
+    {
+        if ($this->_last_cooked === false) {
+            $station_id = $this->get_id();
+            $this->_last_cooked = Model_Product_Order::find_one_by(function($query) use($station_id) {
+                $query
+                    ->select(MAX(array('end')))
+                    ->where('station_id', $station_id)
+                    ->where('start', '!=', null)
+                    ->where('end', '!=', null)
+                    ->limit(1)
+                    ->order_by('end', 'DESC')
+                ;
+            });
+        }
+        return $this->_last_cooked;
     }
     
     public function get_cooking_product()

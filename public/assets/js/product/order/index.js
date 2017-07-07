@@ -29,6 +29,55 @@ $(function() {
         });
     }
     
+    //Fonction avec ajax pour rempiler une crêpes qui aurait été terminé par erreur
+    function rempil_proco(){ 
+        $(".rempiler").on('click', function(e){
+            e.preventDefault();
+            $(this).html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
+            var idPile = $(this).attr('')
+            var productId = $(this).attr('data-idProCo');
+            $.ajax({
+                url: '/rest/product/order/rempiler.json',
+                type: 'post',
+                dataType: 'json',
+                data: {productId: productId},
+                success: function(data){
+                    if (data.error==true) {
+                        $('.flash_errors').html(data.message);
+                    } else {
+                        $('.flash_success').html(data.message);
+                    }
+                },
+                error: function() {
+                    $('.flash_errors').html('Impossible de joindre le serveur !!!');
+                    obj.html(texte_boutton);
+                    go_to_refresh();
+                }
+            });
+        });
+    }
+    
+    rempil_proco();
+    
+    //Fonction ajax qui va mettre à jout les derniers produits passés 
+    //id : id de la pile
+    function last_product(id){
+        $.ajax({
+            url: '/rest/product/order/refresh_lastCooked.json',
+            type: 'post',
+            dataType: 'json',
+            data: {id: id},
+            success: function(data) {
+                if (data.error==true) {
+                    $('.flash_errors').html(data.message);
+                } else {
+                    $("#lastCooked"+id).html(data.message);
+                    rempil_proco();
+                }
+            }
+        });
+    }
+    
     function go_to_cooked(obj){
         $('.hadToRefresh').val(1);
         var proco_pile = obj;
@@ -38,7 +87,7 @@ $(function() {
             var contenuObj = obj.html();
             obj.html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
             var id_commande = href.substr(href.lastIndexOf('/')+1); // numéro de la pile
-           
+            $("#lastCooked"+id_commande).html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
             $('.flash_errors').empty();
             $('.flash_success').empty();
             $.ajax({
@@ -62,6 +111,7 @@ $(function() {
                     $('.hadToRefresh').val(0);
                     verif_no_proco_pile();
                     start_chrono(id_commande);
+                    last_product(id_commande);
                 },
                 timeout: function() {
                     $('.flash_errors').html('Impossible de joindre le serveur !!!');
@@ -115,6 +165,7 @@ $(function() {
                         $('.flash_errors').html('Impossible de joindre le serveur !!!');
                     }
                 });
+                last_product(id_commande);
             }
         });
     }

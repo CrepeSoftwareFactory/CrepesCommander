@@ -14,8 +14,18 @@
                     'value'     => $station->get_id(),    
                 )); ?>
                 <span class="label label-poste"><?php echo $station->name; ?> <span id="chrono-proco">x</span></span>
-                <?php $cookedProduct = $station->get_cooking_product();
-                //print_r($cookedProduct);
+                <span>Dernier produit passé : </span>
+                <?php 
+                $last_cooked_product = $station->get_last_cooked_product();
+                echo '<span class="lastCooked" id="lastCooked'.$station->station_id.'">';
+                 if($last_cooked_product){
+                    echo $last_cooked_product.' <button data-idProCo="'.$last_cooked_product['product_order_id'].'" class="rempiler btn btn-danger btn-xs">Renvoyer en Pile</button>';
+                 }
+                 else{
+                     echo 'aucun';
+                 }
+                echo '</span>';
+                $cookedProduct = $station->get_cooking_product();
                 ?>
                 <ul class="liste_poste list-unstyled panel panel-default">
                     <li class="btn btn-default btn-lg btn-block proco_pile_top" id="<?php if($cookedProduct){echo $cookedProduct->product_order_id;} ?>">
