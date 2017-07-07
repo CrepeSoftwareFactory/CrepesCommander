@@ -28,13 +28,13 @@ class Model_Product extends Model_Crud
     const TYPE_OTHER    = 2;
     const ACTIVATED     = 0;
     const DESACTIVATED  = 1;
-    
+    /* Obsolète depuis le rajout de la table type
     public static $types = array(
         self::TYPE_SALT     => 'Galette',
         self::TYPE_SWEET    => 'Crepe',
         self::TYPE_OTHER    => 'Autre',
     );
-    
+    */
     public function get_ingredients()
     {
         if ($this->_ingredients === false) {

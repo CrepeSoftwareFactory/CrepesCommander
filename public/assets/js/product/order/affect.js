@@ -1,3 +1,4 @@
+//Scripts de la page /product/order/affect => Commandes en cours
 $(function() {
     $("#icon_refresh").fadeTo(1, 0);
     

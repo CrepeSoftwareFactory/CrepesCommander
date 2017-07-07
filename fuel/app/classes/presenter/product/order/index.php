@@ -28,5 +28,6 @@ class Presenter_Product_Order_Index extends Presenter
                 ->order_by('product_order_id', 'ASC')    
             ;
         });
+        $this->types = Model_Product_type::find();
     }
 }

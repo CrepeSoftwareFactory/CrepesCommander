@@ -1,4 +1,4 @@
-// JavaScript Document
+// JavaScript Document de la page /order/add => J'ai Faim
 
 // Fonctions de traitement calculator
 

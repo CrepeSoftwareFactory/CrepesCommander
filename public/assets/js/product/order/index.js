@@ -1,4 +1,6 @@
+//Scripts de la page /product/order => Au Boulot !
 $(function() {
+    
     var gotoRefresh = '';
     $("#icon_refresh").fadeTo(1, 0); // cache l'icone qui permet de savoir quand les refresh sont lancés
     $('.notSelectable').disableSelection(); // active un script qui rend certains textes non selectionnable avec un taphold
@@ -10,19 +12,26 @@ $(function() {
     }
     refreshPage();
     
+    //Fonction qui va recharger la page si elle n'est pas déjà entrain de le faire
     function reloadPage(){
+        //On récupère la variable de rafraichissement
         var hadToRefresh = $('.hadToRefresh').val();
+        //Si elle est à 0
         if(hadToRefresh == 0){
+            //On lance le rafraichissement des piles et des unaffected
             go_to_refresh();
             go_to_refresh_unaffected();
         }
     }
     
+    //Fonction pour vérifier si pile est vide on affiche qu'il n'y a pas de commande dans la pile
     function verif_no_proco_pile(){
         $('.proco_pile_top').each(function(){
             var nb_proco = 0;
             var parent = $(this).parent('ul');
+            //On récupère le nombre de proco dans la file d'attente
             nb_proco = $('.proco_pile_waiting', parent).length;
+            //Si ce nombre = 0 => On affiche qu'il n'y a pas de commande en attente
             if(nb_proco == 0){
                 parent.append('<li class="panel-body proco_pile_waiting">Aucune commande en attente.</li>');
             }
@@ -72,6 +81,8 @@ $(function() {
         });
     }
     
+    //Fonction Quand clic du cuistot sur une proco d'une pile en cours de fabrication => La valide / Cherche une nouvelle proco à mettre / Rafraichit les éléments
+    //In : Html => .Proco_Pile_Top
     function go_to_cooked(obj){
         $('.hadToRefresh').val(1);
         var proco_pile = obj;
@@ -121,6 +132,7 @@ $(function() {
         }
     }
     
+    //Fonction qu'on appel quand on veut rafraichir les piles
     function go_to_refresh(){
         $('.proco_pile_top').each(function(){
             var proco_pile = $(this);
@@ -164,6 +176,7 @@ $(function() {
         });
     }
     
+    //Fonction qu'on appel quand on veut rafraichir les proco non affecté à une pile
     function go_to_refresh_unaffected(){
         $.ajax({
             url: '/rest/product/order/refresh_unaffected.json',
@@ -196,9 +209,10 @@ $(function() {
             }
         });
     }
-    
+    //On rafraichit les proco
     refresh_proco();
     go_to_refresh();
+    
     //fonction bind procopile
     function refresh_procopile_top(obj){
         obj.bind( "taphold",function( event ) {

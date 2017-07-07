@@ -1,3 +1,4 @@
+//Scripts de la page /admin => Admin
 //Envoi du formulaire de création de commande Ajax
 $( document ).ready(function() {
     $('.flash_success').hide();

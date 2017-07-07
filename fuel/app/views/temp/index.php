@@ -37,7 +37,7 @@
                     if(isset($tab[$type->type_id])){
                         $moy = $tab[$type->type_id]['sum']/$tab[$type->type_id]['inc'];
                         echo '<br />';
-                        echo 'Temps moyen passé sur ce type de produit : '.round($moy/60).' minutes et '.round($moy%60);
+                        echo 'Temps moyen passé sur ce type de produit : '.floor($moy/60).' minutes et '.round($moy%60);
                     }
                     echo '<br />';
                 } 

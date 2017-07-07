@@ -3,21 +3,29 @@
 class Controller_Rest_Product_Order extends Controller_Rest 
 {
     //Fonction pour annuler une commande dont les proco ne sont pas terminées
+    //In : order.order_id
+    //Return : String 
     public function post_cancel()
     {
+        //On récupère l'id de la commande de la requête POST
         $order_id = Input::post('order_id');
         try {
+            //On cherche la commande avec son id qu'on a récupéré
             $order = Model_Order::find_by_pk($order_id);
+            //on lui met un status CANCEL
             $order->status = Model_Order::STATUS_CANCEL;
+            //Si la requête ne fonctionne pas on interrompt et on renvoie une erreur
             if (!$order->save()) {
                 throw new Exception($order->validation()->show_errors());
             }
+            //Si la requête fonctionne on charge dans une array et on renvoie les informations
             $response = array(
                 'error'       => false,  
                 'message'     => 'Commande annulée',  
             );
             Session::set_flash('success', 'Commande annulée');
         } catch (Exception $ex) {
+            //Si une erreur on renvoie le message d'erreur en question
             DB::rollback_transaction();
             $response = array(
                 'error'       => true,  
@@ -29,6 +37,8 @@ class Controller_Rest_Product_Order extends Controller_Rest
     }
     
     //Action pour livrer une commande où toutes les proco ont été terminées 
+    //In : order.order_id
+    //Out : String
     public function post_finish()
     {
         $order_id = Input::post('order_id');
@@ -55,8 +65,11 @@ class Controller_Rest_Product_Order extends Controller_Rest
     }
     
     //Fonction qui va supprimer une proco d'une commande
+    //In : product_order.product_order.id
+    //Out : String
     public function post_delete() 
     {
+        //On récupère l'id du produit qu'on veut supprimer à partir d'une requête POST
         $product_id = Input::post('product_id');
         try 
         {
@@ -238,12 +251,12 @@ class Controller_Rest_Product_Order extends Controller_Rest
             DB::start_transaction();
             $return_alone_product = '';
             $unaffected_products = Model_Product_Order::get_unaffected();
-            
-            foreach (Model_Product::$types as $key => $type) { 
-                $return_alone_product .= '<div class="col-md-4"><h3>'.$type.'</h3><ul class="colonne_pile">';
+            $types = Model_Product_Type::find();
+            foreach ($types as $type) { 
+                $return_alone_product .= '<div class="col-md-4"><h3>'.$type->type_label.'</h3><ul class="colonne_pile">';
                 if ($unaffected_products) { 
                     foreach ($unaffected_products as $product) { 
-                         if ($product->get_product()->type == $key) {
+                         if ($product->get_product()->type == $type->type_id) {
                              $return_alone_product .= '<li  class="status_'.$product->status.'" id="'.$product->product_order_id.'">'.$product.'</li>';
                          } 
                     }   
@@ -380,12 +393,12 @@ class Controller_Rest_Product_Order extends Controller_Rest
                     unset($unaffected_products[0]);
                 }
             }
-            
-            foreach (Model_Product::$types as $key => $type) { 
-                $return_alone_product .= '<div class="col-md-4"><h3>'.$type.'</h3><ul class="colonne_pile">';
+            $types = Model_Product_Type::find();
+            foreach ($types as $type) { 
+                $return_alone_product .= '<div class="col-md-4"><h3>'.$type->type_label.'</h3><ul class="colonne_pile">';
                 if ($unaffected_products) { 
                     foreach ($unaffected_products as $product) { 
-                         if ($product->get_product()->type == $key) {
+                         if ($product->get_product()->type == $type->type_id) {
                              $return_alone_product .= '<li>'.$product.'</li>';
                          } 
                     }   

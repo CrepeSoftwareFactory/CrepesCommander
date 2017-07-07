@@ -55,13 +55,13 @@
         <?php } ?>
         </div>
         <div class="row alone_products">
-            <?php foreach (Model_Product::$types as $key => $type) { ?>
+            <?php foreach ($types as $type) { ?>
                 <div class="col-md-4">
-                    <h3><?php echo $type; ?></h3>
+                    <h3><?php echo $type->type_label; ?></h3>
                     <ul class="colonne_pile">
                         <?php if ($alone_products) { ?>
                             <?php foreach ($alone_products as $product) { ?>
-                                <?php if ($product->get_product()->type == $key) { ?>
+                                <?php if ($product->get_product()->type == $type->type_id) { ?>
                                     <li class="notSelectable status_<?php echo $product->status; ?>" id="<?php echo $product->product_order_id; ?>"><?php echo $product; ?></li>
                                 <?php } ?>
                             <?php } ?>  

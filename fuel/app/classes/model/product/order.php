@@ -23,20 +23,26 @@ class Model_Product_Order extends Model_Crud
     protected $_order = false;
     protected $_status = false;
     
+    const TIME_MAX = 180;
+    const TIME_MIN = 30;
+    
     public function get_comment(){
         return $this->comment;
     }
     
+    //Renvoie moyenne de temps entre champ start et end de la table product_order
+    //Out : $totalSec : Int en secondes | Renvoie 0 si < TIME_MIN et > TIME_MAX
     public function get_moyTime()
     {
         if($this->end != NULL){
             $date1 = new DateTime($this->end);
             $date2 = new DateTime($this->start);
             $diff = $date1->diff($date2); 
-            $sec = $diff->s;
-            $min = $diff->i;
-            $totalSec = $sec + ($min*60);
-            if($totalSec < 500){
+            $secondes = $diff->s;
+            $minutes = $diff->i;
+            $totalSec = $secondes + ($minutes*60);
+            if($totalSec <= self::TIME_MAX && $totalSec >= self::TIME_MIN)
+            {
                 return $totalSec;
             }
             else {
