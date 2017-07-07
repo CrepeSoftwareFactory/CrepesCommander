@@ -85,6 +85,7 @@
                                         }
                                         else{
                                              echo '<button class="btn btn-primary btn-lg disabled" role="button">Terminé</button>';
+                                             echo '<button data-fct="rempiler" data-idproduct='.$product->get_id().' class="rempiler btn btn-warning btn-lg" role="button">Rempiler</button>';
                                         }
                                         ?>
                                     </td>

@@ -107,6 +107,33 @@ $(function() {
             }
 
         });
+        
+        //Fonction avec ajax pour rempiler une crêpes qui aurait été terminé par erreur
+        $(".rempiler").on('click', function(e){
+            e.preventDefault();
+            $(this).html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
+            var productId = $(this).attr('data-idproduct');
+            var fct = $(this).attr('data-fct');
+            $.ajax({
+                url: '/rest/product/order/'+fct+'.json',
+                type: 'post',
+                dataType: 'json',
+                data: {productId: productId},
+                success: function(data){
+                    if (data.error==true) {
+                        $('.flash_errors').html(data.message);
+                    } else {
+                        $('.flash_success').html(data.message);
+                    }
+                },
+                error: function() {
+                    $('.flash_errors').html('Impossible de joindre le serveur !!!');
+                    obj.html(texte_boutton);
+                    refresh_pending_orders();
+                }
+            });
+            
+        });
 
         //Fonction avec requête ajax pour livrer ou annuler une commande
         function action_commande(type_action, obj, texte_boutton){

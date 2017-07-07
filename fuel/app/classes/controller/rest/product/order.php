@@ -390,6 +390,32 @@ class Controller_Rest_Product_Order extends Controller_Rest
         return $this->response($response);
     }
     
+    public function post_rempiler()
+    {
+        $productId = Input::post('productId');
+        try {
+            $proco = Model_Product_Order::find_by_pk($productId);
+            $proco->start = null;
+            $proco->end = null;
+            if (!$proco->save()) {
+                throw new Exception($order->validation()->show_errors());
+            }
+            $response = array(
+                'error'      => false,  
+                'message'    => 'Produit rempilé',
+            );
+            Session::set_flash('success', 'Priorité changée');
+        } catch (Exception $ex) {
+            DB::rollback_transaction();
+            $response = array(
+                'error'       => true,  
+                'message'     => $ex->getMessage(),  
+            );
+        }
+        
+        return $this->response($response);
+    }
+    
     //Fonction qui va modifier le status d'une proco
     //Entrée : idProduct, newStatus
     //Sortie : newStatus
@@ -517,6 +543,7 @@ class Controller_Rest_Product_Order extends Controller_Rest
                         else
                         {
                             $html .= '<button class="btn btn-primary btn-lg disabled" role="button">Terminé</button>';
+                            $html .= '<button data-fct="rempiler" data-idproduct='.$product->get_id().' class="rempiler btn btn-warning btn-lg" role="button">Rempiler</button>';
                         }
                         $html .= '</td><td>';
                         if($product->get_comment() != null){
