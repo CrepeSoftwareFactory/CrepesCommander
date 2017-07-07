@@ -36,7 +36,12 @@ class Model_Product_Order extends Model_Crud
             $sec = $diff->s;
             $min = $diff->i;
             $totalSec = $sec + ($min*60);
-            return $totalSec;
+            if($totalSec < 500){
+                return $totalSec;
+            }
+            else {
+                return 0;
+            }
         }
         else{
             return 0;
