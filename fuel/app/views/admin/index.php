@@ -6,7 +6,8 @@
         <?php
         if(isset($notes) && !empty($notes)){
             foreach($notes as $note){
-                echo '<h4>'.$note->date_crea.' : '.$note->content.'</h4>';
+                echo '<div class="globalNote"><button data-idNote="'.$note->note_id.'" class="supNote btn btn-danger btn-xs">sup</button> - <h4>'.$note->date_crea.' : '.$note->content.'</h4></div>';
+                
             }
         }
         ?>

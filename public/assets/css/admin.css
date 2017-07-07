@@ -1,0 +1,15 @@
+#tableAffichageNotes {
+    background-color: azure;
+    border: 2px solid #ccc!important;
+    border-radius: 16px;
+    text-align: left;
+    padding-left: 15px;
+}
+
+h4 {
+    display: inline;
+}
+
+.globalNote{
+    margin : 5px;
+}
