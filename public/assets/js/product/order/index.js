@@ -43,15 +43,9 @@ $(function() {
                 data: {productId: productId},
                 success: function(data){
                     if (data.error==true) {
-                        $('.flash_errors').html(data.message);
                     } else {
                         $('.flash_success').html(data.message);
                     }
-                },
-                error: function() {
-                    $('.flash_errors').html('Impossible de joindre le serveur !!!');
-                    obj.html(texte_boutton);
-                    go_to_refresh();
                 }
             });
         });
