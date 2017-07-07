@@ -282,9 +282,14 @@ class Controller_Rest_Admin extends Controller_Rest
             
             DB::commit_transaction();
             
+            $newNote = Model_Note::find_by_pk($note->note_id);
+            
+            $html = '<div class="globalNote"><button data-idNote="'.$newNote->note_id.'" class="supNote btn btn-danger btn-xs">sup</button> - <h4>'.$newNote->date_crea.' : '.$newNote->content.'</h4></div>';
+            
             $response = array(
-              'error'       => false,  
-              'message'     => 'Note créée avec succès',  
+                'error'       => false,  
+                'message'     => 'Note créée avec succès', 
+                'html'        => $html,
             );
         } catch (Exception $ex) {
             DB::rollback_transaction();
@@ -294,6 +299,35 @@ class Controller_Rest_Admin extends Controller_Rest
             );
         }
         
+        return $this->response($response);
+    }
+    
+    public function post_delNote(){
+        $idNote = Input::post('idNote');
+        try {
+            DB::start_transaction();
+            $note = Model_Note::find_by_pk($idNote);
+            if (!$note->delete()) {
+                throw new Exception('Erreur lors de la suppression');
+            }
+            else
+            {
+                $message = 'La note a bien été supprimé';
+                
+                DB::commit_transaction();
+                
+                $response = array(
+                        'error'             => false,  
+                        'message'           => $message,
+                );
+            }
+        } catch (Exception $ex) {
+            DB::rollback_transaction();
+            $response = array(
+                'error'       => true,  
+                'message'     => $ex->getMessage(),  
+            );
+        }
         return $this->response($response);
     }
     

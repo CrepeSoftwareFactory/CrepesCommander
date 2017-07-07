@@ -10,7 +10,7 @@ $( document ).ready(function() {
     $('#myModal').on('hidden.bs.modal', function () {
         $('.modal-body').empty();
         $('.btn-sauvegarder').remove();
-    })
+    });
     
     $('#addNote').on('click', function(e){
         $('#myModal').modal('show');
@@ -30,13 +30,42 @@ $( document ).ready(function() {
                         alert(data.message);
                     } else {
                         alert(data.message);
+                        $("#tableAffichageNotes").append(data.html);
+                        bindSupNotToBtn();
                     }
-                    location.reload();
                 }
             });
         });
     });
     
+    function bindSupNotToBtn(){
+        $('.supNote').on('click', function(e){
+            e.preventDefault();
+            $(this).html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
+            var idNote = $(this).attr('data-idNote');
+            var obj = $(this);
+            $.ajax({
+                url: '/rest/admin/delNote.json',
+                type: 'post',
+                dataType: 'json',
+                data: { idNote: idNote},
+                success: function(data) {
+                    if (data.error) {
+                        alert(data.message);
+                    } else {
+                        alert(data.message);
+                        obj.parent('.globalNote').remove();
+
+                    }
+                }
+            });
+        });
+    }
+    
+    bindSupNotToBtn();
+    
+
+
     $('#addTypeProduct').click(function(){
         $('#myModal').modal('show');
         $('.modal-body').append("<h2>Ajouter un Type de produit : </h2>");
