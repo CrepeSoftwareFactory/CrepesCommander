@@ -60,9 +60,9 @@
             <?php 
                 foreach($products as $product){
                     echo '<tr id="type'.$product->product_id.'" style="background-color: #FFF;">';
-                        echo '<td><input type="text" name="code" value="'.$product->code.'" /><button data-id="'.$product->product_id.'" data-fct="changeProduct" class="btn btn-success">Ok</button></td>';
-                        echo '<td><input type="text" name="name" value="'.$product->name.'" /><button data-id="'.$product->product_id.'" data-fct="changeProduct" class="btn btn-success">Ok</button></td>';
-                        echo '<td><input type="text" name="price" value="'.$product->price.'" /><button data-id="'.$product->product_id.'" data-fct="changeProduct" class="btn btn-success">Ok</button></td>';
+                        echo '<td><input type="text" name="code" value="'.$product->code.'" /><button data-id="'.$product->product_id.'" data-fct="changeOption" class="btn btn-success">Ok</button></td>';
+                        echo '<td><input type="text" name="name" value="'.$product->name.'" /><button data-id="'.$product->product_id.'" data-fct="changeOption" class="btn btn-success">Ok</button></td>';
+                        echo '<td><input type="text" name="price" value="'.$product->price.'" /><button data-id="'.$product->product_id.'" data-fct="changeOption" class="btn btn-success">Ok</button></td>';
                         echo '<td><select data-id="'.$product->product_id.'" data-fct="changeOption" class="form-control">';
                         foreach($types as $type){
                             $isSelected = ($type->type_id==$product->type)? 'selected':'';

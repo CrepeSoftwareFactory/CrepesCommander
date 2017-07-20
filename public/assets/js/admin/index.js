@@ -104,7 +104,7 @@ $( document ).ready(function() {
         html += '<tr><td><input type="text" style="width:100px" class="codeToSend" name="code" placeholder="Veuillez saisir le code..."/></td>';
         html += '<td><input type="text" class="nameToSend" name="name" placeholder="Veuillez saisir le nom..."/></td>';
         html += '<td><input type="number" style="width:70px" class="prixToSend" name="price" placeholder="Veuillez saisir un prix..."/></td>';
-        html +=  '<td><select id="typeAddProduct" data-fct="changeProduct" class="form-control"></select></td></tr>';
+        html +=  '<td><select id="typeAddProduct" data-fct="changeOption" class="form-control"></select></td></tr>';
         $.ajax({
             url: '/rest/admin/getTypes.json',
             type: 'post',
