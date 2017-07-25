@@ -1,0 +1,27 @@
+Fichier :
+
+httpd.conf
+
+Modif :
+
+Décommenter l1083 à l1086:
+
+#<IfModule alias_module>
+#Include ../../data/conf/apache_alias.conf
+#</IfModule>
+
+Vérifier fichier :
+
+C:\Program Files (x86)\EasyPHP-DevServer-14.1VC9\data\conf\apache_alias.conf
+
+Contenu : 
+
+Alias "/crepescommander" "C:\Program Files (x86)\EasyPHP-DevServer-14.1VC9\data\localweb\projects\CrepesCommander\public"
+<Directory "C:\Program Files (x86)\EasyPHP-DevServer-14.1VC9\data\localweb\projects\CrepesCommander\public">
+Options FollowSymLinks Indexes
+AllowOverride All
+Order deny,allow
+Allow from 127.0.0.1
+Deny from all
+Require all granted
+</Directory>
