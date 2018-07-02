@@ -191,6 +191,59 @@ class Controller_Rest_Product_Order extends Controller_Rest
             return $this->response($response);
         }
     }
+
+    //Fonction pour s'attribuer une pile
+    public function post_setPile() 
+    {
+        try{
+            $maPile = Input::post('maPile');
+            // store the pile of user in session
+            Session::set('maPile', $maPile);
+            return $this->response($maPile);
+        }catch (Exception $ex) {
+            DB::rollback_transaction();
+            $response = array(
+              'error'       => true,  
+              'message'     => $ex->getMessage(),  
+            );
+        }
+    }
+
+    // Fonction pour récupérer sa pile
+    public function post_getPile()
+    {
+        try{
+            // store the pile of user in session
+            $maPile = Session::get('maPile');
+            return $this->response($maPile);
+        }catch (Exception $ex) {
+            DB::rollback_transaction();
+            $response = array(
+              'error'       => true,  
+              'message'     => $ex->getMessage(),  
+            );
+            return $this->response($response);
+        }
+    }
+
+    // Fonction pour vider sa pile
+    public function post_emptyPile() 
+    {
+        try{
+            Session::delete('maPile');
+            $response = array(
+                'error'       => false,  
+                'message'     => "Pile vidé",  
+              );
+        }catch (Exception $ex) {
+            DB::rollback_transaction();
+            $response = array(
+              'error'       => true,  
+              'message'     => $ex->getMessage(),  
+            );
+        }
+        return $this->response($response);
+    }
     
     //Fonction pour renvoyer les commentaires sur la page 'au boulot' via appel Ajax
     public function post_comment()

@@ -1,4 +1,12 @@
 <div style="text-align: center; padding-top: 80px;">
+    <label for="maPile">Pile actuelle <?php echo Session::get('maPile'); ?>S'attribuer une pile : </label>
+    <select name="maPile" id="maPile" class="selectpicker selectpiles" title="Choisir des stations spécifiques à afficher...">
+        <?php foreach($stations as $station){
+            echo '<option value="'.$station->station_id.'">'.$station->name.'</option>';
+        } 
+        ?>
+    </select>
+    <button class="btn" id="emptyPile">Vider sa pile</button>
     <?php 
     echo Html::anchor('order/add', 'J\'ai faim...', array('class' => 'btn btn-primary btn-lg')); 
     echo '<br />';

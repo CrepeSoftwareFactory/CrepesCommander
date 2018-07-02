@@ -1,5 +1,8 @@
 <div style="text-align: center; padding-top: 10px;">
     <div>
+    <?php
+        echo Html::anchor('product/order', 'Afficher toutes les piles', array('class' => 'btn btn-success btn-lg')); 
+    ?>
         <h2>
             <button class="btn btn-info" data-toggle="collapse" data-target="#tableAffichageNotes" aria-expanded="false" aria-controls="collapseExample">Déplier</button> Notes : <button type="button" class="btn btn-primary" id="addNote">Ajouter une note</button></h2>
         <div  id="tableAffichageNotes" class="collapse">

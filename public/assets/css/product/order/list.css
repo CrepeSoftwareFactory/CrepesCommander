@@ -1,0 +1,63 @@
+ul.dropdown-menu {
+    padding: 0;
+    min-width: 20px !important;
+}
+
+ul.dropdown-menu li {
+    padding: 2px;
+}
+
+ul.dropdown-menu .linkStatus {
+    width: 100px;
+}
+
+a {
+    -webkit-touch-callout: none !important; 
+}
+
+TABLE {
+    background-color: white;
+}
+
+
+TABLE .col1 {
+    width: 25%;
+}
+
+TABLE .col2 {
+    width: 10%;
+}
+TABLE .col3 {
+    width: 10%;
+}
+TABLE .col4 {
+    width: 35%;
+}
+TABLE .col5 {
+    width: 20%;
+}
+
+.active {
+    background-color: white !important;
+    color:black !important;
+    cursor: default;
+}
+
+.flash_success {
+    height: 20px;
+}
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+}
+    
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
