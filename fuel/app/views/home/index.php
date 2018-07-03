@@ -1,13 +1,28 @@
 <div style="text-align: center; padding-top: 80px;">
-    <label for="maPile">Pile actuelle <?php echo Session::get('maPile'); ?>S'attribuer une pile : </label>
+    <?php 
+    $maPile = Session::get('maPile');
+    if($maPile) {     
+        ?>Pile actuelle <?php 
+        echo $maPile;
+    }
+    ?><label for="maPile">S'attribuer une pile : </label>
+    <br />
     <select name="maPile" id="maPile" class="selectpicker selectpiles" title="Choisir des stations spécifiques à afficher...">
-        <?php foreach($stations as $station){
-            echo '<option value="'.$station->station_id.'">'.$station->name.'</option>';
-        } 
+        <?php 
+        foreach($stations as $station){
+            $selected=""; 
+            if($station->station_id==$maPile){
+                $selected ="selected";
+            }
+            echo '<option value="'.$station->station_id.'" '.$station->station_id.' ' . $selected . ' >'.$station->name.'</option>';
+        }
         ?>
     </select>
-    <button class="btn" id="emptyPile">Vider sa pile</button>
-    <?php 
+    <?php if($maPile){
+        echo '<button class="btn" id="emptyPile">Enlever l\'attribution</button>';
+    }
+    echo '<br />';
+    echo '<br />';
     echo Html::anchor('order/add', 'J\'ai faim...', array('class' => 'btn btn-primary btn-lg')); 
     echo '<br />';
     echo '<br />';
