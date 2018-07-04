@@ -199,7 +199,18 @@ class Controller_Rest_Product_Order extends Controller_Rest
             $maPile = Input::post('maPile');
             // store the pile of user in session
             Session::set('maPile', $maPile);
-            return $this->response($maPile);
+            if($maPile){
+                $message = 'Pile actuelle : '+$maPile;
+            }
+            else{
+                $message = 'Pas de piles attribuées';
+            }
+            $response = array(
+                'error'       => false,  
+                'message'     => $message,
+                'value'       => $maPile  
+              );
+            return $this->response($response);
         }catch (Exception $ex) {
             DB::rollback_transaction();
             $response = array(
@@ -215,7 +226,18 @@ class Controller_Rest_Product_Order extends Controller_Rest
         try{
             // store the pile of user in session
             $maPile = Session::get('maPile');
-            return $this->response($maPile);
+            if($maPile){
+                $message = 'Pile actuelle : '+$maPile;
+            }
+            else{
+                $message = 'Pas de piles attribuées';
+            }
+            $response = array(
+                'error'       => false,  
+                'message'     => $message,
+                'value'       => $maPile  
+              );
+            return $this->response($response);
         }catch (Exception $ex) {
             DB::rollback_transaction();
             $response = array(

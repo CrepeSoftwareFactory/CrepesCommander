@@ -16,8 +16,7 @@ $('#maPile').change(function() {
                 $('.nbPiles .dropdown-toggle').removeClass('hide');
             } else {
                 $('.flash_success').html(data.message).show();
-                $('.glyphicon-refresh-animate').remove();
-                $('.nbPiles .dropdown-toggle').removeClass('hide');
+                window.location.reload();
             }
         }
     });

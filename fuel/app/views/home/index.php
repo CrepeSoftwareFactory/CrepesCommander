@@ -1,10 +1,12 @@
 <div style="text-align: center; padding-top: 80px;">
     <?php 
     $maPile = Session::get('maPile');
+    echo '<h2 id="currentPileTitle">';
     if($maPile) {     
-        ?>Pile actuelle <?php 
+        ?>Pile actuellement attribuée : <?php 
         echo $maPile;
     }
+    echo '</h2>';
     ?><label for="maPile">S'attribuer une pile : </label>
     <br />
     <select name="maPile" id="maPile" class="selectpicker selectpiles" title="Choisir des stations spécifiques à afficher...">
@@ -18,9 +20,9 @@
         }
         ?>
     </select>
-    <?php if($maPile){
-        echo '<button class="btn" id="emptyPile">Enlever l\'attribution</button>';
-    }
+    <?php 
+
+    echo '<button class="btn" id="emptyPile">Enlever l\'attribution</button>';
     echo '<br />';
     echo '<br />';
     echo Html::anchor('order/add', 'J\'ai faim...', array('class' => 'btn btn-primary btn-lg')); 
