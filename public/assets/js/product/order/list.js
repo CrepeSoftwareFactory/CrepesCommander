@@ -21,3 +21,23 @@ $('#maPile').change(function() {
         }
     });
 });
+
+function setPileToOrder(idPile, idOrder)
+{
+    $.ajax({
+        url: '/rest/product/order/changePileOrder.json',
+        type: 'post',
+        dataType: 'json',
+        data: { idOrder: idOrder, idStation: idPile},
+        success: function(data) {
+            if (data.error) {
+                $('.flash_errors').html(data.message).show();
+                $('.glyphicon-refresh-animate').remove();
+                $('.nbPiles .dropdown-toggle').removeClass('hide');
+            } else {
+                $('.flash_success').html(data.message).show();
+                window.location.reload();
+            }
+        }
+    });
+}

@@ -52,7 +52,7 @@
                                             if($myIncrement == 1){
                                                 echo '<td rowspan='.$count.'>';
                                                 echo $order->get_customer()->lastname;
-                                                echo '&nbsp;<button class="btn btn-info">Affectation</button>';
+                                                echo '&nbsp;<button class="btn btn-info" onclick="setPileToOrder('.$maPile.', '.$order->order_id.')">Affectation</button>';
                                                 echo '&nbsp;<button class="btn btn-info">Livraison</button>';
                                                 echo '</td>';
                                             }

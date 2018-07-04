@@ -536,6 +536,42 @@ class Controller_Rest_Product_Order extends Controller_Rest
         
         return $this->response($response);
     }
+
+    //Fonction pour attribuer toutes les proco d'une commande à une pile
+    public function post_changePileOrder()
+    {
+        $idOrder = Input::post('idOrder');
+        $station_id = Input::post('idStation');
+        try
+        {
+            $order = Model_Order::find_by_pk($idOrder);
+
+            if($order->get_products_without_affect())
+            {
+                foreach ($order->get_products_without_affect() as $product) 
+                {
+                    $product->station_id = $station_id;
+                    if (!$product->save()) 
+                    {
+                        throw new Exception($product->validation()->show_errors());
+                    }
+                    
+                    $response = array(
+                        'error'       => false,  
+                        'message'     => $station_id,  
+                    );
+                }
+            }
+        }
+        catch (Exception $ex) 
+        {
+            $response = array(
+                'error'       => true,  
+                'message'     => $ex->getMessage(),  
+            );
+        }
+        return $this->response($response);
+    }
     
     //Fonction qui va modifier le status d'une proco
     //Entrée : idProduct, newStatus

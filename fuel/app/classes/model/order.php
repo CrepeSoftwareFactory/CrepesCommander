@@ -49,6 +49,23 @@ class Model_Order extends Model_Crud
         return $this->_products;   
     }
     
+    public function get_products_without_affect()
+    {
+        if ($this->_products === false) {
+            // $this->_products = Model_Product_Order::find('order_id', $this->get_id(), array('where' => array('station_id' , '=',  null)));
+            // $this->_products = Model_Product_Order::find('all', array('where' => array(array('station_id' , '=',  null), ('order_id' , '=',  $this->get_id()))));
+            // $this->_products = Model_Product_Order::query()->where('order_id', $this->get_id())->where('station_id', null);
+            $this->_products = Model_Product_Order::find_by(array(
+                'order_id' => $this->get_id(),
+                'station_id' => null
+            ));
+            if(empty($this->_products)){
+                return false;
+            }
+        }
+        return $this->_products;
+    }
+    
     public function is_finished()
     {
         if ($this->get_products()) {
@@ -71,4 +88,5 @@ class Model_Order extends Model_Crud
             ;
         });
     }
+
 }
