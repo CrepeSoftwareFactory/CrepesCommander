@@ -38,14 +38,16 @@
                                         }else{
                                             $station_id = "?";
                                         }
+                                        echo '<tr>';
+                                        $classBackground="";
                                         if($product->station_id==$maPile){
-                                            echo '<tr class="bg-success">';
+                                            $classBackground='class="bg-success"';
                                         }
                                         elseif($product->station_id==null){
-                                            echo '<tr class="bg-dark">';
+                                            $classBackground='class="bg-dark"';
                                         }
                                         else{
-                                            echo '<tr class="bg-danger">';
+                                            $classBackground='class="bg-danger"';
                                         }
                                             if($myIncrement == 1){
                                                 echo '<td rowspan='.$count.'>';
@@ -54,16 +56,16 @@
                                                 echo '&nbsp;<button class="btn btn-info">Livraison</button>';
                                                 echo '</td>';
                                             }
-                                            echo '<td>';
+                                            echo '<td '. $classBackground.'>';
                                             echo '<span class="p-3 mb-2 font-weight-bold">'.$station_id.'</span>';
                                             echo '</td>';
-                                            echo '<td>';
+                                            echo '<td '. $classBackground.'>';
                                             echo $product->get_product()->name;
                                             echo '</td>';
-                                            echo '<td>';
+                                            echo '<td '. $classBackground.'>';
                                             echo date('H\hi', strtotime($order->date));
                                             echo '</td>';
-                                            echo '<td>';
+                                            echo '<td '. $classBackground.'>';
                                             if($product->get_comment()){
                                                 echo $product->get_comment();
                                             }
