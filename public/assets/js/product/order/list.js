@@ -91,6 +91,7 @@ refreshPage();
 
 //Fonction qui va recharger la page si elle n'est pas déjà entrain de le faire
 function reloadPage(){
+    console.log('refresh');
     //On récupère la variable de rafraichissement
     var hadToRefresh = $('.hadToRefresh').val();
     //Si elle est à 0
@@ -102,6 +103,18 @@ function reloadPage(){
 
 //Fonction qu'on appel quand on veut rafraichir les piles
 function go_to_refresh(){
+    // $.ajax({
+    //     url: '/rest/product/order/get_view_list.html',
+    //     type: 'post',
+    //     dataType: 'html',
+    //     success: function(data) {
+    //         if (data.error==true) {
+    //             $('.flash_errors').html(data.message);
+    //         } else {
+    //             console.log(data.render)
+    //         }
+    //     }
+    // });
     // $('.order-line').each(function(){
     //     var proco_pile = $(this);
     //     var href = $('.cook', this).attr('href');

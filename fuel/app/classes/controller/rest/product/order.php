@@ -647,6 +647,26 @@ class Controller_Rest_Product_Order extends Controller_Rest
         
         return $this->response($response);
     }
+
+    //Send view order/list
+    public function post_get_view_list()
+    {
+        try {
+            $view = View::forge('product/order/list');
+            $presenter = Presenter::forge('product/order/list', $view);
+            $response = array(
+                'error'      => false,  
+                'render'  => json_encode($presenter)
+            );
+        }catch (Exception $ex) {
+            DB::rollback_transaction();
+            $response = array(
+                'error'       => true,  
+                'message'     => $ex->getMessage()
+            );
+        }
+        return $this->response($response);
+    }
     
     //Fonction qui va modifier la pile d'une proco
     //Entrée : idProduct, newPile

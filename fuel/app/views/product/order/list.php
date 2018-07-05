@@ -54,33 +54,33 @@
                                         else{
                                             $classBackground='class="bg-danger"';
                                         }
-                                            if($myIncrement == 1){
-                                                echo '<td rowspan='.$count.'>';
-                                                echo '&nbsp;<button id="affect'.$order->order_id.'" class="btn btn-info" onclick="setPileToOrder('.$maPile.', '.$order->order_id.')">Je prends</button>';
-                                                echo '</td>';
-                                                echo '<td rowspan='.$count.'>';
-                                                echo $order->get_customer()->lastname;
-                                                echo '</td>';
-                                            }
-                                            echo '<td '. $classBackground.'>';
-                                            echo '<span class="p-3 mb-2 font-weight-bold">'.$station_id.'</span>';
+                                        if($myIncrement == 1){
+                                            echo '<td rowspan='.$count.'>';
+                                            echo '&nbsp;<button id="affect'.$order->order_id.'" class="btn btn-info" onclick="setPileToOrder('.$maPile.', '.$order->order_id.')">Je prends</button>';
                                             echo '</td>';
-                                            echo '<td '. $classBackground.'>';
-                                            echo $product->get_product()->name;
+                                            echo '<td rowspan='.$count.'>';
+                                            echo $order->get_customer()->lastname;
                                             echo '</td>';
-                                            echo '<td '. $classBackground.'>';
-                                            echo date('H\hi', strtotime($order->date));
+                                        }
+                                        echo '<td '. $classBackground.'>';
+                                        echo '<span class="p-3 mb-2 font-weight-bold">'.$station_id.'</span>';
+                                        echo '</td>';
+                                        echo '<td '. $classBackground.'>';
+                                        echo $product->get_product()->name;
+                                        echo '</td>';
+                                        echo '<td '. $classBackground.'>';
+                                        echo date('H\hi', strtotime($order->date));
+                                        echo '</td>';
+                                        echo '<td '. $classBackground.'>';
+                                        if($product->get_comment()){
+                                            echo $product->get_comment();
+                                        }
+                                        echo '</td>';
+                                        if($myIncrement == 1){
+                                            echo '<td rowspan='.$count.'>';
+                                            echo '&nbsp;<button id="finish'.$order->order_id.'" class="btn btn-info" onclick="setFinishOrder('.$order->order_id.')">C\'est livré !</button>';
                                             echo '</td>';
-                                            echo '<td '. $classBackground.'>';
-                                            if($product->get_comment()){
-                                                echo $product->get_comment();
-                                            }
-                                            echo '</td>';
-                                            if($myIncrement == 1){
-                                                echo '<td rowspan='.$count.'>';
-                                                echo '&nbsp;<button id="finish'.$order->order_id.'" class="btn btn-info" onclick="setFinishOrder('.$order->order_id.')">C\'est livré !</button>';
-                                                echo '</td>';
-                                            }
+                                        }
                                         echo '</tr>';
                                     }
                                 }
