@@ -46,8 +46,6 @@
                     <li class="<?php echo ($menu == '' ? 'active' : ''); ?>"><?php echo Html::anchor('', 'Home'); ?></li>
                     <li class="<?php echo ($menu == 'order-add' ? 'active' : ''); ?>"><?php echo Html::anchor('order/add', 'J\'ai faim...'); ?></li>
                     <li class="<?php echo ($menu == 'product-order-list' ? 'active' : ''); ?>"><?php echo Html::anchor('product/order/list', 'Au boulot !'); ?></li>
-                    <li class="<?php echo ($menu == 'product-order-affect' ? 'active' : ''); ?>"><?php echo Html::anchor('product/order/affect', 'Admin cmdes'); ?></li>
-                    <li class="<?php echo ($menu == 'order-finished' ? 'active' : ''); ?>"><?php echo Html::anchor('order/finished', 'Cmdes terminées'); ?></li>
                     <li class="<?php echo ($menu == 'temp' ? 'active' : ''); ?>"><?php echo Html::anchor('temp', 'Rapport'); ?></li>
                     <li class="<?php echo ($menu == 'admin' ? 'active' : ''); ?>"><?php echo Html::anchor('admin', 'Admin'); ?></li>
                     <li class="<?php echo ($menu == 'misc' ? 'active' : ''); ?>"><?php echo Html::anchor('misc', 'Quitter'); ?></li>

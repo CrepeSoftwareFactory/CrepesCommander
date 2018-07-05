@@ -17,8 +17,8 @@
 }
 
 BODY {
-    /*background-color: #d3dfe5;*/
-    background-image: url("../img/bg_pattern_1.png");
+    background-color: rgb(246, 238, 145);
+    /* background-image: url("../img/bg_pattern_1.png"); */
 }
 
 #menu {

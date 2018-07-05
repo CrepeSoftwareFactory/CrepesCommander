@@ -550,6 +550,7 @@ class Controller_Rest_Product_Order extends Controller_Rest
             {
                 foreach ($order->get_products_without_affect() as $product) 
                 {
+                    $product->start = date('Y-m-d H:i:s');
                     $product->station_id = $station_id;
                     if (!$product->save()) 
                     {
@@ -561,6 +562,45 @@ class Controller_Rest_Product_Order extends Controller_Rest
                         'message'     => $station_id,  
                     );
                 }
+            }
+        }
+        catch (Exception $ex) 
+        {
+            $response = array(
+                'error'       => true,  
+                'message'     => $ex->getMessage(),  
+            );
+        }
+        return $this->response($response);
+    }
+
+    //Fonction pour livrer toute une commande
+    public function post_finishOrder()
+    {
+        $idOrder = Input::post('idOrder');
+        try
+        {
+            $order = Model_Order::find_by_pk($idOrder);
+
+            if($order->get_products())
+            {
+                foreach ($order->get_products() as $product) 
+                {
+                    $product->end = date('Y-m-d H:i:s');
+                    if (!$product->save()) 
+                    {
+                        throw new Exception($product->validation()->show_errors());
+                    }
+                }
+                $order->status = Model_Order::STATUS_DELIVERED;
+                if (!$order->save()) {
+                    throw new Exception($order->validation()->show_errors());
+                }
+                $response = array(
+                    'error'       => false,  
+                    'message'     => 'Commande livrée !',  
+                );
+                Session::set_flash('success', 'Commande livrée !');
             }
         }
         catch (Exception $ex) 

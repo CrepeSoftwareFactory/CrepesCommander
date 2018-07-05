@@ -1,8 +1,18 @@
-<div style="text-align: center; padding-top: 10px;">
+<div class="container">
     <div>
-    <?php
-        echo Html::anchor('product/order', 'Afficher toutes les piles', array('class' => 'btn btn-success btn-lg')); 
-    ?>
+    <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            Pages Admin
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li><?php echo Html::anchor('product/order', 'Afficher toutes les piles'); ?></li>
+            <li><?php echo Html::anchor('product/order/affect', 'Administration des commandes'); ?></li>
+            <li><?php echo Html::anchor('order/finished', 'Commandes terminées'); ?></li>
+        </ul>
+    </div>
+    
+    <br />
         <h2>
             <button class="btn btn-info" data-toggle="collapse" data-target="#tableAffichageNotes" aria-expanded="false" aria-controls="collapseExample">Déplier</button> Notes : <button type="button" class="btn btn-primary" id="addNote">Ajouter une note</button></h2>
         <div  id="tableAffichageNotes" class="collapse">

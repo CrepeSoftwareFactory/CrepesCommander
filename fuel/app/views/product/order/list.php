@@ -2,12 +2,15 @@
     $maPile = Session::get('maPile');
     if(!empty($maPile)){
         ?>
+            <input type="hidden" name="hadToRefresh" class="hadToRefresh" value="0">
             <div class="liste_proco_client">
                 <h2>Pile attribuée actuellement : <?php echo $maPile ?></h2>
                 <div class="row">
                     <table class="table" >
                         <thead>
                             <tr>
+                                <td>
+                                </td>
                                 <td>
                                     Commande de
                                 </td>
@@ -22,6 +25,8 @@
                                 </td>
                                 <td>
                                     Commentaire
+                                </td>
+                                <td>
                                 </td>
                             </tr>
                         </thead>
@@ -38,7 +43,7 @@
                                         }else{
                                             $station_id = "?";
                                         }
-                                        echo '<tr>';
+                                        echo '<tr class="'.$order->order_id.' order-line">';
                                         $classBackground="";
                                         if($product->station_id==$maPile){
                                             $classBackground='class="bg-success"';
@@ -51,9 +56,10 @@
                                         }
                                             if($myIncrement == 1){
                                                 echo '<td rowspan='.$count.'>';
+                                                echo '&nbsp;<button id="affect'.$order->order_id.'" class="btn btn-info" onclick="setPileToOrder('.$maPile.', '.$order->order_id.')">Je prends</button>';
+                                                echo '</td>';
+                                                echo '<td rowspan='.$count.'>';
                                                 echo $order->get_customer()->lastname;
-                                                echo '&nbsp;<button class="btn btn-info" onclick="setPileToOrder('.$maPile.', '.$order->order_id.')">Affectation</button>';
-                                                echo '&nbsp;<button class="btn btn-info">Livraison</button>';
                                                 echo '</td>';
                                             }
                                             echo '<td '. $classBackground.'>';
@@ -70,6 +76,11 @@
                                                 echo $product->get_comment();
                                             }
                                             echo '</td>';
+                                            if($myIncrement == 1){
+                                                echo '<td rowspan='.$count.'>';
+                                                echo '&nbsp;<button id="finish'.$order->order_id.'" class="btn btn-info" onclick="setFinishOrder('.$order->order_id.')">C\'est livré !</button>';
+                                                echo '</td>';
+                                            }
                                         echo '</tr>';
                                     }
                                 }
