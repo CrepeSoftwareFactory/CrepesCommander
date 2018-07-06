@@ -30,7 +30,7 @@
                                 </td>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="bodyTable">
                         <?php if ($orders) { 
                             foreach ($orders as $order) { 
                                 if($order->get_products()){

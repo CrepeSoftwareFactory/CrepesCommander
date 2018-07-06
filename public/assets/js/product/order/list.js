@@ -1,4 +1,7 @@
+$("#icon_refresh").hide();
+
 $('#maPile').change(function() {
+    $('.hadToRefresh').val(1);
     // $('#maPile .dropdown-toggle').addClass('hide');
     $('#maPile').append('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
     $('.flash_success').hide();
@@ -18,9 +21,11 @@ $('#maPile').change(function() {
                 $('.flash_success').html(data.message).show();
                 window.location.reload();
             }
+            $('.hadToRefresh').val(0);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             $('.flash_errors').html(xhr.status+ ' - Erreur : ' + thrownError).show();
+            $('.hadToRefresh').val(0);
         }
     });
 });
@@ -28,6 +33,7 @@ $('#maPile').change(function() {
 // Fonction pour attribuer toutes les piles d'une commande à une pile sélectionné au préablable
 function setPileToOrder(idPile, idOrder)
 {
+    $('.hadToRefresh').val(1);
     $('#affect'+idOrder).append('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
     $('.flash_success').hide();
     $('.flash_errors').hide();
@@ -46,9 +52,11 @@ function setPileToOrder(idPile, idOrder)
                 $('.flash_success').html(data.message).show();
                 window.location.reload();
             }
+            $('.hadToRefresh').val(0);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             $('.flash_errors').html(xhr.status+ ' - Erreur : ' + thrownError).show();
+            $('.hadToRefresh').val(0);
         }
     });
 }
@@ -56,6 +64,7 @@ function setPileToOrder(idPile, idOrder)
 // Fonction pour mettre toutes les proco d'une commande avec une date de fin et pour mettre la commande en statut délivrée
 function setFinishOrder(idOrder)
 {
+    $('.hadToRefresh').val(1);
     $('#finish'+idOrder).append('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
     $('.flash_success').hide();
     $('.flash_errors').hide();
@@ -73,9 +82,11 @@ function setFinishOrder(idOrder)
                 $('.'+idOrder).remove();
                 $('.flash_success').html(data.message).show();
             }
+            $('.hadToRefresh').val(0);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             $('.flash_errors').html(xhr.status+ ' - Erreur : ' + thrownError).show();
+            $('.hadToRefresh').val(0);
         }
     });
 }
@@ -91,7 +102,7 @@ refreshPage();
 
 //Fonction qui va recharger la page si elle n'est pas déjà entrain de le faire
 function reloadPage(){
-    console.log('refresh');
+    $("#icon_refresh").show();
     //On récupère la variable de rafraichissement
     var hadToRefresh = $('.hadToRefresh').val();
     //Si elle est à 0
@@ -103,18 +114,20 @@ function reloadPage(){
 
 //Fonction qu'on appel quand on veut rafraichir les piles
 function go_to_refresh(){
-    // $.ajax({
-    //     url: '/rest/product/order/get_view_list.html',
-    //     type: 'post',
-    //     dataType: 'html',
-    //     success: function(data) {
-    //         if (data.error==true) {
-    //             $('.flash_errors').html(data.message);
-    //         } else {
-    //             console.log(data.render)
-    //         }
-    //     }
-    // });
+    $.ajax({
+        url: '/rest/product/order/get_view_list.json',
+        type: 'post',
+        dataType: 'json',
+        success: function(data) {
+            if (data.error==true) {
+                $('.flash_errors').html(data.message);
+            } else {
+                $("#bodyTable").empty();
+                $("#bodyTable").html(data.message);
+            }
+            $("#icon_refresh").hide();
+        }
+    });
     // $('.order-line').each(function(){
     //     var proco_pile = $(this);
     //     var href = $('.cook', this).attr('href');

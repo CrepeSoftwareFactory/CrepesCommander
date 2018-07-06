@@ -652,11 +652,72 @@ class Controller_Rest_Product_Order extends Controller_Rest
     public function post_get_view_list()
     {
         try {
-            $view = View::forge('product/order/list');
-            $presenter = Presenter::forge('product/order/list', $view);
+            $maPile = Session::get('maPile');
+            $orders = Model_Order::find(function($query) {
+                $query
+                    ->where('status', 'NOT IN', array(Model_Order::STATUS_CANCEL, Model_Order::STATUS_DELIVERED))
+                    ->order_by('date', 'DESC')
+                ;
+            });
+            $html="";
+            if ($orders) { 
+                foreach ($orders as $order) { 
+                    if($order->get_products()){
+                        $count = count($order->get_products());
+                        $myIncrement = 0;
+                        foreach ($order->get_products() as $product) { 
+                            $myIncrement++;
+                            if($product->station_id != null){
+                                $station_id = "P".$product->station_id;
+                            }else{
+                                $station_id = "?";
+                            }
+                            $html .= '<tr class="'.$order->order_id.' order-line">';
+                            $classBackground="";
+                            if($product->station_id==$maPile){
+                                $classBackground='class="bg-success"';
+                            }
+                            elseif($product->station_id==null){
+                                $classBackground='class="bg-dark"';
+                            }
+                            else{
+                                $classBackground='class="bg-danger"';
+                            }
+                            if($myIncrement == 1){
+                                $html .= '<td rowspan='.$count.'>';
+                                $html .= '&nbsp;<button id="affect'.$order->order_id.'" class="btn btn-info" onclick="setPileToOrder('.$maPile.', '.$order->order_id.')">Je prends</button>';
+                                $html .= '</td>';
+                                $html .= '<td rowspan='.$count.'>';
+                                $html .= $order->get_customer()->lastname;
+                                $html .= '</td>';
+                            }
+                            $html .= '<td '. $classBackground.'>';
+                            $html .= '<span class="p-3 mb-2 font-weight-bold">'.$station_id.'</span>';
+                            $html .= '</td>';
+                            $html .= '<td '. $classBackground.'>';
+                            $html .= $product->get_product()->name;
+                            $html .= '</td>';
+                            $html .= '<td '. $classBackground.'>';
+                            $html .= date('H\hi', strtotime($order->date));
+                            $html .= '</td>';
+                            $html .= '<td '. $classBackground.'>';
+                            if($product->get_comment()){
+                                $html .= $product->get_comment();
+                            }
+                            $html .= '</td>';
+                            if($myIncrement == 1){
+                                $html .= '<td rowspan='.$count.'>';
+                                $html .= '&nbsp;<button id="finish'.$order->order_id.'" class="btn btn-info" onclick="setFinishOrder('.$order->order_id.')">C\'est livré !</button>';
+                                $html .= '</td>';
+                            }
+                            $html .= '</tr>';
+                        }
+                    }
+                }
+            }
             $response = array(
                 'error'      => false,  
-                'render'  => json_encode($presenter)
+                'message'  => $html
             );
         }catch (Exception $ex) {
             DB::rollback_transaction();

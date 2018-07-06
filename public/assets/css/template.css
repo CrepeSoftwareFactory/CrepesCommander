@@ -21,6 +21,14 @@ BODY {
     /* background-image: url("../img/bg_pattern_1.png"); */
 }
 
+.well {
+    margin-bottom: 0px;
+}
+
+.nav{
+    height: 35px;
+}
+
 #menu {
     padding:5px;
 }
