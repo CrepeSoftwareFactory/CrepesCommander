@@ -550,7 +550,6 @@ class Controller_Rest_Product_Order extends Controller_Rest
             {
                 foreach ($order->get_products_without_affect() as $product) 
                 {
-                    $product->start = date('Y-m-d H:i:s');
                     $product->station_id = $station_id;
                     if (!$product->save()) 
                     {
@@ -562,6 +561,12 @@ class Controller_Rest_Product_Order extends Controller_Rest
                         'message'     => $station_id,  
                     );
                 }
+            }
+            else{
+                $response = array(
+                    'error'       => false,  
+                    'message'     => 'Aucun produit disponible sur cette commande ou vous avez peut-être double cliqué sur le bouton',  
+                );
             }
         }
         catch (Exception $ex) 
@@ -586,6 +591,7 @@ class Controller_Rest_Product_Order extends Controller_Rest
             {
                 foreach ($order->get_products() as $product) 
                 {
+                    $product->start = date('Y-m-d H:i:s');
                     $product->end = date('Y-m-d H:i:s');
                     if (!$product->save()) 
                     {
@@ -656,16 +662,16 @@ class Controller_Rest_Product_Order extends Controller_Rest
             $orders = Model_Order::find(function($query) {
                 $query
                     ->where('status', 'NOT IN', array(Model_Order::STATUS_CANCEL, Model_Order::STATUS_DELIVERED))
-                    ->order_by('date', 'DESC')
+                    ->order_by('date', 'ASC')
                 ;
             });
             $html="";
             if ($orders) { 
                 foreach ($orders as $order) { 
-                    if($order->get_products()){
-                        $count = count($order->get_products());
+                    if($order->get_products_by_type()){
+                        $count = count($order->get_products_by_type());
                         $myIncrement = 0;
-                        foreach ($order->get_products() as $product) { 
+                        foreach ($order->get_products_by_type() as $product) { 
                             $myIncrement++;
                             if($product->station_id != null){
                                 $station_id = "P".$product->station_id;
@@ -685,10 +691,9 @@ class Controller_Rest_Product_Order extends Controller_Rest
                             }
                             if($myIncrement == 1){
                                 $html .= '<td rowspan='.$count.'>';
+                                $html .= '<b>'.$order->get_customer()->lastname.'</b>';
+                                $html .= '<br />';
                                 $html .= '&nbsp;<button id="affect'.$order->order_id.'" class="btn btn-info" onclick="setPileToOrder('.$maPile.', '.$order->order_id.')">Je prends</button>';
-                                $html .= '</td>';
-                                $html .= '<td rowspan='.$count.'>';
-                                $html .= $order->get_customer()->lastname;
                                 $html .= '</td>';
                             }
                             $html .= '<td '. $classBackground.'>';

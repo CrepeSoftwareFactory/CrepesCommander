@@ -10,8 +10,6 @@
                         <thead>
                             <tr>
                                 <td>
-                                </td>
-                                <td>
                                     Commande de
                                 </td>
                                 <td>
@@ -33,10 +31,10 @@
                         <tbody id="bodyTable">
                         <?php if ($orders) { 
                             foreach ($orders as $order) { 
-                                if($order->get_products()){
-                                    $count = count($order->get_products());
+                                if($order->get_products_by_type()){
+                                    $count = count($order->get_products_by_type());
                                     $myIncrement = 0;
-                                    foreach ($order->get_products() as $product) { 
+                                    foreach ($order->get_products_by_type() as $product) { 
                                         $myIncrement++;
                                         if($product->station_id != null){
                                             $station_id = "P".$product->station_id;
@@ -56,10 +54,9 @@
                                         }
                                         if($myIncrement == 1){
                                             echo '<td rowspan='.$count.'>';
+                                            echo '<b>'.$order->get_customer()->lastname.'</b>';
+                                            echo '<br />';
                                             echo '&nbsp;<button id="affect'.$order->order_id.'" class="btn btn-info" onclick="setPileToOrder('.$maPile.', '.$order->order_id.')">Je prends</button>';
-                                            echo '</td>';
-                                            echo '<td rowspan='.$count.'>';
-                                            echo $order->get_customer()->lastname;
                                             echo '</td>';
                                         }
                                         echo '<td '. $classBackground.'>';

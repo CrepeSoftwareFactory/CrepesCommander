@@ -48,6 +48,8 @@
                         <li class="achat_default ligne_achat" id="default">
                             <span class="achat_qtt" data-achat-qtt="0">0</span> x 
                             <span class="achat_libelle">Aucun produit</span>
+
+                            <input type="button" value="0€" data-price="0" class="menu_btn_proco btn btn-primary btn-lg">
                             
                             <input type="button" value="-" data-diff="-1" class="achat_btn_qtt achat_btn_plus btn btn-primary btn-lg">
                             

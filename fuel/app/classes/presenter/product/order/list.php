@@ -9,7 +9,7 @@ class Presenter_Product_Order_List extends Presenter
         $this->orders = Model_Order::find(function($query) {
             $query
                 ->where('status', 'NOT IN', array(Model_Order::STATUS_CANCEL, Model_Order::STATUS_DELIVERED))
-                ->order_by('date', 'DESC')
+                ->order_by('date', 'ASC')
             ;
         });
         $this->statuses = Model_Proco_Status::find();

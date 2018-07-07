@@ -48,6 +48,25 @@ class Model_Order extends Model_Crud
         }
         return $this->_products;   
     }
+
+    public function get_products_by_type() 
+    {
+        if ($this->_products === false) {
+            $order_id = $this->get_id();
+            $this->_products = Model_Product_Order::find(function($query) use($order_id) {
+                $query 
+                    ->join(array('product', 'pr'))
+                        ->on('pr.product_id', '=', 'product_order.product_id')
+                    ->where('product_order.order_id', $order_id)
+                    ->order_by('pr.type', 'ASC')
+                ;
+            });
+            if(empty($this->_products)){
+                return false;
+            }
+        }
+        return $this->_products;
+    }
     
     public function get_products_without_affect()
     {

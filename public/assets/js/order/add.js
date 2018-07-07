@@ -158,6 +158,15 @@ $( document ).ready(function() {
             }
     });
 
+    $("#liste_achats").on('click', '.menu_btn_proco', function(event){
+        var cible = $(this).parent();
+        cible.data("achat_total",0);
+        cible.find(".achat_total").html(0);
+            
+        cible.find(".price").val(0);
+        update_total();
+    });
+
     $("#liste_achats").on('click','.achat_btn_qtt',function( event ) {
             var btn_qtt = $(this);
             qtt_produit = calcul_new_qtt(btn_qtt,btn_qtt.parent().data("achat-qtt"),btn_qtt.data("diff"));
